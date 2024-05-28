@@ -1,0 +1,32 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "My personal website (:" } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<head>
+  <!-- Global Metadata -->
+  <meta charset="UTF-8" />
+  <meta name="google" content="notranslate" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="viewport" content="width=device-width" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- <link rel="sitemap" href="/sitemap-index.xml" /> -->
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+
+  <link rel="icon" href="/favicon.svg" />
+
+  <ViewTransitions />
+</head>
