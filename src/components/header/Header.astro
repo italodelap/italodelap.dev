@@ -1,0 +1,32 @@
+---
+import ResumeButton from "./ResumeButton.astro";
+import ThemeToggler from "./ThemeToggler.astro";
+---
+
+<header class="w-full sticky top-0 z-10 p-4 mb-4">
+  <div class="max-w-6xl mx-auto min-h-14 flex items-center justify-between">
+    <div
+      class={`
+        flex gap-[1px] items-center
+        text-base min-[400px]:text-lg sm:text-2xl
+        font-['Space_Mono'] text-black dark:text-white
+      `}
+    >
+      <h1>italodelap</h1>
+      <span
+        class={`
+          text-transparent bg-clip-text
+          bg-gradient-to-l from-gray-400 via-gray-500 to-gray-600
+          dark:bg-gradient-to-r dark:from-gray-300 dark:via-gray-400 dark:to-gray-500
+        `}
+      >
+        .dev
+      </span>
+    </div>
+
+    <div class="flex items-center gap-3 text-white">
+      <ThemeToggler />
+      <ResumeButton />
+    </div>
+  </div>
+</header>
