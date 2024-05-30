@@ -1,6 +1,8 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 
+import ThemeScript from "@/layouts/ThemeScript.astro";
+
 interface Props {
   title: string;
   description?: string;
@@ -18,14 +20,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="generator" content={Astro.generator} />
   <meta name="viewport" content="width=device-width" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- <link rel="sitemap" href="/sitemap-index.xml" /> -->
-  <link rel="canonical" href={canonicalURL} />
 
   <!-- Primary Meta Tags -->
   <title>{title}</title>
   <meta name="title" content={title} />
+  <meta name="theme-color" content="" />
   <link rel="icon" href="/favicon.svg" />
+  <link rel="canonical" href={canonicalURL} />
   <meta name="description" content={description} />
 
   <ViewTransitions />
+  <ThemeScript />
 </head>
