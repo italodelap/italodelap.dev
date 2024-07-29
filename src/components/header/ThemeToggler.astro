@@ -1,6 +1,9 @@
 <theme-toggler></theme-toggler>
 
 <script>
+  import moonIcon from "@/assets/icons/moon.svg";
+  import sunIcon from "@/assets/icons/sun.svg";
+
   if (!customElements.get("theme-toggler")) {
     customElements.define(
       "theme-toggler",
@@ -28,11 +31,11 @@
                   class="dot absolute left-1 top-1 size-5 sm:size-7 rounded-full grid place-items-center bg-neutral-100 dark:bg-neutral-900 transition duration-300 peer-checked:translate-x-full"
                 >
                   <img
-                    src="/src/assets/icons/moon.svg"
+                    src="${moonIcon.src}"
                     class="hidden dark:block size-4"
                   />
                   <img
-                    src="/src/assets/icons/sun.svg"
+                    src="${sunIcon.src}"
                     class="block dark:hidden size-4"
                   />
                 </div>
