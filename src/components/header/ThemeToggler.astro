@@ -40,19 +40,23 @@
             </label>
           `;
 
-          this.querySelector("#theme-toggler").onchange = (event) => {
-            window.theme.setTheme(event.target.checked ? "dark" : "light");
+          // @ts-ignore
+          this.querySelector("#theme-toggler")!.onchange = (event: Event) => {
+            // @ts-ignore
+            window.theme.setTheme(event.target!.checked ? "dark" : "light");
           };
 
           this._updateSelectedTheme();
 
           document.addEventListener("theme-changed", (event) => {
+            // @ts-ignore
             this._updateSelectedTheme(event.detail.theme);
           });
         }
 
         _updateSelectedTheme(newTheme = window.theme.getTheme()) {
-          this.querySelector("#theme-toggler").checked = newTheme === "dark";
+          // @ts-ignore
+          this.querySelector("#theme-toggler")!.checked = newTheme === "dark";
         }
       },
     );
