@@ -1,43 +1,60 @@
----
-import MoonIcon from "@/assets/icons/MoonIcon.astro";
-import SunIcon from "@/assets/icons/SunIcon.astro";
----
-
-<label
-  for="theme-toggler"
-  class="flex items-center cursor-pointer"
-  aria-labelledby="theme-toggler-description"
->
-  <span id="theme-toggler-description" class="hidden">Change theme</span>
-  <div class="relative">
-    <input
-      type="checkbox"
-      name="dark-mode"
-      id="theme-toggler"
-      class="checkbox peer hidden"
-    />
-    <div
-      class="block w-12 h-7 sm:w-16 sm:h-9 rounded-full border-2 bg-neutral-200 border-neutral-300 peer-hover:border-neutral-400 dark:bg-neutral-700 dark:border-neutral-500 dark:peer-hover:border-neutral-400 transition-colors duration-300"
-    >
-    </div>
-    <div
-      class="dot absolute left-1 top-1 size-5 sm:size-7 rounded-full grid place-items-center bg-neutral-100 dark:bg-neutral-900 transition duration-300 peer-checked:translate-x-full"
-    >
-      <MoonIcon />
-      <SunIcon />
-    </div>
-  </div>
-</label>
-
-<script is:inline>
-  document.getElementById("theme-toggler").checked =
-    localStorage["tw-theme"] === "dark";
-</script>
+<theme-toggler></theme-toggler>
 
 <script>
-  import { handleTogglerClick } from "@/lib/theme";
+  if (!customElements.get("theme-toggler")) {
+    customElements.define(
+      "theme-toggler",
+      class extends HTMLElement {
+        connectedCallback() {
+          this.innerHTML = `
+            <label
+              for="theme-toggler"
+              class="flex items-center cursor-pointer"
+              aria-labelledby="theme-toggler-description"
+            >
+              <span id="theme-toggler-description" class="hidden">Change theme</span>
+              <div class="relative">
+                <input
+                  type="checkbox"
+                  name="dark-mode"
+                  id="theme-toggler"
+                  class="checkbox peer hidden"
+                />
+                <div
+                  class="block w-12 h-7 sm:w-16 sm:h-9 rounded-full border-2 bg-neutral-200 border-neutral-300 peer-hover:border-neutral-400 dark:bg-neutral-700 dark:border-neutral-500 dark:peer-hover:border-neutral-400 transition-colors duration-300"
+                >
+                </div>
+                <div
+                  class="dot absolute left-1 top-1 size-5 sm:size-7 rounded-full grid place-items-center bg-neutral-100 dark:bg-neutral-900 transition duration-300 peer-checked:translate-x-full"
+                >
+                  <img
+                    src="/src/assets/icons/moon.svg"
+                    class="hidden dark:block size-4"
+                  />
+                  <img
+                    src="/src/assets/icons/sun.svg"
+                    class="block dark:hidden size-4"
+                  />
+                </div>
+              </div>
+            </label>
+          `;
 
-  document
-    .getElementById("theme-toggler")!
-    .addEventListener("click", handleTogglerClick);
+          this.querySelector("#theme-toggler").onchange = (event) => {
+            window.theme.setTheme(event.target.checked ? "dark" : "light");
+          };
+
+          this._updateSelectedTheme();
+
+          document.addEventListener("theme-changed", (event) => {
+            this._updateSelectedTheme(event.detail.theme);
+          });
+        }
+
+        _updateSelectedTheme(newTheme = window.theme.getTheme()) {
+          this.querySelector("#theme-toggler").checked = newTheme === "dark";
+        }
+      },
+    );
+  }
 </script>

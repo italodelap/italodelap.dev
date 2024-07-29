@@ -1,7 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 
-import ThemeScript from "@/layouts/ThemeScript.astro";
+import ThemeManager from "./ThemeManager.astro";
 
 interface Props {
   title: string;
@@ -29,6 +29,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <link rel="canonical" href={canonicalURL} />
   <meta name="description" content={description} />
 
+  <ThemeManager />
   <ViewTransitions />
-  <ThemeScript />
 </head>

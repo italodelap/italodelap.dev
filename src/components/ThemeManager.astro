@@ -1,0 +1,77 @@
+---
+type Props = {
+  defaultTheme?: "auto" | "dark" | "light" | undefined;
+};
+
+const { defaultTheme = "auto" } = Astro.props;
+---
+
+<script is:inline data-default-theme={defaultTheme}>
+  window.theme ??= (() => {
+    // Declare the store we are going to use
+    const storageKey = "theme";
+    const store =
+      typeof localStorage !== "undefined"
+        ? localStorage
+        : { getItem: () => null, setItem: () => {} };
+
+    // User preference
+    const mediaMatcher = window.matchMedia("(prefers-color-scheme: light)");
+    let systemTheme = mediaMatcher.matches ? "light" : "dark";
+
+    const defaultTheme =
+      document.currentScript.getAttribute("data-default-theme");
+
+    function _applyTheme(theme) {
+      const resolvedTheme = theme === "auto" ? systemTheme : theme;
+
+      // Change Tailwind theme
+      document.documentElement.dataset.theme = resolvedTheme;
+      // Set the new color scheme
+      document.documentElement.style.colorScheme = resolvedTheme;
+
+      const themeMetaTag = document.head.children.namedItem("theme-color");
+      themeMetaTag.content = resolvedTheme === "light" ? "#e5e5e5" : "#262626";
+
+      document.dispatchEvent(
+        new CustomEvent("theme-changed", {
+          detail: { theme, systemTheme, defaultTheme },
+        }),
+      );
+    }
+
+    function setTheme(theme = defaultTheme) {
+      store.setItem(storageKey, theme);
+      _applyTheme(theme);
+    }
+
+    function getTheme() {
+      return store.getItem(storageKey) || defaultTheme;
+    }
+
+    function getSystemTheme() {
+      return systemTheme;
+    }
+
+    function getDefaultTheme() {
+      return defaultTheme;
+    }
+
+    // Capture user preference change
+    mediaMatcher.addEventListener("change", (event) => {
+      systemTheme = event.matches ? "light" : "dark";
+      _applyTheme(window.theme.getTheme());
+    });
+
+    return { setTheme, getTheme, getSystemTheme, getDefaultTheme };
+  })();
+
+  // Initialize theme
+  window.theme.setTheme(window.theme.getTheme());
+</script>
+<script>
+  // Ensure compatibility with View Transitions
+  document.addEventListener("astro:after-swap", () => {
+    window.theme.setTheme(window.theme.getTheme());
+  });
+</script>

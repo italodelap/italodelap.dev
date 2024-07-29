@@ -1,3 +1,20 @@
+:root, :root[data-theme="light"] {
+  --text-color: #000000;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --text-color: #ffffff;
+  color-scheme: dark;
+}
+
 html, body { min-height: 100vh; }
 html { font-family: 'Rubik Variable', sans-serif; }
-body { color: #FFFFFF; }
+body { color: var(--text-color); }
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="dark"] {
+    --text-color: #ffffff;
+    color-scheme: dark;
+  }
+}
