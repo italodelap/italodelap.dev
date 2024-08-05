@@ -1,0 +1,18 @@
+---
+interface Props {
+  class?: string | undefined;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div
+  class={`
+    ${className ?? ""}
+    bg-zinc-50/50 bg-blend-luminosity backdrop-blur-lg
+    border border-white dark:border-white/10 dark:bg-zinc-900/20
+    outline outline-1 outline-offset-0 outline-zinc-200 dark:outline-[#1a1a1a]
+  `}
+>
+  <slot />
+</div>

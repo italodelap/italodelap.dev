@@ -8,16 +8,16 @@ import "@fontsource/space-mono/700-italic.css";
 
 import "@/assets/styles/global.css";
 
-import Background from "@/components/Background.astro";
 import BaseHead from "@/components/BaseHead.astro";
 import Header from "@/components/header/Header.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <BaseHead title="Italo De la Peña | Frontend Developer" />
-  <body>
-    <Background />
+  <body
+    class="bg-gradient bg-top bg-repeat-space bg-neutral-50 dark:bg-neutral-900"
+  >
     <Header />
     <slot />
   </body>

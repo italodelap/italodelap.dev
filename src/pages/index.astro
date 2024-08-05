@@ -1,13 +1,42 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+
+import Card from "@/components/Card.astro";
+import ExperienceCarousel from "@/components/ExperienceCarousel.astro";
 ---
 
 <Layout>
-  <main class="grid place-items-center min-h-[450px] mx-auto max-w-6xl p-4">
-    <img
-      alt="Under Construction"
-      src="/under-construction.jpg"
-      class="aspect-square rounded-full max-h-96"
-    />
+  <main class="mx-auto max-w-6xl *:px-4 *:mb-5">
+    <section class="w-full grid auto-rows-[172px] grid-cols-12 gap-4">
+      <Card class="row-span-2 col-span-12 xl:col-span-8" />
+      <Card
+        class="row-span-1 col-span-12 sm:col-span-6 lg:col-span-8 xl:col-span-4"
+      />
+      <Card class="row-span-1 col-span-6 sm:col-span-3 lg:col-span-2" />
+      <Card class="row-span-1 col-span-6 sm:col-span-3 lg:col-span-2" />
+    </section>
+
+    <section class="w-full">
+      <Card>
+        <ExperienceCarousel />
+      </Card>
+    </section>
+
+    <section class="w-full grid auto-rows-[125px] grid-cols-12 gap-4">
+      <Card
+        class="row-span-1 col-span-12 px-8 flex gap-2 flex-col items-center justify-center sm:flex-row md:justify-between"
+      >
+        <p class="text-neutral-500">
+          Made with love ❤️ and
+          <a
+            href="https://astro.build/"
+            class="underline transition-colors duration-300 hover:text-neutral-400"
+          >
+            Astro
+          </a>
+        </p>
+        <p class="text-neutral-500">© 2024 Italo De la Peña</p>
+      </Card>
+    </section>
   </main>
 </Layout>
