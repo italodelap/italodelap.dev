@@ -23,6 +23,9 @@ importers:
       astro:
         specifier: ^4.12.2
         version: 4.12.2(typescript@5.4.5)
+      embla-carousel:
+        specifier: ^8.1.8
+        version: 8.1.8
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3
@@ -918,6 +921,9 @@ packages:
 
   electron-to-chromium@1.5.1:
     resolution: {integrity: sha512-FKbOCOQ5QRB3VlIbl1LZQefWIYwszlBloaXcY2rbfpu9ioJnNh3TK03YtIDKDo3WKBi8u+YV4+Fn2CkEozgf4w==}
+
+  embla-carousel@8.1.8:
+    resolution: {integrity: sha512-KuHPA8qcAts6YE6ELtt38XYAb26hnKw8Ga0lSXmrhm1oI97t6oACFkqSsy33dfeZQEhaZB6VwWvaWQJRJVgSgA==}
 
   emmet@2.4.7:
     resolution: {integrity: sha512-O5O5QNqtdlnQM2bmKHtJgyChcrFMgQuulI+WdiOw2NArzprUqqxUW6bgYtKvzKgrsYpuLWalOkdhNP+1jluhCA==}
@@ -3014,6 +3020,8 @@ snapshots:
   electron-to-chromium@1.4.779: {}
 
   electron-to-chromium@1.5.1: {}
+
+  embla-carousel@8.1.8: {}
 
   emmet@2.4.7:
     dependencies:
