@@ -6,6 +6,9 @@ export default {
 		extend: {
 			backgroundImage: {
 				"gradient": "url('/gradient.svg')",
+			},
+			fontFamily: {
+				"space-mono": "Space Mono"
 			}
 		},
 	},
