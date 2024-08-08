@@ -2,11 +2,8 @@
 import Box from "./Box.astro";
 
 interface Props {
-  class?: string | undefined;
+  class?: string;
 }
-
-// const bodyPrimaryStyles = "text-neutral-900 dark:text-white";
-// const bodySecondaryStyles = "text-neutral-700 dark:text-white/80";
 
 const { class: className } = Astro.props;
 ---

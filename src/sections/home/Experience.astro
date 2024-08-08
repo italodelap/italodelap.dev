@@ -1,0 +1,17 @@
+---
+import Box from "@/components/Box.astro";
+import Card from "@/components/Card.astro";
+import ExperienceCarousel from "@/components/ExperienceCarousel.astro";
+
+import BriefcaseIcon from "@/icons/Briefcase.astro";
+---
+
+<Card>
+  <Box class="rounded-full inline-flex items-center gap-2 py-1 px-3 mb-4">
+    <BriefcaseIcon class="size-5 text-neutral-400" />
+    <h2 class="font-space-mono text-md font-medium text-neutral-400">
+      Experience
+    </h2>
+  </Box>
+  <ExperienceCarousel />
+</Card>

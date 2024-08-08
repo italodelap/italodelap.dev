@@ -1,0 +1,19 @@
+---
+import Box from "@/components/Box.astro";
+import Card from "@/components/Card.astro";
+
+import UserIcon from "@/icons/User.astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<Card class={className ?? ""}>
+  <Box class="rounded-full inline-flex items-center gap-2 py-1 px-3 mb-4">
+    <UserIcon class="text-neutral-400 size-5" />
+    <h2 class="font-space-mono text-md font-medium text-neutral-400">About</h2>
+  </Box>
+</Card>

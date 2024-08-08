@@ -1,0 +1,28 @@
+---
+import Card from "@/components/Card.astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<Card
+  class={`
+    ${className ?? ""}
+    px-5 flex gap-3 flex-col items-center justify-center md:flex-row md:justify-between
+  `}
+>
+  <p class="text-neutral-500 text-center text-balance">
+    Built with
+    <a
+      href="https://astro.build/"
+      class="underline transition-colors duration-300 hover:text-neutral-800 dark:hover:text-neutral-400"
+    >
+      Astro
+    </a>
+    and made with ❤️ in Argentina 🇦🇷
+  </p>
+  <p class="text-neutral-500">© 2024 Italo De la Peña</p>
+</Card>
