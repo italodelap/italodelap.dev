@@ -1,5 +1,8 @@
 ---
+import Box from "@/components/Box.astro";
 import Card from "@/components/Card.astro";
+
+import MapPinIcon from "@/icons/MapPin.astro";
 
 interface Props {
   class?: string;
@@ -8,4 +11,32 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<Card class={className ?? ""} />
+<Card
+  class={`
+  ${className ?? ""}
+  flex flex-col justify-end items-center
+`}
+>
+  <img
+    src="/map.png"
+    alt="Map"
+    class="size-full object-cover absolute inset-0 opacity-40 grayscale-[30%]"
+  />
+  <Box
+    class="rounded-full inline-flex items-center gap-2 py-1 px-2 xl:px-3 text-neutral-500/90 dark:text-neutral-300"
+  >
+    <MapPinIcon
+      class="size-3 min-[440px]:size-4 sm:size-2 min-[680px]:size-3 xl:size-4"
+    />
+    <span
+      class={`
+        font-space-mono font-medium
+        text-[0.5rem] min-[375px]:text-xs min-[440px]:text-sm
+        sm:text-[0.5rem] min-[680px]:text-xs min-[840px]:text-sm
+        lg:text-xs xl:text-sm
+      `}
+    >
+      BA, ARG 🇦🇷
+    </span>
+  </Box>
+</Card>

@@ -1,11 +1,29 @@
 ---
 import Card from "@/components/Card.astro";
+import Counter from "@/components/Counter.astro";
+
+import { getDateDifferenceInYears } from "@/lib/dates";
 
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
+
+const START_DATE = new Date(2016, 7, 1);
+const yearsAmount = getDateDifferenceInYears(START_DATE, new Date());
 ---
 
-<Card class={className ?? ""} />
+<Card
+  class={`
+    ${className ?? ""}
+    grid place-content-center gap-1
+  `}
+>
+  <Counter yearsAmount={yearsAmount} />
+  <span
+    class="text-sm text-center font-medium leading-tight text-balance text-neutral-700 dark:text-neutral-400"
+  >
+    years of experience
+  </span>
+</Card>

@@ -12,8 +12,23 @@ const { class: className } = Astro.props;
 ---
 
 <Card class={className ?? ""}>
-  <Box class="rounded-full inline-flex items-center gap-2 py-1 px-3 mb-4">
-    <UserIcon class="text-neutral-400 size-5" />
-    <h2 class="font-space-mono text-md font-medium text-neutral-400">About</h2>
+  <Box
+    class="rounded-full inline-flex items-center gap-2 py-1 px-3 mb-4 text-neutral-500 dark:text-neutral-400"
+  >
+    <UserIcon class="size-5" />
+    <h2 class="font-space-mono text-md font-medium">About</h2>
   </Box>
+  <p
+    class={`
+      text-balance
+      text-neutral-800 dark:text-neutral-300
+      text-base min-[440px]:text-lg sm:text-base min-[840px]:text-lg xl:text-base
+    `}
+  >
+    I'm a Senior Frontend Developer specialized in
+    <strong class="text-indigo-600/80 dark:text-neutral-300">React</strong> and
+    <strong class="text-indigo-600/80 dark:text-neutral-300"
+      >Web Components</strong
+    >. I love never stop learning ⚛️
+  </p>
 </Card>

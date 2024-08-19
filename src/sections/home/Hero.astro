@@ -5,9 +5,13 @@ import Location from "./hero/Location.astro";
 import Profile from "./hero/Profile.astro";
 ---
 
-<Profile class="row-span-2 col-span-12 xl:col-span-8" />
+<Profile class="animate-fade row-span-2 col-span-12 xl:col-span-8" />
 <About
-  class="row-span-1 col-span-12 sm:col-span-6 lg:col-span-8 xl:col-span-4"
+  class="animate-fade-up animate-delay-75 row-span-1 col-span-12 sm:col-span-6 lg:col-span-8 xl:col-span-4"
 />
-<ExperienceYears class="row-span-1 col-span-6 sm:col-span-3 lg:col-span-2" />
-<Location class="row-span-1 col-span-6 sm:col-span-3 lg:col-span-2" />
+<ExperienceYears
+  class="animate-fade-up animate-delay-150 row-span-1 col-span-6 sm:col-span-3 lg:col-span-2"
+/>
+<Location
+  class="animate-fade-up animate-delay-300 row-span-1 col-span-6 sm:col-span-3 lg:col-span-2"
+/>
