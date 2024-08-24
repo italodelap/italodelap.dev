@@ -1,0 +1,19 @@
+---
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+
+<a
+  href={url}
+  class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden text-base font-semibold text-white transition-all duration-300 ease-in-out border rounded-md opacity-0 group-hover:opacity-100 group/button bg-gray-800/30 hover:scale-105 hover:shadow-xl hover:shadow-gray-600/50 border-white/20"
+>
+  <span class="text-sm">See more</span>
+  <div
+    class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]"
+  >
+    <div class="relative w-10 h-full bg-white/20"></div>
+  </div>
+</a>

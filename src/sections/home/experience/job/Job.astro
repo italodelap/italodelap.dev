@@ -1,0 +1,27 @@
+---
+import Cover from "./Cover.astro";
+import Data from "./Data.astro";
+import SeeMoreButton from "./SeeMoreButton.astro";
+
+interface Props {
+  cover: string;
+  company: string;
+  from: string;
+  position: string;
+  title: string;
+  to?: string;
+  url: string;
+}
+
+const { cover, company, from, position, title, to, url } = Astro.props;
+---
+
+<div class="absolute inset-0 -z-[1] overflow-hidden">
+  <Cover image={cover} companyName={company} />
+</div>
+<div
+  class="absolute inset-0 flex flex-col items-center justify-between px-4 py-8"
+>
+  <Data from={from} position={position} title={title} to={to} />
+  <SeeMoreButton url={url} />
+</div>

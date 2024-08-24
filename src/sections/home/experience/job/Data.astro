@@ -1,0 +1,33 @@
+---
+interface Props {
+  from: string;
+  position: string;
+  title: string;
+  to?: string;
+}
+
+const { from, position, title, to } = Astro.props;
+
+function getDateFromString(dateString: string) {
+  const dateArray = dateString.split("-");
+  const [year, month, day] = dateArray.map((n) => parseInt(n));
+  const date = new Date(year, month - 1, day);
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    year: "numeric",
+  }).format(date);
+}
+---
+
+<div class="w-full text-center text-neutral-800/90 dark:text-neutral-50 *:mb-1">
+  <div class="flex items-end justify-center h-16">
+    <h3 class="text-2xl font-bold leading-tight text-balance">
+      {title}
+    </h3>
+  </div>
+  <p class="text-base font-medium">{position}</p>
+  <p class="text-sm font-normal">
+    {getDateFromString(from)} &mdash; {to ? getDateFromString(to) : "Present"}
+  </p>
+</div>

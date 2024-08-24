@@ -1,0 +1,16 @@
+---
+interface Props {
+  image: string;
+  companyName: string;
+}
+
+const { image, companyName } = Astro.props;
+
+const alternativeText = `Cover image of ${companyName}`;
+---
+
+<img
+  src={image}
+  alt={alternativeText}
+  class="object-cover transition-transform scale-110 size-full aspect-video opacity-60 group-hover:scale-125 dark:opacity-40"
+/>

@@ -1,0 +1,39 @@
+{
+  "experience": [
+    {
+      "company": "Universidad Torcuato Di Tella",
+      "cover": "/di_tella-cover.png",
+      "from": "2022-05-01",
+      "position": "Frontend Developer",
+      "title": "Universidad Torcuato Di Tella",
+      "url": "/experience/di-tella"
+    },
+    {
+      "company": "Gobierno de la Nación Argentina",
+      "cover": "/nation_government-cover.png",
+      "from": "2021-09-01",
+      "position": "Full Stack Developer",
+      "to": "2022-04-31",
+      "title": "Gobierno de la Nación",
+      "url": "/experience/nacion"
+    },
+    {
+      "company": "Tupaca",
+      "cover": "/tupaca-cover.png",
+      "from": "2021-05-01",
+      "position": "Full Stack Developer",
+      "to": "2021-08-31",
+      "title": "Tupaca",
+      "url": "/experience/tupaca"
+    },
+    {
+      "company": "Gobierno de la Ciudad de Buenos Aires",
+      "cover": "/city_government-cover.png",
+      "from": "2015-06-01",
+      "position": "Full Stack Developer",
+      "to": "2021-04-31",
+      "title": "Gobierno de la Ciudad",
+      "url": "/experience/ciudad"
+    }
+  ]
+}
