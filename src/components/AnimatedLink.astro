@@ -1,0 +1,28 @@
+---
+interface Props {
+  class?: string;
+  href: string;
+  title?: string;
+}
+
+const { class: className, href, title } = Astro.props;
+---
+
+<a
+  href={href}
+  title={title ?? ""}
+  class={`
+    ${className ?? ""}
+    group/button relative inline-flex items-center justify-center overflow-hidden
+    border rounded-md bg-gray-800/30 border-white/20 font-semibold text-white
+  `}
+>
+  <span>
+    <slot />
+  </span>
+  <div
+    class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-700 group-hover/button:[transform:skew(-13deg)_translateX(100%)]"
+  >
+    <div class="relative w-10 h-full bg-white/20"></div>
+  </div>
+</a>

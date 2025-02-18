@@ -1,0 +1,31 @@
+---
+import Box from "./Box.astro";
+---
+
+<Box
+  class="mt-[2px] inline-flex items-center text-[0.8rem] font-medium select-none py-1 px-2.5 w-fit rounded-md"
+>
+  <span class="mr-1 flex size-3 items-center">
+    <span
+      class="absolute inline-flex size-2 animate-ping rounded-full opacity-75 bg-lime-600 dark:bg-lime-400"
+    ></span>
+    <span
+      class="relative inline-flex size-2 rounded-full bg-lime-600 dark:bg-lime-400"
+    ></span>
+  </span>
+  <slot />
+</Box>
+
+<style>
+  .animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+</style>

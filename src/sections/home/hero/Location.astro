@@ -13,9 +13,9 @@ const { class: className } = Astro.props;
 
 <Card
   class={`
-  ${className ?? ""}
-  flex flex-col justify-end items-center
-`}
+    ${className ?? ""}
+    flex flex-col justify-end items-center
+  `}
 >
   <img
     src="/map.png"
@@ -30,7 +30,7 @@ const { class: className } = Astro.props;
     />
     <span
       class={`
-        font-space-mono font-medium
+        font-space-mono font-medium select-none
         text-[0.5rem] min-[375px]:text-xs min-[440px]:text-sm
         sm:text-[0.5rem] min-[680px]:text-xs min-[840px]:text-sm
         lg:text-xs xl:text-sm

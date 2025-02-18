@@ -1,0 +1,22 @@
+---
+import Card from "@/components/Card.astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<Card
+  class={`
+    ${className ?? ""}
+    flex-col justify-end items-start gap-3 hidden xl:flex
+  `}
+>
+  <img
+    src="/profile.jpeg"
+    alt="Italo's photo"
+    class="size-full object-cover absolute inset-0 opacity-90 dark:opacity-85"
+  />
+</Card>

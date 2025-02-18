@@ -1,4 +1,26 @@
 {
+  "contactChannels": [
+    {
+      "id": "email",
+      "title": "Email",
+      "url": "mailto:italoandre.1995@gmail.com"
+    },
+    {
+      "id": "linkedin",
+      "title": "LinkedIn",
+      "url": "https://www.linkedin.com/in/italodelap"
+    },
+    {
+      "id": "github",
+      "title": "Github",
+      "url": "https://www.github.com/italodelap"
+    },
+    {
+      "id": "x",
+      "title": "X",
+      "url": "https://www.x.com/italodelap"
+    }
+  ],
   "experience": [
     {
       "company": "Universidad Torcuato Di Tella",
