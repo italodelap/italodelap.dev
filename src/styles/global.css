@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --text-color: var(--color-black);
+
+  ::selection {
+    color: var(--color-neutral-100);
+    background-color: rgba(214, 136, 0, 0.8);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --text-color: var(--color-white);
+
+  ::selection {
+    color: var(--color-neutral-100);
+    background-color: rgba(255, 162, 0, 0.8);
+  }
+}
+
+html,
+body {
+  min-height: 100vh;
+}
+
+html {
+  font-family: 'Rubik Variable', sans-serif;
+}
+
+body {
+  color: var(--text-color);
+}
