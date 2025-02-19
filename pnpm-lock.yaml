@@ -10,28 +10,28 @@ importers:
     dependencies:
       '@astrojs/check':
         specifier: ^0.9.4
-        version: 0.9.4(typescript@5.5.4)
+        version: 0.9.4(typescript@5.7.3)
       '@astrojs/tailwind':
         specifier: ^6.0.0
-        version: 6.0.0(astro@5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.5.4)(yaml@2.7.0))(tailwindcss@3.4.3)
+        version: 6.0.0(astro@5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.7.3)(yaml@2.7.0))(tailwindcss@3.4.3)
       '@fontsource-variable/rubik':
-        specifier: ^5.0.22
-        version: 5.0.22
+        specifier: ^5.1.1
+        version: 5.1.1
       '@fontsource/space-mono':
-        specifier: ^5.0.20
-        version: 5.0.20
+        specifier: ^5.1.2
+        version: 5.1.2
       astro:
         specifier: ^5.3.0
-        version: 5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.5.4)(yaml@2.7.0)
+        version: 5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.7.3)(yaml@2.7.0)
       embla-carousel:
-        specifier: ^8.1.8
-        version: 8.1.8
+        specifier: ^8.5.2
+        version: 8.5.2
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3
       typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
+        specifier: ^5.7.3
+        version: 5.7.3
     devDependencies:
       tailwindcss-animated:
         specifier: ^1.1.2
@@ -278,11 +278,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fontsource-variable/rubik@5.0.22':
-    resolution: {integrity: sha512-QwMlj57+k5+IsShA8q6FECU6zlR4CIm4TAy49GIIiMxxpmRwDXbMynrTp2kBNZmlN4b/myXzSRBnI2DXmnWBJA==}
+  '@fontsource-variable/rubik@5.1.1':
+    resolution: {integrity: sha512-Xh6Y39Xx1v0AIERdU+JsHiGx7I7WhN349jA/dFln8Ufud3c56yA0QS/aPdGMvyH/l+bXVmNV12cWF0hQm5ZPRw==}
 
-  '@fontsource/space-mono@5.0.20':
-    resolution: {integrity: sha512-F+9Y/PA06mB6kXI6l8ub0vSR72x3wpzJtxAUoPpvJDu9nWADFIwunkfzSS9PyzFQOgAPPzuCfywTTG+GfQxqeg==}
+  '@fontsource/space-mono@5.1.2':
+    resolution: {integrity: sha512-4EtHA1IZQ8hI7Gyc0hP3gPEZUfet4oqUg722J8WD8TalHwxvsy5sNQw0i08TDMu5gZjkLOtp5wPVScx+l9iSiw==}
 
   '@img/sharp-darwin-arm64@0.33.4':
     resolution: {integrity: sha512-p0suNqXufJs9t3RqLBO6vvrgr5OhgbWp76s5gTRvdmxmuv9E1rcaqGUsl3l4mKVmXPkTkTErXediAui4x+8PSA==}
@@ -867,8 +867,8 @@ packages:
   electron-to-chromium@1.5.102:
     resolution: {integrity: sha512-eHhqaja8tE/FNpIiBrvBjFV/SSKpyWHLvxuR9dPTdo+3V9ppdLmFB7ZZQ98qNovcngPLYIz0oOBF9P0FfZef5Q==}
 
-  embla-carousel@8.1.8:
-    resolution: {integrity: sha512-KuHPA8qcAts6YE6ELtt38XYAb26hnKw8Ga0lSXmrhm1oI97t6oACFkqSsy33dfeZQEhaZB6VwWvaWQJRJVgSgA==}
+  embla-carousel@8.5.2:
+    resolution: {integrity: sha512-xQ9oVLrun/eCG/7ru3R+I5bJ7shsD8fFwLEY7yPe27/+fDHCNj0OT5EoG5ZbFyOxOcG6yTwW8oTz/dWyFnyGpg==}
 
   emmet@2.4.7:
     resolution: {integrity: sha512-O5O5QNqtdlnQM2bmKHtJgyChcrFMgQuulI+WdiOw2NArzprUqqxUW6bgYtKvzKgrsYpuLWalOkdhNP+1jluhCA==}
@@ -1780,8 +1780,8 @@ packages:
   typescript-auto-import-cache@0.3.3:
     resolution: {integrity: sha512-ojEC7+Ci1ij9eE6hp8Jl9VUNnsEKzztktP5gtYNRMrTmfXVwA1PITYYAkpxCvvupdSYa/Re51B6KMcv1CTZEUA==}
 
-  typescript@5.5.4:
-    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2156,12 +2156,12 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@astrojs/check@0.9.4(typescript@5.5.4)':
+  '@astrojs/check@0.9.4(typescript@5.7.3)':
     dependencies:
-      '@astrojs/language-server': 2.15.4(typescript@5.5.4)
+      '@astrojs/language-server': 2.15.4(typescript@5.7.3)
       chokidar: 4.0.3
       kleur: 4.1.5
-      typescript: 5.5.4
+      typescript: 5.7.3
       yargs: 17.7.2
     transitivePeerDependencies:
       - prettier
@@ -2171,12 +2171,12 @@ snapshots:
 
   '@astrojs/internal-helpers@0.5.1': {}
 
-  '@astrojs/language-server@2.15.4(typescript@5.5.4)':
+  '@astrojs/language-server@2.15.4(typescript@5.7.3)':
     dependencies:
       '@astrojs/compiler': 2.10.4
       '@astrojs/yaml2ts': 0.2.2
       '@jridgewell/sourcemap-codec': 1.4.15
-      '@volar/kit': 2.4.11(typescript@5.5.4)
+      '@volar/kit': 2.4.11(typescript@5.7.3)
       '@volar/language-core': 2.4.11
       '@volar/language-server': 2.4.11
       '@volar/language-service': 2.4.11
@@ -2223,9 +2223,9 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/tailwind@6.0.0(astro@5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.5.4)(yaml@2.7.0))(tailwindcss@3.4.3)':
+  '@astrojs/tailwind@6.0.0(astro@5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.7.3)(yaml@2.7.0))(tailwindcss@3.4.3)':
     dependencies:
-      astro: 5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.5.4)(yaml@2.7.0)
+      astro: 5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.7.3)(yaml@2.7.0)
       autoprefixer: 10.4.20(postcss@8.5.3)
       postcss: 8.5.3
       postcss-load-config: 4.0.2(postcss@8.5.3)
@@ -2365,9 +2365,9 @@ snapshots:
   '@esbuild/win32-x64@0.24.2':
     optional: true
 
-  '@fontsource-variable/rubik@5.0.22': {}
+  '@fontsource-variable/rubik@5.1.1': {}
 
-  '@fontsource/space-mono@5.0.20': {}
+  '@fontsource/space-mono@5.1.2': {}
 
   '@img/sharp-darwin-arm64@0.33.4':
     optionalDependencies:
@@ -2617,12 +2617,12 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@volar/kit@2.4.11(typescript@5.5.4)':
+  '@volar/kit@2.4.11(typescript@5.7.3)':
     dependencies:
       '@volar/language-service': 2.4.11
       '@volar/typescript': 2.4.11
       typesafe-path: 0.2.2
-      typescript: 5.5.4
+      typescript: 5.7.3
       vscode-languageserver-textdocument: 1.0.11
       vscode-uri: 3.0.8
 
@@ -2709,7 +2709,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.5.4)(yaml@2.7.0):
+  astro@5.3.0(jiti@1.21.0)(rollup@4.34.8)(typescript@5.7.3)(yaml@2.7.0):
     dependencies:
       '@astrojs/compiler': 2.10.4
       '@astrojs/internal-helpers': 0.5.1
@@ -2756,7 +2756,7 @@ snapshots:
       semver: 7.7.1
       shiki: 1.29.2
       tinyexec: 0.3.2
-      tsconfck: 3.1.5(typescript@5.5.4)
+      tsconfck: 3.1.5(typescript@5.7.3)
       ultrahtml: 1.5.3
       unist-util-visit: 5.0.0
       unstorage: 1.14.4
@@ -2769,7 +2769,7 @@ snapshots:
       yocto-spinner: 0.2.0
       zod: 3.24.2
       zod-to-json-schema: 3.24.1(zod@3.24.2)
-      zod-to-ts: 1.2.0(typescript@5.5.4)(zod@3.24.2)
+      zod-to-ts: 1.2.0(typescript@5.7.3)(zod@3.24.2)
     optionalDependencies:
       sharp: 0.33.4
     transitivePeerDependencies:
@@ -2975,7 +2975,7 @@ snapshots:
 
   electron-to-chromium@1.5.102: {}
 
-  embla-carousel@8.1.8: {}
+  embla-carousel@8.5.2: {}
 
   emmet@2.4.7:
     dependencies:
@@ -4198,9 +4198,9 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tsconfck@3.1.5(typescript@5.5.4):
+  tsconfck@3.1.5(typescript@5.7.3):
     optionalDependencies:
-      typescript: 5.5.4
+      typescript: 5.7.3
 
   tslib@2.6.2:
     optional: true
@@ -4213,7 +4213,7 @@ snapshots:
     dependencies:
       semver: 7.6.2
 
-  typescript@5.5.4: {}
+  typescript@5.7.3: {}
 
   ufo@1.5.4: {}
 
@@ -4515,9 +4515,9 @@ snapshots:
     dependencies:
       zod: 3.24.2
 
-  zod-to-ts@1.2.0(typescript@5.5.4)(zod@3.24.2):
+  zod-to-ts@1.2.0(typescript@5.7.3)(zod@3.24.2):
     dependencies:
-      typescript: 5.5.4
+      typescript: 5.7.3
       zod: 3.24.2
 
   zod@3.24.2: {}
