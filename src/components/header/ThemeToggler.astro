@@ -44,23 +44,27 @@
             </label>
           `;
 
-          // @ts-ignore
-          this.querySelector("#theme-toggler")!.onchange = (event: Event) => {
-            // @ts-ignore
-            window.theme.setTheme(event.target!.checked ? "dark" : "light");
+          const themeToggler: HTMLInputElement =
+            this.querySelector("#theme-toggler")!;
+
+          themeToggler.onchange = (event) => {
+            window.theme.setTheme(
+              (event.target as HTMLInputElement).checked ? "dark" : "light",
+            );
           };
 
           this._updateSelectedTheme();
 
           document.addEventListener("theme-changed", (event) => {
-            // @ts-ignore
-            this._updateSelectedTheme(event.detail.theme);
+            this._updateSelectedTheme((event as CustomEvent).detail.theme);
           });
         }
 
         _updateSelectedTheme(newTheme = window.theme.getTheme()) {
-          // @ts-ignore
-          this.querySelector("#theme-toggler")!.checked = newTheme === "dark";
+          const themeToggler: HTMLInputElement =
+            this.querySelector("#theme-toggler")!;
+
+          themeToggler.checked = newTheme === "dark";
         }
       },
     );

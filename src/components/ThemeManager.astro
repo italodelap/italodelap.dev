@@ -60,7 +60,7 @@ const { defaultTheme = "auto" } = Astro.props;
     // Capture user preference change
     mediaMatcher.addEventListener("change", (event) => {
       systemTheme = event.matches ? "light" : "dark";
-      _applyTheme(window.theme.getTheme());
+      _applyTheme(systemTheme);
     });
 
     return { setTheme, getTheme, getSystemTheme, getDefaultTheme };
