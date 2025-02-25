@@ -59,11 +59,13 @@ const CONTACT_CHANNEL_ICONS = {
       contactChannels.map((contactChannel) => {
         const Icon =
           CONTACT_CHANNEL_ICONS[
-            contactChannel.id as keyof typeof CONTACT_CHANNEL_ICONS
+            contactChannel.network as keyof typeof CONTACT_CHANNEL_ICONS
           ] ?? BrokenIcon;
 
         return (
           <AnimatedLink
+            target="_blank"
+            rel="noopener noreferrer"
             href={contactChannel.url}
             title={contactChannel.title}
             class="flex-1 p-4 duration-500 hover:shadow-lg hover:shadow-gray-600/50 dark:hover:shadow-gray-500/50"

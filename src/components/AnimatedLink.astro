@@ -1,16 +1,20 @@
 ---
 interface Props {
   class?: string;
-  href: string;
+  href: astroHTML.JSX.AnchorHTMLAttributes["href"];
+  rel?: astroHTML.JSX.AnchorHTMLAttributes["rel"];
+  target?: astroHTML.JSX.HTMLAttributeAnchorTarget;
   title?: string;
 }
 
-const { class: className, href, title } = Astro.props;
+const { class: className, href, rel, target, title } = Astro.props;
 ---
 
 <a
+  rel={rel}
   href={href}
-  title={title ?? ""}
+  title={title}
+  target={target}
   class={`
     ${className ?? ""}
     group/button relative inline-flex items-center justify-center overflow-hidden
