@@ -1,0 +1,87 @@
+---
+import { basics, contactChannels } from "@/config/site.json";
+
+import BrokenIcon from "@/icons/Broken.astro";
+import EmailIcon from "@/icons/Email.astro";
+import LinkedInIcon from "@/icons/LinkedIn.astro";
+import GithubIcon from "@/icons/Github.astro";
+import WorldIcon from "@/icons/World.astro";
+import XIcon from "@/icons/X.astro";
+
+import { getExperienceYearsAmount } from "@/lib/dates";
+
+import ResumeSection from "./ResumeSection.astro";
+
+const CONTACT_CHANNEL_ICONS = {
+  email: EmailIcon,
+  linkedin: LinkedInIcon,
+  github: GithubIcon,
+  x: XIcon,
+};
+
+const printFriendlyContactChannels = contactChannels
+  .filter(({ network }) => network === "email" || network === "linkedin")
+  .map(({ url }) =>
+    url.replace("https://", "").replace("www.", "").replace("mailto:", ""),
+  )
+  .join(" · ");
+
+const yearsOfExperience = getExperienceYearsAmount();
+const label = basics.label.replace("[years]", yearsOfExperience.toString());
+---
+
+<ResumeSection
+  class="flex flex-col gap-4 sm:flex-row-reverse sm:justify-between"
+>
+  <figure class="flex items-center justify-center w-28 sm:w-40">
+    <img
+      alt="Me smiling"
+      src="/profile.jpeg"
+      class="aspect-square rounded-xl"
+    />
+  </figure>
+  <div class="flex flex-col justify-start gap-2">
+    <h1 class="text-3xl font-bold">{basics.name}</h1>
+    <h2 class="font-semibold text-sm sm:text-base sm:text-balance">{label}</h2>
+    <span class="flex gap-2 font-space-mono text-sm sm:items-center">
+      <WorldIcon class="size-4 mt-0.5 sm:mt-0" />
+      {basics.location.city}, {basics.location.country}
+    </span>
+    <footer class="text-sm not-print:hidden">
+      {printFriendlyContactChannels}
+    </footer>
+    <footer
+      class="flex items-center justify-end gap-2 sm:justify-start print:hidden"
+    >
+      {
+        contactChannels.map((channel) => {
+          const Icon =
+            CONTACT_CHANNEL_ICONS[
+              channel.network as keyof typeof CONTACT_CHANNEL_ICONS
+            ] ?? BrokenIcon;
+
+          return (
+            <a
+              target="_blank"
+              href={channel.url}
+              title={channel.title}
+              rel="noopener noreferrer"
+              class={`
+                rounded-md p-2
+                transition-colors duration-300
+                flex items-center justify-center
+                text-neutral-600 dark:text-neutral-400
+                hover:text-neutral-700 dark:hover:text-neutral-300
+                border-2 border-neutral-200 dark:border-neutral-700
+                hover:border-neutral-300 dark:hover:border-neutral-600
+                hover:bg-neutral-200/50 dark:hover:bg-neutral-800/90
+              `}
+            >
+              <Icon class="aspect-square size-5" />
+            </a>
+          );
+        })
+      }
+    </footer>
+  </div>
+</ResumeSection>

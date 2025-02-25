@@ -1,0 +1,41 @@
+---
+import "@fontsource-variable/rubik/wght.css";
+import "@fontsource-variable/rubik/wght-italic.css";
+import "@fontsource/space-mono/400.css";
+import "@fontsource/space-mono/700.css";
+import "@fontsource/space-mono/400-italic.css";
+import "@fontsource/space-mono/700-italic.css";
+
+import "@/styles/global.css";
+
+import BaseHead from "@/components/BaseHead.astro";
+import ThemeToggler from "@/components/header/ThemeToggler.astro";
+---
+
+<!doctype html>
+<html lang="es">
+  <BaseHead title="Italo De la Peña | Resume" description="My resume" />
+  <body
+    class={`
+      bg-neutral-50 dark:bg-neutral-900
+      not-print:bg-[url(/gradient.svg)] bg-top bg-repeat-space
+    `}
+  >
+    <header class="w-full py-4 print:hidden">
+      <div
+        class="max-w-6xl mx-auto min-h-14 px-4 flex items-center justify-end"
+      >
+        <ThemeToggler />
+      </div>
+    </header>
+    <slot />
+  </body>
+</html>
+
+<style>
+  @media print {
+    astro-dev-toolbar {
+      display: none !important;
+    }
+  }
+</style>

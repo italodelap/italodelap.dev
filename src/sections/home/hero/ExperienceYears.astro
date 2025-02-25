@@ -2,7 +2,7 @@
 import Card from "@/components/Card.astro";
 import Counter from "@/components/Counter.astro";
 
-import { getDateDifferenceInYears } from "@/lib/dates";
+import { getExperienceYearsAmount } from "@/lib/dates";
 
 interface Props {
   class?: string;
@@ -10,8 +10,7 @@ interface Props {
 
 const { class: className } = Astro.props;
 
-const START_DATE = new Date(2016, 7, 1);
-const yearsAmount = getDateDifferenceInYears(START_DATE, new Date());
+const yearsAmount = getExperienceYearsAmount();
 ---
 
 <Card
