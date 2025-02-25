@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 
 import ThemeManager from "./ThemeManager.astro";
 
@@ -30,5 +30,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="description" content={description} />
 
   <ThemeManager defaultTheme="dark" />
-  <ViewTransitions />
+  <ClientRouter />
 </head>
