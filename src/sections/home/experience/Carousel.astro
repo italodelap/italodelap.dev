@@ -8,7 +8,7 @@ import Job from "./job/Job.astro";
   <div class="embla__viewport">
     <div class="embla__container">
       {
-        experience.map((job) => (
+        experience.toReversed().map((job) => (
           <div class="embla__slide">
             <div class="embla__slide__content group">
               <Job {...job} />

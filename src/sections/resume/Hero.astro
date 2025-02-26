@@ -1,30 +1,15 @@
 ---
+import ResumeSection from "@/components/ResumeSection.astro";
+
 import { basics, contactChannels } from "@/config/site.json";
 
-import BrokenIcon from "@/icons/Broken.astro";
-import EmailIcon from "@/icons/Email.astro";
-import LinkedInIcon from "@/icons/LinkedIn.astro";
-import GithubIcon from "@/icons/Github.astro";
 import WorldIcon from "@/icons/World.astro";
-import XIcon from "@/icons/X.astro";
 
+import {
+  getContactChannelIcon,
+  getPrintFriendlyContactChannels,
+} from "@/lib/contact-channels";
 import { getExperienceYearsAmount } from "@/lib/dates";
-
-import ResumeSection from "./ResumeSection.astro";
-
-const CONTACT_CHANNEL_ICONS = {
-  email: EmailIcon,
-  linkedin: LinkedInIcon,
-  github: GithubIcon,
-  x: XIcon,
-};
-
-const printFriendlyContactChannels = contactChannels
-  .filter(({ network }) => network === "email" || network === "linkedin")
-  .map(({ url }) =>
-    url.replace("https://", "").replace("www.", "").replace("mailto:", ""),
-  )
-  .join(" · ");
 
 const yearsOfExperience = getExperienceYearsAmount();
 const label = basics.label.replace("[years]", yearsOfExperience.toString());
@@ -33,11 +18,11 @@ const label = basics.label.replace("[years]", yearsOfExperience.toString());
 <ResumeSection
   class="flex flex-col gap-4 sm:flex-row-reverse sm:justify-between"
 >
-  <figure class="flex items-center justify-center w-28 sm:w-40">
+  <figure class="flex items-center justify-center w-28 sm:w-60">
     <img
       alt="Me smiling"
       src="/profile.jpeg"
-      class="aspect-square rounded-xl"
+      class="aspect-square rounded-3xl"
     />
   </figure>
   <div class="flex flex-col justify-start gap-2">
@@ -48,17 +33,14 @@ const label = basics.label.replace("[years]", yearsOfExperience.toString());
       {basics.location.city}, {basics.location.country}
     </span>
     <footer class="text-sm not-print:hidden">
-      {printFriendlyContactChannels}
+      {getPrintFriendlyContactChannels()}
     </footer>
     <footer
       class="flex items-center justify-end gap-2 sm:justify-start print:hidden"
     >
       {
         contactChannels.map((channel) => {
-          const Icon =
-            CONTACT_CHANNEL_ICONS[
-              channel.network as keyof typeof CONTACT_CHANNEL_ICONS
-            ] ?? BrokenIcon;
+          const Icon = getContactChannelIcon(channel.network);
 
           return (
             <a

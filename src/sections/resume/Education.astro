@@ -1,0 +1,35 @@
+---
+import ResumeSection from "@/components/ResumeSection.astro";
+
+import { education } from "@/config/site.json";
+---
+
+<ResumeSection title="Education" class="grid gap-3 mb-8">
+  <ul class="grid gap-5">
+    {
+      education.toReversed().map(({ area, from, notes, institution, to }) => {
+        const startYear = new Date(from).getFullYear();
+        const endYear = to ? new Date(to).getFullYear() : "Present";
+
+        return (
+          <li>
+            <article class="grid gap-2">
+              <div class="flex gap-4 justify-between">
+                <div>
+                  <h3 class="text-lg font-semibold">{area}</h3>
+                  <h4 class="text-sm italic">{institution}</h4>
+                </div>
+                <div class="font-space-mono font-semibold">
+                  <time datetime={from}>{startYear}</time>
+                  {" - "}
+                  <time datetime={to}>{endYear}</time>
+                </div>
+              </div>
+              <p class="font-space-mono">({notes})</p>
+            </article>
+          </li>
+        );
+      })
+    }
+  </ul>
+</ResumeSection>

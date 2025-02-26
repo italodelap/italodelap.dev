@@ -7,8 +7,8 @@
     "label": "Frontend Developer with more than [years] years of experience and currently working at Torcuato Di Tella University",
     "location": {
       "address": "",
-      "postalCode": "1417",
-      "city": "Ciudad Autónoma de Buenos Aires",
+      "postalCode": "",
+      "city": "Buenos Aires",
       "countryCode": "AR",
       "country": "Argentina"
     },
@@ -39,14 +39,14 @@
   ],
   "experience": [
     {
-      "company": "Gobierno de la Ciudad de Buenos Aires",
+      "company": "Government of the City of Buenos Aires",
       "cover": "/city_government-cover.png",
       "from": "2015-06-01",
       "position": "Full Stack Developer",
       "summary": "I worked at the Environmental Protection Agency of the Ministry of Environment and Public Space (now, the Ministry of Public Space and Urban Hygiene) of the City Government for over 5 years. I held various roles, which I detail below.",
-      "title": "Gobierno de la Ciudad",
+      "title": "Government of the City",
       "to": "2021-04-31",
-      "url": "/experience/ciudad",
+      "url": "/experience/city",
       "subitems": [
         {
           "from": "2015-06-01",
@@ -79,23 +79,23 @@
       "url": "/experience/tupaca"
     },
     {
-      "company": "Gobierno de la Nación Argentina",
+      "company": "Government of the Argentine Nation",
       "cover": "/nation_government-cover.png",
       "from": "2021-09-01",
       "position": "Full Stack Developer",
       "summary": "I worked at the Ministry of Women, Genders, and Diversity, involved in the development of projects based on the LAMP stack and projects made with JavaScript (including web projects where we used Node and React, for example, and mobile applications developed with React Native and Expo).",
-      "title": "Gobierno de la Nación",
+      "title": "Government of the Nation",
       "to": "2022-04-31",
-      "url": "/experience/nacion"
+      "url": "/experience/nation"
     },
     {
-      "company": "Universidad Torcuato Di Tella",
+      "company": "Torcuato Di Tella University",
       "cover": "/di_tella-cover.png",
       "from": "2022-05-01",
       "position": "Frontend Developer",
       "summary": "I work at the Torcuato Di Tella University, usually involved in projects based on Web Components, relying on the platform's standard and ensuring the stability and long durability of our projects. We typically use Lit as a framework and, at the same time, base our work on a Microfrontends Architecture. We have also worked on web projects with other technologies, such as React.",
-      "title": "Universidad Torcuato Di Tella",
-      "url": "/experience/utdt"
+      "title": "Torcuato Di Tella University",
+      "url": "/experience/di-tella"
     }
   ],
   "education": [
