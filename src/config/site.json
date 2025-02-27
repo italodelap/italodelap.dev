@@ -3,7 +3,7 @@
     "about": "I'm a Senior Frontend Developer specialized in React and Web Components. I love never stop learning and sharing my knowledge. I'm a passionate about technology and I'm always looking for new challenges.",
     "currentPosition": "Frontend Developer",
     "email": "italoandre.1995@gmail.com",
-    "image": "/me.webp",
+    "profilePhoto": "/me.webp",
     "label": "Frontend Developer with more than [years] years of experience and currently working at Torcuato Di Tella University",
     "location": {
       "address": "",
@@ -40,7 +40,7 @@
   "experience": [
     {
       "company": "Government of the City of Buenos Aires",
-      "cover": "/city_government-cover.png",
+      "cover": "/city-cover.webp",
       "from": "2015-06-01",
       "position": "Full Stack Developer",
       "summary": "I worked at the Environmental Protection Agency of the Ministry of Environment and Public Space (now, the Ministry of Public Space and Urban Hygiene) of the City Government for over 5 years. I held various roles, which I detail below.",
@@ -70,7 +70,7 @@
     },
     {
       "company": "Tupaca",
-      "cover": "/tupaca-cover.png",
+      "cover": "/tupaca-cover.webp",
       "from": "2021-05-01",
       "position": "Full Stack Developer",
       "summary": "At Tupaca, I worked on the development, maintenance, and migration of various applications developed with the LAMP stack (using Symfony and Laravel as frameworks), as well as the development and maintenance of several projects made with the MERN stack.",
@@ -80,7 +80,7 @@
     },
     {
       "company": "Government of the Argentine Nation",
-      "cover": "/nation_government-cover.png",
+      "cover": "/nation-cover.webp",
       "from": "2021-09-01",
       "position": "Full Stack Developer",
       "summary": "I worked at the Ministry of Women, Genders, and Diversity, involved in the development of projects based on the LAMP stack and projects made with JavaScript (including web projects where we used Node and React, for example, and mobile applications developed with React Native and Expo).",
@@ -90,7 +90,7 @@
     },
     {
       "company": "Torcuato Di Tella University",
-      "cover": "/di_tella-cover.png",
+      "cover": "/di_tella-cover.webp",
       "from": "2022-05-01",
       "position": "Frontend Developer",
       "summary": "I work at the Torcuato Di Tella University, usually involved in projects based on Web Components, relying on the platform's standard and ensuring the stability and long durability of our projects. We typically use Lit as a framework and, at the same time, base our work on a Microfrontends Architecture. We have also worked on web projects with other technologies, such as React.",

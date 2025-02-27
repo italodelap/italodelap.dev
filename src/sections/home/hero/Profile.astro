@@ -3,7 +3,7 @@ import AnimatedLink from "@/components/AnimatedLink.astro";
 import Available from "@/components/Available.astro";
 import Card from "@/components/Card.astro";
 
-import { contactChannels } from "@/config/site.json";
+import { basics, contactChannels } from "@/config/site.json";
 
 import BrokenIcon from "@/icons/Broken.astro";
 import EmailIcon from "@/icons/Email.astro";
@@ -32,8 +32,8 @@ const CONTACT_CHANNEL_ICONS = {
   `}
 >
   <img
-    src="/profile.jpeg"
     alt="Italo's photo"
+    src={basics.profilePhoto}
     class="block xl:hidden rounded-full size-20"
   />
   <div class="grid gap-2 text-neutral-800 dark:text-neutral-300">

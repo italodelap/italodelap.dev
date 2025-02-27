@@ -1,6 +1,8 @@
 ---
 import Card from "@/components/Card.astro";
 
+import { basics } from "@/config/site.json";
+
 interface Props {
   class?: string;
 }
@@ -15,8 +17,8 @@ const { class: className } = Astro.props;
   `}
 >
   <img
-    src="/profile.jpeg"
     alt="Italo's photo"
+    src={basics.profilePhoto}
     class="size-full object-cover absolute inset-0 opacity-90 dark:opacity-85"
   />
 </Card>
