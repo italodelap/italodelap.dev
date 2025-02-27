@@ -1,10 +1,10 @@
-import { type EmblaCarouselType } from 'embla-carousel'
+import { type EmblaCarouselType } from "embla-carousel";
 
 export const addDotBtnsAndClickHandlers = (
   emblaApi: EmblaCarouselType,
   dotsNode: HTMLElement
 ): (() => void) => {
-  let dotNodes: HTMLElement[] = []
+  let dotNodes: HTMLElement[] = [];
 
   const tailwindClasses = "size-5 touch-manipulation rounded-full transition-colors duration-500 border-2 border-neutral-200 dark:border-neutral-700 data-[selected=true]:border-neutral-500 dark:data-[selected=true]:border-neutral-300";
 
@@ -12,33 +12,29 @@ export const addDotBtnsAndClickHandlers = (
     dotsNode.innerHTML = emblaApi
       .scrollSnapList()
       .map(() => `<button class="embla__dot ${tailwindClasses}" type="button"></button>`)
-      .join('')
+      .join("");
 
-    const scrollTo = (index: number): void => {
-      emblaApi.scrollTo(index)
-    }
+    const scrollTo = (index: number): void => { emblaApi.scrollTo(index); };
 
-    dotNodes = Array.from(dotsNode.querySelectorAll('.embla__dot'))
+    dotNodes = Array.from(dotsNode.querySelectorAll(".embla__dot"));
     dotNodes.forEach((dotNode, index) => {
-      dotNode.addEventListener('click', () => scrollTo(index), false)
-    })
-  }
+      dotNode.addEventListener("click", () => scrollTo(index), false);
+    });
+  };
 
   const toggleDotBtnsActive = (): void => {
-    const previous = emblaApi.previousScrollSnap()
-    const selected = emblaApi.selectedScrollSnap()
+    const previous = emblaApi.previousScrollSnap();
+    const selected = emblaApi.selectedScrollSnap();
     dotNodes[selected]?.setAttribute("data-selected", "true");
     dotNodes[previous]?.setAttribute("data-selected", "false");
-  }
+  };
 
   emblaApi
-    .on('init', addDotBtnsWithClickHandlers)
-    .on('reInit', addDotBtnsWithClickHandlers)
-    .on('init', toggleDotBtnsActive)
-    .on('reInit', toggleDotBtnsActive)
-    .on('select', toggleDotBtnsActive)
+    .on("init", addDotBtnsWithClickHandlers)
+    .on("reInit", addDotBtnsWithClickHandlers)
+    .on("init", toggleDotBtnsActive)
+    .on("reInit", toggleDotBtnsActive)
+    .on("select", toggleDotBtnsActive);
 
-  return (): void => {
-    dotsNode.innerHTML = ''
-  }
-}
+  return () => { dotsNode.innerHTML = ""; };
+};
