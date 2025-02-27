@@ -1,10 +1,7 @@
 ---
-interface Props {
-  from: string;
-  position: string;
-  title: string;
-  to?: string;
-}
+import type { ExperienceEntry } from "@/types";
+
+type Props = Pick<ExperienceEntry, "from" | "position" | "title" | "to">;
 
 const { from, position, title, to } = Astro.props;
 

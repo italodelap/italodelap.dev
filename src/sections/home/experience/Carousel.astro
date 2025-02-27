@@ -1,16 +1,22 @@
 ---
 import "@/styles/carousel.css";
 
-import { experience } from "@/config/site.json";
+import type { WorkExperience } from "@/types";
 
 import Job from "./job/Job.astro";
+
+interface Props {
+  workExperience: WorkExperience;
+}
+
+const { workExperience } = Astro.props;
 ---
 
 <section class="embla">
   <div class="embla__viewport">
     <div class="embla__container">
       {
-        experience.toReversed().map((job) => (
+        workExperience.map((job) => (
           <div class="embla__slide">
             <div class="embla__slide__content group">
               <Job {...job} />

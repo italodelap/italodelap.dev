@@ -1,7 +1,9 @@
 ---
+import type { ExperienceEntry } from "@/types";
+
 interface Props {
-  image: string;
-  companyName: string;
+  image: ExperienceEntry["cover"];
+  companyName: ExperienceEntry["company"];
 }
 
 const { image, companyName } = Astro.props;

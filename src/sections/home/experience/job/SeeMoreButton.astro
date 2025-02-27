@@ -1,8 +1,10 @@
 ---
 import AnimatedLink from "@/components/AnimatedLink.astro";
 
+import type { ExperienceEntry } from "@/types";
+
 interface Props {
-  url: string;
+  url: ExperienceEntry["url"];
 }
 
 const { url } = Astro.props;

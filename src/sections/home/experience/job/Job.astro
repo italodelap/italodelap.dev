@@ -1,17 +1,11 @@
 ---
+import type { ExperienceEntry } from "@/types";
+
 import Cover from "./Cover.astro";
 import Data from "./Data.astro";
 import SeeMoreButton from "./SeeMoreButton.astro";
 
-interface Props {
-  cover: string;
-  company: string;
-  from: string;
-  position: string;
-  title: string;
-  to?: string;
-  url: string;
-}
+type Props = ExperienceEntry;
 
 const { cover, company, from, position, title, to, url } = Astro.props;
 ---
