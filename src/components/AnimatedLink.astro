@@ -1,13 +1,11 @@
 ---
-interface Props {
-  class?: string;
-  href: astroHTML.JSX.AnchorHTMLAttributes["href"];
-  rel?: astroHTML.JSX.AnchorHTMLAttributes["rel"];
-  target?: astroHTML.JSX.HTMLAttributeAnchorTarget;
-  title?: string;
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {
+  label?: string;
 }
 
-const { class: className, href, rel, target, title } = Astro.props;
+const { class: className, href, label, rel, target, title } = Astro.props;
 ---
 
 <a
@@ -15,6 +13,7 @@ const { class: className, href, rel, target, title } = Astro.props;
   href={href}
   title={title}
   target={target}
+  aria-labelledby={label}
   class={`
     ${className ?? ""}
     group/button relative inline-flex items-center justify-center overflow-hidden

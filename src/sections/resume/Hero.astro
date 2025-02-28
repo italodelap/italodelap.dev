@@ -41,6 +41,7 @@ const label = basics.label.replace("[years]", yearsOfExperience.toString());
       {
         contactChannels.map((channel) => {
           const Icon = getContactChannelIcon(channel.network);
+          const LINK_ARIA_LABEL = `visit-${channel.network}-profile`;
 
           return (
             <a
@@ -48,6 +49,7 @@ const label = basics.label.replace("[years]", yearsOfExperience.toString());
               href={channel.url}
               title={channel.title}
               rel="noopener noreferrer"
+              aria-labelledby={LINK_ARIA_LABEL}
               class={`
                 rounded-md p-2
                 transition-colors duration-300
@@ -59,7 +61,7 @@ const label = basics.label.replace("[years]", yearsOfExperience.toString());
                 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/90
               `}
             >
-              <Icon class="aspect-square size-5" />
+              <Icon id={LINK_ARIA_LABEL} class="aspect-square size-5" />
             </a>
           );
         })

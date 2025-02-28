@@ -1,9 +1,10 @@
 ---
 interface Props {
   class?: string;
+  id?: string;
 }
 
-const { class: className } = Astro.props;
+const { class: className, id } = Astro.props;
 ---
 
 <svg
@@ -17,6 +18,7 @@ const { class: className } = Astro.props;
   stroke-width="2"
   viewBox="0 0 24 24"
   class={className ?? ""}
+  id={id}
 >
   <path stroke="none" d="M0 0h24v24H0z"></path>
   <path

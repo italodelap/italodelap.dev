@@ -57,6 +57,7 @@ const CONTACT_CHANNEL_ICONS = {
   <div class="flex w-full gap-4">
     {
       contactChannels.map((contactChannel) => {
+        const LINK_ARIA_LABEL = `visit-${contactChannel.network}-profile`;
         const Icon =
           CONTACT_CHANNEL_ICONS[
             contactChannel.network as keyof typeof CONTACT_CHANNEL_ICONS
@@ -65,12 +66,13 @@ const CONTACT_CHANNEL_ICONS = {
         return (
           <AnimatedLink
             target="_blank"
+            label={LINK_ARIA_LABEL}
             rel="noopener noreferrer"
             href={contactChannel.url}
             title={contactChannel.title}
             class="flex-1 p-4 duration-500 hover:shadow-lg hover:shadow-gray-600/50 dark:hover:shadow-gray-500/50"
           >
-            <Icon class="aspect-square" />
+            <Icon id={LINK_ARIA_LABEL} class="aspect-square" />
           </AnimatedLink>
         );
       })

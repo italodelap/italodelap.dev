@@ -1,5 +1,3 @@
-export interface WorkExperience extends Array<ExperienceEntry> {}
-
 export interface ExperienceEntry {
   cover: string;
   company: string;
@@ -9,3 +7,5 @@ export interface ExperienceEntry {
   to?: string;
   url: string;
 }
+
+export interface WorkExperience extends Array<ExperienceEntry> {}
