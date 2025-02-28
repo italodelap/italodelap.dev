@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tailwindcss-animated";
 
 @source "../../src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}";
 
