@@ -1,4 +1,6 @@
 ---
+import OptimizedImage from "@/components/OptimizedImage.astro";
+
 import type { ExperienceEntry } from "@/types";
 
 interface Props {
@@ -7,12 +9,10 @@ interface Props {
 }
 
 const { image, companyName } = Astro.props;
-
-const alternativeText = `Cover image of ${companyName}`;
 ---
 
-<img
+<OptimizedImage
   src={image}
-  alt={alternativeText}
+  alt={`${companyName} logo`}
   class="object-cover transition-transform scale-110 size-full aspect-video opacity-60 group-hover:scale-125 dark:opacity-40"
 />

@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"img">;
+const { alt, decoding, loading, src, ...props } = Astro.props;
+
+if (!alt) {
+  throw new Error("The 'alt' attribute is required");
+}
+
+if (!src) {
+  throw new Error("The 'src' attribute is required");
+}
+---
+
+<img
+  alt={alt}
+  src={src}
+  loading={loading ?? "eager"}
+  decoding={decoding ?? "async"}
+  {...props}
+/>

@@ -1,4 +1,5 @@
 ---
+import OptimizedImage from "@/components/OptimizedImage.astro";
 import ResumeSection from "@/components/ResumeSection.astro";
 
 import { basics, contactChannels } from "@/config/site.json";
@@ -19,8 +20,8 @@ const label = basics.label.replace("[years]", yearsOfExperience.toString());
   class="flex flex-col gap-4 sm:flex-row-reverse sm:justify-between"
 >
   <figure class="flex items-center justify-center w-28 sm:w-60">
-    <img
-      alt="Me smiling"
+    <OptimizedImage
+      alt="Me smiling (:"
       src={basics.profilePhoto}
       class="aspect-square rounded-3xl"
     />

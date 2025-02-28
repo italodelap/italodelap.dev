@@ -1,5 +1,6 @@
 ---
 import Card from "@/components/Card.astro";
+import OptimizedImage from "@/components/OptimizedImage.astro";
 
 import { basics } from "@/config/site.json";
 
@@ -16,9 +17,9 @@ const { class: className } = Astro.props;
     flex-col justify-end items-start gap-3 hidden xl:flex
   `}
 >
-  <img
-    alt="Italo's photo"
+  <OptimizedImage
+    alt="Me smiling (:"
     src={basics.profilePhoto}
-    class="size-full object-cover absolute inset-0 opacity-90 dark:opacity-85"
+    class="aspect-square size-full object-cover absolute inset-0 opacity-90 dark:opacity-85"
   />
 </Card>

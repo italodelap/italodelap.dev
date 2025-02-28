@@ -2,6 +2,7 @@
 import AnimatedLink from "@/components/AnimatedLink.astro";
 import Available from "@/components/Available.astro";
 import Card from "@/components/Card.astro";
+import OptimizedImage from "@/components/OptimizedImage.astro";
 
 import { basics, contactChannels } from "@/config/site.json";
 
@@ -31,10 +32,10 @@ const CONTACT_CHANNEL_ICONS = {
     flex flex-col justify-between items-start gap-3
   `}
 >
-  <img
-    alt="Italo's photo"
+  <OptimizedImage
+    alt="Me smiling (:"
     src={basics.profilePhoto}
-    class="block xl:hidden rounded-full size-20"
+    class="block xl:hidden aspect-square rounded-full object-cover size-20"
   />
   <div class="grid gap-2 text-neutral-800 dark:text-neutral-300">
     <div class="grid">

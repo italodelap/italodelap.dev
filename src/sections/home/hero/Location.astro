@@ -1,6 +1,7 @@
 ---
 import Box from "@/components/Box.astro";
 import Card from "@/components/Card.astro";
+import OptimizedImage from "@/components/OptimizedImage.astro";
 
 import MapPinIcon from "@/icons/MapPin.astro";
 
@@ -17,7 +18,7 @@ const { class: className } = Astro.props;
     flex flex-col justify-end items-center
   `}
 >
-  <img
+  <OptimizedImage
     src="/map.webp"
     alt="Map that shows the location of Buenos Aires, Argentina"
     class="size-full object-cover absolute inset-0 opacity-40 grayscale-[30%]"
