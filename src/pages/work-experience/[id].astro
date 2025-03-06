@@ -1,0 +1,82 @@
+---
+import { getCollection, render } from "astro:content";
+
+import Box from "@/components/Box.astro";
+import ExperienceDuration from "@/components/ExperienceDuration.astro";
+import OptimizedImage from "@/components/OptimizedImage.astro";
+// import Prose from "@/components/Prose.astro";
+
+import Layout from "@/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const workExperience = await getCollection("work-experience");
+  return workExperience.map((job) => ({
+    params: { id: job.id },
+    props: { job },
+  }));
+}
+
+const { job } = Astro.props;
+// const { Content } = await render(job);
+
+const {
+  data: { cover, company, from, position, shadow, summary, to },
+} = job;
+---
+
+<Layout title={`Italo De la Peña | Work experience on ${company}`}>
+  <main class="mx-auto max-w-6xl *:px-4 *:mb-5">
+    <section
+      class="flex flex-col gap-3 sm:flex-row-reverse sm:justify-start items-center sm:gap-5"
+    >
+      <div
+        class="w-full flex flex-col justify-start items-start gap-0.5 sm:grow"
+      >
+        <h1 class="text-2xl font-bold text-balance leading-[1.125] text-left">
+          {company}
+        </h1>
+        <h2 class="text-lg italic">{position}</h2>
+        <small class="font-space-mono text-base font-bold">
+          <ExperienceDuration from={from} to={to} />
+        </small>
+        <p class="font-space-mono hidden sm:block">{summary}</p>
+      </div>
+      <Box
+        as="figure"
+        class={`
+          ${shadow}
+          rounded-2xl overflow-hidden shadow-lg group
+          sm:max-w-60 sm:grow-0 sm:z-10 sm:transition-all sm:duration-[400ms]
+          sm:hover:-rotate-6 sm:hover:scale-105 sm:hover:shadow-xl
+        `}
+      >
+        <OptimizedImage
+          src={cover.src}
+          alt={cover.alt}
+          class={`
+            aspect-square w-full object-cover object-center opacity-70
+            sm:transition-opacity sm:duration-[400ms] sm:group-hover:opacity-80
+          `}
+        />
+      </Box>
+    </section>
+    <p class="font-space-mono sm:hidden">{summary}</p>
+    <div class="h-[1px] w-full my-8!">
+      <hr
+        class={`
+          h-[1px] w-full border-none opacity-50
+          bg-gradient-to-l from-gray-400 via-gray-500 to-gray-600
+          dark:bg-gradient-to-r dark:from-gray-300 dark:via-gray-400 dark:to-gray-500
+        `}
+      />
+    </div>
+    <!-- <Prose>
+      <Content />
+    </Prose> -->
+    <section class="min-h-[25vh] flex justify-center items-center">
+      <h3 class="font-bold text-3xl text-center">
+        Additional details will be available soon...
+      </h3>
+    </section>
+  </main>
+</Layout>

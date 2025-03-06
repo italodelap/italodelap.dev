@@ -1,22 +1,21 @@
 ---
-import "@/styles/carousel.css";
+import { getCollection } from "astro:content";
 
-import type { WorkExperience } from "@/types";
+import { getSortedExperience } from "@/lib/sorting";
+
+import "@/styles/carousel.css";
 
 import Job from "./job/Job.astro";
 
-interface Props {
-  workExperience: WorkExperience;
-}
-
-const { workExperience } = Astro.props;
+const workExperience = await getCollection("work-experience");
+const sortedWorkExperience = getSortedExperience(workExperience);
 ---
 
 <section class="embla">
   <div class="embla__viewport">
     <div class="embla__container">
       {
-        workExperience.map((job) => (
+        sortedWorkExperience.map((job) => (
           <div class="embla__slide">
             <div class="embla__slide__content group">
               <Job {...job} />
@@ -52,4 +51,4 @@ const { workExperience } = Astro.props;
   </div>
 </section>
 
-<script src="@/lib/carousel"></script>
+<script is:inline src="/carousel.js"></script>

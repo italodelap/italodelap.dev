@@ -10,7 +10,7 @@ interface Props {
 
 const { class: className } = Astro.props;
 
-const yearsAmount = getExperienceYearsAmount();
+const yearsAmount = await getExperienceYearsAmount();
 ---
 
 <Card

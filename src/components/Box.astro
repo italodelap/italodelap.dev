@@ -1,18 +1,23 @@
 ---
+import type { HTMLTag } from "astro/types";
+
 interface Props {
-  class?: string | undefined;
+  as: HTMLTag;
+  class?: string;
 }
 
-const { class: className } = Astro.props;
+const { as = "div", class: className = "" } = Astro.props;
+
+const Wrapper = as;
 ---
 
-<div
+<Wrapper
   class={`
-    ${className ?? ""}
+    ${className}
     bg-zinc-50/50 bg-blend-luminosity backdrop-blur-lg
     border border-white dark:border-white/10 dark:bg-zinc-900/30
     outline-1 outline-offset-0 outline-zinc-200 dark:outline-[#1a1a1a]
   `}
 >
   <slot />
-</div>
+</Wrapper>

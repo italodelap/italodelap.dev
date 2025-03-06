@@ -1,0 +1,23 @@
+---
+import type { HTMLTag } from "astro/types";
+
+interface Props {
+  as?: HTMLTag;
+}
+
+const { as = "section" } = Astro.props;
+
+const ProseWrapper = as;
+---
+
+<ProseWrapper
+  class={`
+    prose dark:prose-invert
+    prose-headings:font-bold
+    prose-h1:font-bold prose-h1:text-xl
+    prose-h3:font-bold prose-h3:text-lg
+    prose-a:text-blue-600 prose-p:text-justify prose-img:rounded-xl
+  `}
+>
+  <slot />
+</ProseWrapper>

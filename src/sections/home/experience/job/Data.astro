@@ -1,20 +1,14 @@
 ---
-import type { ExperienceEntry } from "@/types";
+import type { CollectionEntry } from "astro:content";
 
-type Props = Pick<ExperienceEntry, "from" | "position" | "title" | "to">;
+import ExperienceDuration from "@/components/ExperienceDuration.astro";
+
+type Props = Pick<
+  CollectionEntry<"work-experience">["data"],
+  "from" | "position" | "title" | "to"
+>;
 
 const { from, position, title, to } = Astro.props;
-
-function getDateFromString(dateString: string) {
-  const dateArray = dateString.split("-");
-  const [year, month, day] = dateArray.map((n) => parseInt(n));
-  const date = new Date(year, month - 1, day);
-
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 ---
 
 <div class="w-full text-center text-neutral-800/90 dark:text-neutral-50 *:mb-1">
@@ -27,6 +21,6 @@ function getDateFromString(dateString: string) {
     {position}
   </p>
   <p class="text-sm font-normal">
-    {getDateFromString(from)} &mdash; {to ? getDateFromString(to) : "Present"}
+    <ExperienceDuration from={from} to={to} />
   </p>
 </div>

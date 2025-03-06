@@ -37,81 +37,20 @@
       "url": "https://www.x.com/italodelap"
     }
   ],
-  "experience": [
-    {
-      "company": "Government of the City of Buenos Aires",
-      "cover": "/city-cover.webp",
-      "from": "2015-06-01",
-      "position": "Full Stack Developer",
-      "summary": "I worked at the Environmental Protection Agency of the Ministry of Environment and Public Space (now, the Ministry of Public Space and Urban Hygiene) of the City Government for over 5 years. I held various roles, which I detail below.",
-      "title": "Government of the City",
-      "to": "2021-04-31",
-      "url": "/experience/city",
-      "subitems": [
-        {
-          "from": "2015-06-01",
-          "position": "Assistant to the Cabinet Chief",
-          "summary": "I worked in the General Directorate of Environmental Control, involved in functional analysis, the analysis and improvement of area processes, the implementation of SAP CRM for managing inspections and certificates, and the input of inspection data into the various systems of the directorate.",
-          "to": "2016-07-31"
-        },
-        {
-          "from": "2016-08-01",
-          "position": "Frontend Developer",
-          "summary": "I worked in the Operational Management of Environmental Enforcement, involved in the functional analysis, development, and maintenance of Symfony applications and a mobile application built with Ionic.",
-          "to": "2019-02-28"
-        },
-        {
-          "from": "2019-03-01",
-          "position": "Full Stack Developer",
-          "summary": "I worked in the Operational Management of Environmental Determinations and Laboratory, involved in the design, development, and documentation of an application built with Symfony. I also managed the MySQL database used by this app and even conducted training sessions to showcase the project. In February 2020, during the accreditation of the ISO-IRAM 17025/2017 standard, I was recognized as the strength of the management in 2019.",
-          "to": "2021-04-31"
-        }
-      ]
-    },
-    {
-      "company": "Tupaca",
-      "cover": "/tupaca-cover.webp",
-      "from": "2021-05-01",
-      "position": "Full Stack Developer",
-      "summary": "At Tupaca, I worked on the development, maintenance, and migration of various applications developed with the LAMP stack (using Symfony and Laravel as frameworks), as well as the development and maintenance of several projects made with the MERN stack.",
-      "title": "Tupaca",
-      "to": "2021-08-31",
-      "url": "/experience/tupaca"
-    },
-    {
-      "company": "Government of the Argentine Nation",
-      "cover": "/nation-cover.webp",
-      "from": "2021-09-01",
-      "position": "Full Stack Developer",
-      "summary": "I worked at the Ministry of Women, Genders, and Diversity, involved in the development of projects based on the LAMP stack and projects made with JavaScript (including web projects where we used Node and React, for example, and mobile applications developed with React Native and Expo).",
-      "title": "Government of the Nation",
-      "to": "2022-04-31",
-      "url": "/experience/nation"
-    },
-    {
-      "company": "Torcuato Di Tella University",
-      "cover": "/di_tella-cover.webp",
-      "from": "2022-05-01",
-      "position": "Frontend Developer",
-      "summary": "I work at the Torcuato Di Tella University, usually involved in projects based on Web Components, relying on the platform's standard and ensuring the stability and long durability of our projects. We typically use Lit as a framework and, at the same time, base our work on a Microfrontends Architecture. We have also worked on web projects with other technologies, such as React.",
-      "title": "Torcuato Di Tella University",
-      "url": "/experience/di-tella"
-    }
-  ],
   "education": [
-    {
-      "area": "Software Engineering",
-      "from": "2013-03-01",
-      "institution": "University of Morón",
-      "notes": "1st to 3rd year",
-      "to": "2015-12-31"
-    },
     {
       "area": "Higher Technician Degree in Graphic and Multimedia Design",
       "from": "2019-03-01",
       "institution": "27th Institute of Technical and Higher Education",
       "notes": "1st to 2nd year",
       "to": "2020-12-31"
+    },
+    {
+      "area": "Software Engineering",
+      "from": "2013-03-01",
+      "institution": "University of Morón",
+      "notes": "1st to 3rd year",
+      "to": "2015-12-31"
     }
   ]
 }

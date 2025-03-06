@@ -13,23 +13,4 @@ const { yearsAmount = 0 } = Astro.props;
   +0
 </years-counter>
 
-<script>
-  class YearsCounter extends HTMLElement {
-    constructor() {
-      super();
-      let intervalId: number,
-        numberToShow: number = 0;
-      const yearsAmount = parseInt(this.dataset.yearsAmount!);
-
-      intervalId = setInterval(() => {
-        this.innerText = `+${numberToShow++}`;
-
-        if (numberToShow > yearsAmount) {
-          clearInterval(intervalId);
-        }
-      }, 100);
-    }
-  }
-
-  customElements.define("years-counter", YearsCounter);
-</script>
+<script src="@/lib/counter"></script>

@@ -12,18 +12,24 @@ import {
 } from "@/lib/contact-channels";
 import { getExperienceYearsAmount } from "@/lib/dates";
 
-const yearsOfExperience = getExperienceYearsAmount();
+const yearsOfExperience = await getExperienceYearsAmount();
 const label = basics.label.replace("[years]", yearsOfExperience.toString());
 ---
 
 <ResumeSection
   class="flex flex-col gap-4 sm:flex-row-reverse sm:justify-between"
 >
-  <figure class="flex items-center justify-center w-28 sm:w-60">
+  <figure
+    class={`
+      flex items-center justify-center rounded-3xl w-28
+      overflow-hidden shadow-lg shadow-gray-600/50 dark:shadow-gray-500/90
+      sm:w-60 sm:transition-transform sm:duration-[400ms] sm:hover:rotate-6 sm:hover:scale-105
+    `}
+  >
     <OptimizedImage
       alt="Me smiling (:"
       src={basics.profilePhoto}
-      class="aspect-square rounded-3xl"
+      class="aspect-square size-full object-cover object-center"
     />
   </figure>
   <div class="flex flex-col justify-start gap-2">

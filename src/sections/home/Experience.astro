@@ -2,8 +2,6 @@
 import Box from "@/components/Box.astro";
 import Card from "@/components/Card.astro";
 
-import { experience } from "@/config/site.json";
-
 import BriefcaseIcon from "@/icons/Briefcase.astro";
 
 import Carousel from "./experience/Carousel.astro";
@@ -16,5 +14,5 @@ import Carousel from "./experience/Carousel.astro";
     <BriefcaseIcon class="size-5" />
     <h2 class="font-space-mono text-md font-medium select-none">Experience</h2>
   </Box>
-  <Carousel workExperience={experience.toReversed()} />
+  <Carousel />
 </Card>

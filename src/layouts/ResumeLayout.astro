@@ -9,6 +9,7 @@ import "@fontsource/space-mono/700-italic.css";
 import "@/styles/global.css";
 
 import BaseHead from "@/components/BaseHead.astro";
+import HomeButton from "@/components/header/HomeButton.astro";
 import ThemeToggler from "@/components/header/ThemeToggler.astro";
 ---
 
@@ -22,7 +23,8 @@ import ThemeToggler from "@/components/header/ThemeToggler.astro";
     `}
   >
     <header class="w-full p-4 print:hidden">
-      <div class="max-w-3xl mx-auto min-h-14 flex items-center justify-end">
+      <div class="max-w-3xl mx-auto min-h-14 flex items-center justify-between">
+        <HomeButton />
         <ThemeToggler />
       </div>
     </header>

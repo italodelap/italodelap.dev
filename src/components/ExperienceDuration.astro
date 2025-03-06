@@ -1,0 +1,35 @@
+---
+import { getFormattedDate } from "@/lib/dates";
+
+interface Props {
+  format?: "years" | "years and months";
+  from: string | Date;
+  to?: string | Date;
+}
+
+const { format = "years and months", from, to } = Astro.props;
+
+function getNormalizedDate(date: string | Date): Date {
+  return typeof date === "string" ? new Date(date) : date;
+}
+
+const normalizedFromDate: Date = getNormalizedDate(from);
+const normalizedToDate: Date | undefined = to
+  ? getNormalizedDate(to)
+  : undefined;
+let startDate: string | number, endDate: string | number;
+
+if (format === "years") {
+  startDate = new Date(normalizedFromDate).getFullYear();
+  endDate = normalizedToDate
+    ? new Date(normalizedToDate).getFullYear()
+    : "Present";
+}
+
+startDate = getFormattedDate(normalizedFromDate);
+endDate = normalizedToDate ? getFormattedDate(normalizedToDate) : "Present";
+---
+
+<time datetime={startDate}>{startDate}</time>
+{" "}&mdash;{" "}
+<time datetime={endDate}>{endDate}</time>

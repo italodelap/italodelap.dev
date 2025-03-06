@@ -1,81 +1,74 @@
 ---
+import { getCollection } from "astro:content";
+
+import ExperienceDuration from "@/components/ExperienceDuration.astro";
 import ResumeSection from "@/components/ResumeSection.astro";
 
-import { experience } from "@/config/site.json";
+import { getSortedExperience } from "@/lib/sorting";
+
+const workExperience = await getCollection("work-experience");
+const sortedWorkExperience = getSortedExperience(workExperience);
 ---
 
 <ResumeSection title="Experience" class="grid gap-3">
   <ul class="grid gap-5">
     {
-      experience
-        .toReversed()
-        .map(({ company, from, position, subitems, summary, to, url }) => {
-          const startYear = new Date(from).getFullYear();
-          const endYear = to ? new Date(to).getFullYear() : "Present";
-
-          return (
-            <li>
-              <article class="grid gap-2">
-                <header class="flex flex-col sm:gap-4 sm:flex-row sm:justify-between">
-                  <div>
-                    <h3 class="text-lg font-semibold text-balance leading-tight">
-                      <a
-                        href={url}
-                        target="_blank"
-                        title="Ver más"
-                        class="hover:underline"
-                      >
-                        {company}
-                      </a>
-                    </h3>
-                    {!subitems && <h4 class="text-sm italic">{position}</h4>}
-                  </div>
-                  <div class="font-space-mono font-semibold italic text-sm sm:not-italic sm:text-base">
-                    <time datetime={from}>{startYear}</time>
-                    {" - "}
-                    <time datetime={to}>{endYear}</time>
-                  </div>
-                </header>
-                <p class="font-space-mono">{summary}</p>
-                {subitems && (
-                  <ul class="mt-2 pl-7 grid gap-4">
-                    {subitems
-                      .toReversed()
-                      .map(({ from, position, summary, to }) => (
-                        <li>
-                          <div class="grid gap-2">
-                            <div class="flex flex-col sm:gap-4 sm:flex-row sm:justify-between">
-                              <h5
-                                class={`
+      sortedWorkExperience.map(
+        ({ id, data: { company, from, position, subitems, summary, to } }) => (
+          <li>
+            <article class="grid gap-2">
+              <header class="flex flex-col sm:gap-4 sm:flex-row sm:justify-between">
+                <div>
+                  <h3 class="text-lg font-semibold text-balance leading-tight">
+                    <a
+                      target="_blank"
+                      title="Ver más"
+                      class="hover:underline"
+                      href={`/work-experience/${id}`}
+                    >
+                      {company}
+                    </a>
+                  </h3>
+                  {!subitems && <h4 class="text-sm italic">{position}</h4>}
+                </div>
+                <div class="font-space-mono font-semibold italic text-sm sm:not-italic sm:text-base">
+                  <ExperienceDuration from={from} to={to} />
+                </div>
+              </header>
+              <p class="font-space-mono">{summary}</p>
+              {subitems && (
+                <ul class="mt-2 pl-7 grid gap-4">
+                  {getSortedExperience(subitems).map(
+                    ({ from, position, summary, to }) => (
+                      <li>
+                        <div class="grid gap-2">
+                          <div class="flex flex-col sm:gap-4 sm:flex-row sm:justify-between">
+                            <h5
+                              class={`
                                   italic font-semibold
                                   text-sm text-balance leading-tight
                                   before:block before:absolute before:size-4
                                   before:rotate-90 before:-translate-x-7 before:translate-y-2
                                   before:border-l-2 before:border-neutral-500 before:border-dotted
                                 `}
-                              >
-                                {position}
-                              </h5>
-                              <div class="font-space-mono text-sm">
-                                <time datetime={from}>
-                                  {new Date(from).getFullYear()}
-                                </time>
-                                {" - "}
-                                <time datetime={to}>
-                                  {to ? new Date(to).getFullYear() : "Present"}
-                                </time>
-                              </div>
+                            >
+                              {position}
+                            </h5>
+                            <div class="font-space-mono text-sm">
+                              <ExperienceDuration from={from} to={to} />
                             </div>
-                            <p class="font-space-mono">{summary}</p>
                           </div>
-                        </li>
-                      ))}
-                  </ul>
-                )}
-              </article>
-            </li>
-          );
-        })
+                          <p class="font-space-mono">{summary}</p>
+                        </div>
+                      </li>
+                    ),
+                  )}
+                </ul>
+              )}
+            </article>
+          </li>
+        ),
+      )
     }
   </ul>
 </ResumeSection>

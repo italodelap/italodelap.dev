@@ -14,12 +14,17 @@ const { class: className } = Astro.props;
 <Card
   class={`
     ${className ?? ""}
-    flex-col justify-end items-start gap-3 hidden xl:flex
+    flex-col justify-end items-start gap-3 hidden
+    xl:flex xl:z-10 xl:transition-all xl:duration-[400ms]
+    xl:hover:scale-105 xl:hover:-rotate-2 xl:hover:shadow-lg xl:hover:shadow-neutral-500/75
   `}
 >
   <OptimizedImage
     alt="Me smiling (:"
     src={basics.profilePhoto}
-    class="aspect-square size-full object-cover absolute inset-0 opacity-90 dark:opacity-85"
+    class={`
+      aspect-square size-full object-cover absolute inset-0 opacity-90
+      transition-opacity duration-[400ms] dark:opacity-85 hover:opacity-100
+    `}
   />
 </Card>
