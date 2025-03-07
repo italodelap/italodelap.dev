@@ -8,6 +8,13 @@
     customElements.define(
       "theme-toggler",
       class extends HTMLElement {
+        _updateSelectedTheme(newTheme = window.theme.getTheme()) {
+          const themeToggler: HTMLInputElement =
+            this.querySelector("#theme-toggler")!;
+
+          themeToggler.checked = newTheme === "dark";
+        }
+
         connectedCallback() {
           this.innerHTML = `
             <label
@@ -62,13 +69,6 @@
           document.addEventListener("theme-changed", (event) => {
             this._updateSelectedTheme((event as CustomEvent).detail.theme);
           });
-        }
-
-        _updateSelectedTheme(newTheme = window.theme.getTheme()) {
-          const themeToggler: HTMLInputElement =
-            this.querySelector("#theme-toggler")!;
-
-          themeToggler.checked = newTheme === "dark";
         }
       },
     );
