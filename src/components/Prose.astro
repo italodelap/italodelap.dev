@@ -2,7 +2,7 @@
 import type { HTMLTag } from "astro/types";
 
 interface Props {
-  as?: HTMLTag;
+  ["as"]?: HTMLTag;
 }
 
 const { as = "section" } = Astro.props;
