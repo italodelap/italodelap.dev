@@ -3,16 +3,18 @@ import type { CollectionEntry } from "astro:content";
 
 import OptimizedImage from "@/components/OptimizedImage.astro";
 
-type Props = Pick<
-  CollectionEntry<"work-experience">["data"],
-  "company" | "cover"
->;
+interface Props {
+  cover: CollectionEntry<"work-experience">["data"]["cover"];
+}
 
-const { company, cover } = Astro.props;
+const { cover } = Astro.props;
 ---
 
 <OptimizedImage
   src={cover.src}
-  alt={`${company} logo`}
-  class="object-cover transition-transform scale-110 size-full aspect-video opacity-60 group-hover:scale-125 dark:opacity-40"
+  alt={cover.alt}
+  class={`
+    object-cover size-full aspect-video opacity-60
+    transition-transform group-hover:scale-110 dark:opacity-40
+  `}
 />

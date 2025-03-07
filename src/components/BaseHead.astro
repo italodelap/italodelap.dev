@@ -1,6 +1,4 @@
 ---
-import { ClientRouter } from "astro:transitions";
-
 import ThemeManager from "./ThemeManager.astro";
 
 interface Props {
@@ -30,5 +28,4 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="description" content={description} />
 
   <ThemeManager defaultTheme="dark" />
-  <ClientRouter />
 </head>

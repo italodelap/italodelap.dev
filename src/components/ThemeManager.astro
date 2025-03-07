@@ -69,9 +69,3 @@ const { defaultTheme = "auto" } = Astro.props;
   // Initialize theme
   window.theme.setTheme(window.theme.getTheme());
 </script>
-<script>
-  // Ensure compatibility with View Transitions
-  document.addEventListener("astro:after-swap", () => {
-    window.theme.setTheme(window.theme.getTheme());
-  });
-</script>
