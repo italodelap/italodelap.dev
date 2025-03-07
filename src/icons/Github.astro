@@ -4,7 +4,7 @@ interface Props {
   id?: string;
 }
 
-const { class: className, id } = Astro.props;
+const { class: className = "", id } = Astro.props;
 ---
 
 <svg
@@ -17,7 +17,7 @@ const { class: className, id } = Astro.props;
   stroke-linejoin="round"
   stroke-width="2"
   viewBox="0 0 24 24"
-  class={className ?? ""}
+  class={className}
   id={id}
 >
   <path stroke="none" d="M0 0h24v24H0z"></path>

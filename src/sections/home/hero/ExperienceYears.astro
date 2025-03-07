@@ -8,17 +8,12 @@ interface Props {
   class?: string;
 }
 
-const { class: className } = Astro.props;
+const { class: className = "" } = Astro.props;
 
 const yearsAmount = await getExperienceYearsAmount();
 ---
 
-<Card
-  class={`
-    ${className ?? ""}
-    grid place-content-center gap-1
-  `}
->
+<Card class={`${className} grid place-content-center gap-1 `}>
   <Counter yearsAmount={yearsAmount} />
   <span
     class="text-sm text-center font-medium leading-tight text-balance select-none text-neutral-700 dark:text-neutral-400"

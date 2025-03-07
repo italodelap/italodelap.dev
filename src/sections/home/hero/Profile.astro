@@ -16,7 +16,7 @@ interface Props {
   class?: string;
 }
 
-const { class: className } = Astro.props;
+const { class: className = "" } = Astro.props;
 
 const CONTACT_CHANNEL_ICONS = {
   email: EmailIcon,
@@ -26,12 +26,7 @@ const CONTACT_CHANNEL_ICONS = {
 };
 ---
 
-<Card
-  class={`
-    ${className ?? ""}
-    flex flex-col justify-between items-start gap-3
-  `}
->
+<Card class={`${className} flex flex-col justify-between items-start gap-3`}>
   <OptimizedImage
     alt="Me smiling (:"
     src={basics.profilePhoto}

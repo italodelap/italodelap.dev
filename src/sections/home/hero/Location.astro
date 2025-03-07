@@ -9,15 +9,10 @@ interface Props {
   class?: string;
 }
 
-const { class: className } = Astro.props;
+const { class: className = "" } = Astro.props;
 ---
 
-<Card
-  class={`
-    ${className ?? ""}
-    flex flex-col justify-end items-center
-  `}
->
+<Card class={`${className} flex flex-col justify-end items-center`}>
   <OptimizedImage
     src="/map.webp"
     alt="Map that shows the location of Buenos Aires, Argentina"

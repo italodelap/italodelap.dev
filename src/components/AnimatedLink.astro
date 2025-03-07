@@ -5,7 +5,7 @@ interface Props extends HTMLAttributes<"a"> {
   label?: string;
 }
 
-const { class: className, href, label, rel, target, title } = Astro.props;
+const { class: className = "", href, label, rel, target, title } = Astro.props;
 ---
 
 <a
@@ -15,7 +15,7 @@ const { class: className, href, label, rel, target, title } = Astro.props;
   target={target}
   aria-labelledby={label}
   class={`
-    ${className ?? ""}
+    ${className}
     group/button relative inline-flex items-center justify-center overflow-hidden
     border rounded-md bg-gray-800/30 border-white/20 font-semibold text-white
   `}
