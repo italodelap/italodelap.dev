@@ -6,21 +6,27 @@ import "@fontsource/space-mono/700.css";
 import "@fontsource/space-mono/400-italic.css";
 import "@fontsource/space-mono/700-italic.css";
 
-import "@/styles/global.css";
-
 import BaseHead from "@/components/BaseHead.astro";
 import Header from "@/components/header/Header.astro";
 
+import { basics } from "@/config/site.json";
+
+import "@/styles/global.css";
+
 interface Props {
+  description?: string;
   title?: string;
 }
 
-const { title = "Italo De la Peña | Frontend Developer" } = Astro.props;
+const {
+  description = basics.about,
+  title = "Italo De la Peña | Frontend Developer",
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-  <BaseHead title={title} />
+  <BaseHead title={title} description={description} />
   <body
     class="bg-[url(/gradient.svg)] bg-top bg-repeat-space bg-neutral-50 dark:bg-neutral-900"
   >

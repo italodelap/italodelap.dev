@@ -12,8 +12,7 @@
       "countryCode": "AR",
       "country": "Argentina"
     },
-    "name": "Italo De la Peña",
-    "url": "https://italodelap.dev"
+    "name": "Italo De la Peña"
   },
   "contactChannels": [
     {
@@ -52,5 +51,6 @@
       "notes": "1st to 3rd year",
       "to": "2015-12-31"
     }
-  ]
+  ],
+  "siteName": "italodelap.dev"
 }
