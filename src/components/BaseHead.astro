@@ -38,5 +38,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta property="og:image" content="/favicon.svg" />
   <meta property="og:description" content={description} />
 
+  <!-- Twitter -->
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:url" content={Astro.url} />
+  <meta name="twitter:site" content="@italodelap" />
+  <meta name="twitter:image" content="/favicon.svg" />
+  <meta name="twitter:creator" content="@italodelap" />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <ThemeManager defaultTheme="dark" />
 </head>
