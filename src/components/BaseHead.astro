@@ -1,4 +1,6 @@
 ---
+import Analytics from "@vercel/analytics/astro";
+
 import { siteName } from "@/config/site.json";
 
 import ThemeManager from "./ThemeManager.astro";
@@ -48,4 +50,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="twitter:card" content="summary_large_image" />
 
   <ThemeManager defaultTheme="dark" />
+  <Analytics />
 </head>
