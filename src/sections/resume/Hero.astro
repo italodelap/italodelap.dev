@@ -46,8 +46,8 @@ const label = basics.label.replace("[years]", yearsOfExperience.toString());
       class="flex items-center justify-end gap-2 sm:justify-start print:hidden"
     >
       {
-        contactChannels.map((channel) => {
-          const Icon = getContactChannelIcon(channel.network);
+        contactChannels.map(async (channel) => {
+          const Icon = await getContactChannelIcon(channel.title);
           const LINK_ARIA_LABEL = `visit-${channel.network}-profile`;
 
           return (

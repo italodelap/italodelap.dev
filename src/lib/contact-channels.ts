@@ -1,26 +1,17 @@
 import { contactChannels } from "@/config/site.json";
 
-import BrokenIcon from "@/icons/Broken.astro";
-import EmailIcon from "@/icons/Email.astro";
-import GithubIcon from "@/icons/Github.astro";
-import LinkedInIcon from "@/icons/LinkedIn.astro";
-import XIcon from "@/icons/X.astro";
+const metaGlobIcons: Record<string, any> = import.meta.glob("/src/icons/*");
 
-function getIconsOfContactChannels() {
-  return {
-    email: EmailIcon,
-    linkedin: LinkedInIcon,
-    github: GithubIcon,
-    x: XIcon,
-  };
-}
+export async function getContactChannelIcon(iconName: string): Promise<astroHTML.JSX.Element> {
+  let component = null;
+  try {
+    const iconComponentPath = `/src/icons/${iconName}.astro`;
+    component = (await metaGlobIcons[iconComponentPath]()).default;
+  } catch (error) {
+    component = (await metaGlobIcons["/src/icons/Broken.astro"]()).default;
+  }
 
-export function getContactChannelIcon(network: string) {
-  const CONTACT_CHANNEL_ICONS = getIconsOfContactChannels();
-
-  return CONTACT_CHANNEL_ICONS[
-    network as keyof typeof CONTACT_CHANNEL_ICONS
-  ] ?? BrokenIcon;
+  return component;
 }
 
 export function getPrintFriendlyContactChannels() {

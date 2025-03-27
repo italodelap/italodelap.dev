@@ -1,0 +1,112 @@
+---
+import { experimental_AstroContainer } from "astro/container";
+
+import "hotkeypad/index.css";
+
+import { contactChannels } from "@/config/site.json";
+
+import { createCommandPaletteItem } from "@/lib/command-palette";
+import { getContactChannelIcon } from "@/lib/contact-channels";
+
+const astroContainer = await experimental_AstroContainer.create();
+async function renderIconAsString(iconName: string) {
+  const icon = await getContactChannelIcon(iconName);
+  return await astroContainer.renderToString(icon, {
+    props: { class: "size-5" },
+  });
+}
+
+const SOCIAL_NETWORKS_DATA = await Promise.all(
+  contactChannels
+    .filter(({ network }) => network !== "email")
+    .map(async (contactChannel) => {
+      const { title: iconName } = contactChannel;
+      const icon = await renderIconAsString(iconName);
+      return createCommandPaletteItem(contactChannel, icon);
+    }),
+);
+---
+
+<footer
+  class={`
+    fixed bottom-0 w-full
+    hidden print:hidden sm:block
+    bg-white border-t border-stone-200
+    py-2 text-sm text-center text-neutral-800
+  `}
+>
+  Press{" "}
+  <kbd
+    class="font-space-mono bg-stone-200 text-neutral-800 py-0.5 px-2 text-xs rounded-sm"
+    >Ctrl</kbd
+  >
+  {" "}+{" "}
+  <kbd
+    class="font-space-mono bg-stone-200 text-neutral-800 py-0.5 px-2 text-xs rounded-sm"
+    >K</kbd
+  >
+  {" "}to open the command palette
+</footer>
+
+<div
+  id="footer-button"
+  class={`
+    print:hidden flex sm:hidden
+    right-4 bottom-4 w-12 h-12 rounded-full
+    fixed border border-stone-200 bg-white
+    items-center justify-center cursor-pointer
+  `}
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="#777"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path
+      d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10"
+    ></path>
+  </svg>
+</div>
+
+<div
+  id="hotkeypad"
+  data-placeholder="Search command..."
+  data-commands={JSON.stringify(SOCIAL_NETWORKS_DATA)}
+>
+</div>
+
+<script src="@/lib/keyboard-shortcut-interface"></script>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  footer {
+    view-timeline-name: --revealing;
+    view-timeline-axis: block;
+
+    animation: linear 0.5s fadeIn;
+    animation-timeline: --revealing;
+    animation-range: entry 100% cover 50%;
+  }
+</style>
+
+<style is:global>
+  #hotkeypad [data-backdrop] {
+    opacity: 0.25;
+    background-color: var(--color-black);
+  }
+</style>
