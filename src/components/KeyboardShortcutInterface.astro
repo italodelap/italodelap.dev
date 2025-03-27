@@ -16,7 +16,7 @@ async function renderIconAsString(iconName: string) {
   });
 }
 
-const SOCIAL_NETWORKS_DATA = await Promise.all(
+const commandPaletteItems = await Promise.all(
   contactChannels
     .filter(({ network }) => network !== "email")
     .map(async (contactChannel) => {
@@ -29,56 +29,30 @@ const SOCIAL_NETWORKS_DATA = await Promise.all(
 
 <footer
   class={`
-    fixed bottom-0 w-full
-    hidden print:hidden sm:block
+    hidden print:hidden sm:block w-full py-2 fixed bottom-0
+    text-sm text-center text-neutral-800
     bg-white border-t border-stone-200
-    py-2 text-sm text-center text-neutral-800
   `}
 >
-  Press{" "}
+  Press&nbsp;
   <kbd
     class="font-space-mono bg-stone-200 text-neutral-800 py-0.5 px-2 text-xs rounded-sm"
-    >Ctrl</kbd
   >
-  {" "}+{" "}
+    Ctrl
+  </kbd>
+  &nbsp;+&nbsp;
   <kbd
     class="font-space-mono bg-stone-200 text-neutral-800 py-0.5 px-2 text-xs rounded-sm"
-    >K</kbd
   >
-  {" "}to open the command palette
+    K
+  </kbd>
+  &nbsp;to open the command palette
 </footer>
-
-<div
-  id="footer-button"
-  class={`
-    print:hidden flex sm:hidden
-    right-4 bottom-4 w-12 h-12 rounded-full
-    fixed border border-stone-200 bg-white
-    items-center justify-center cursor-pointer
-  `}
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="#777"
-    fill="none"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-    <path
-      d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10"
-    ></path>
-  </svg>
-</div>
 
 <div
   id="hotkeypad"
   data-placeholder="Search command..."
-  data-commands={JSON.stringify(SOCIAL_NETWORKS_DATA)}
+  data-commands={JSON.stringify(commandPaletteItems)}
 >
 </div>
 

@@ -9,14 +9,24 @@ interface Command {
   section: string;
   title: string;
   url: string;
-  handler?: () => void;
+  handler: () => void;
 }
 
-const hotKeyPad = new HotKeyPad();
-const rawCommands = hotKeyPad.instance.getAttribute("data-commands") ?? "[]";
-const commands: Command[] = JSON.parse(rawCommands);
+type UserDefinedCommand = Omit<Command, "handler">;
 
-hotKeyPad.setCommands([
+function parseCommands(rawCommands: string): Command[] {
+  return JSON.parse(rawCommands)
+    .map((command: UserDefinedCommand) => ({
+      ...command,
+      handler: () => { window.open(command.url, "_blank") },
+    }));
+}
+
+const commandPalette = new HotKeyPad();
+const rawCommands = commandPalette.instance.getAttribute("data-commands") ?? "[]";
+const parsedUserCommands: Command[] = parseCommands(rawCommands);
+
+commandPalette.setCommands([
   {
     id: "print",
     hotkey: "ctrl+P",
@@ -25,22 +35,5 @@ hotKeyPad.setCommands([
     icon: stringifiedPrinterIcon,
     handler: () => { window.print(); },
   },
-  ...commands.map((command) => ({
-    ...command,
-    handler: () => { window.open(command.url, "_blank"); },
-  })),
+  ...parsedUserCommands,
 ]);
-
-const footerButton = document.getElementById("footer-button");
-footerButton?.addEventListener("click", () => {
-  document.dispatchEvent(new KeyboardEvent("keydown", {
-    key: "K",
-    code: "KeyK",
-    keyCode: 75,
-    which: 75,
-    ctrlKey: true,
-    altKey: false,
-    shiftKey: false,
-    metaKey: false
-  }));
-});
