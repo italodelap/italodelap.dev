@@ -1,5 +1,6 @@
 ---
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 import { siteName } from "@/config/site.json";
 
@@ -51,4 +52,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   <ThemeManager defaultTheme="dark" />
   <Analytics />
+  <SpeedInsights />
 </head>
