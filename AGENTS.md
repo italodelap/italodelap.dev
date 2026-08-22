@@ -14,6 +14,18 @@ Package manager: pnpm (see `pnpm-lock.yaml`).
 
 There are no lint or test scripts configured.
 
+## Development
+
+Astro 7 automatically starts `astro dev` (and, since 7.2, `astro preview`) as a detached **background** process when it detects an AI coding agent — this prevents the server from blocking the agent's terminal. When that happens it writes a lock file (`.astro/dev.json` or `.astro/preview.json`) with the server's URL, port, and PID, and exposes a health endpoint at `/_astro/status` (`{"ok": true}`) so an agent can poll readiness. Manage a background server with:
+
+```bash
+astro dev status         # check if a server is running, and its URL/PID/uptime
+astro dev logs [--follow]  # view logs from the background server
+astro dev stop            # SIGTERM, escalating to SIGKILL after 5s
+```
+
+The same subcommands exist for `astro preview`. To opt out of background mode (e.g. for a normal foreground `pnpm dev`), set `ASTRO_DEV_BACKGROUND=0` / `ASTRO_PREVIEW_BACKGROUND=0` before running the command.
+
 ## Architecture
 
 **Stack:** Astro 7 (SSG) + TypeScript + Tailwind CSS v4
@@ -57,3 +69,16 @@ Work experience entries live in `src/content/work-experience/*.md`. The schema (
 ### Markdown processor
 
 Markdown/MDX files render with Astro's built-in Sätteri processor (the default since v7), not remark/rehype. `@astrojs/markdown-remark` isn't installed. Work experience `.md` bodies aren't currently rendered anywhere (see the commented-out `<Content />` in `work-experience/[id].astro`), so this only matters if that's revisited.
+
+## Documentation
+
+Full documentation: https://docs.astro.build. Astro also runs an MCP server with real-time access to current docs at `https://mcp.docs.astro.build/mcp` — prefer it over relying on training data for anything API-related.
+
+Consult these guides before working on related tasks:
+
+- [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
+- [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
+- [Using React, Vue, Svelte, or other framework components](https://docs.astro.build/en/guides/framework-components/)
+- [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
+- [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
+- [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
