@@ -1,10 +1,3 @@
 allowBuilds:
   esbuild: true
   sharp: true
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
-overrides:
-  # @astrojs/sitemap -> sitemap -> @types/sax pulls in an old @types/node
-  # that conflicts with the one astro/sharp/vite use. Force a single version.
-  "@types/node": ^24.13.3
