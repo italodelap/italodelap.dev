@@ -16,7 +16,7 @@ There are no lint or test scripts configured.
 
 ## Architecture
 
-**Stack:** Astro 5 (SSG) + TypeScript + Tailwind CSS v4
+**Stack:** Astro 7 (SSG) + TypeScript + Tailwind CSS v4
 
 **Key path alias:** `@/*` → `src/*`
 
@@ -49,3 +49,11 @@ There are no lint or test scripts configured.
 ### Content collections
 
 Work experience entries live in `src/content/work-experience/*.md`. The schema (company, position, cover image, dates, summary, title, shadow, optional subitems) is validated by Zod in `src/content.config.ts`. Add new job entries by creating a new `.md` file there.
+
+### Whitespace between inline elements
+
+`compressHTML` uses Astro 7's default (`'jsx'`), so whitespace is handled like JSX/React: a space between two inline elements is preserved only when it's on the same line as both, or is written explicitly. When a line break sits between text and an inline element (e.g. `text\n<a>link</a>`), the whitespace is stripped entirely rather than collapsed to a space — add `{" "}` on the line that needs the space (see `ExperienceDuration.astro`, `hero/About.astro`, `hero/Profile.astro`, `home/Footer.astro` for examples). Always verify visually after editing markup with adjacent inline elements.
+
+### Markdown processor
+
+Markdown/MDX files render with Astro's built-in Sätteri processor (the default since v7), not remark/rehype. `@astrojs/markdown-remark` isn't installed. Work experience `.md` bodies aren't currently rendered anywhere (see the commented-out `<Content />` in `work-experience/[id].astro`), so this only matters if that's revisited.
