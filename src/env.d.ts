@@ -1,5 +1,3 @@
-/// <reference types="astro/client" />
-
 interface Window {
   theme: {
     setTheme: (theme: "auto" | "dark" | "light") => void;

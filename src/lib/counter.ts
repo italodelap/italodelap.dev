@@ -13,7 +13,7 @@ if (!customElements.get("years-counter")) {
         return;
       }
 
-      let intervalId: NodeJS.Timer, numberToShow = 0;
+      let intervalId: ReturnType<typeof setInterval>, numberToShow = 0;
       const yearsAmount = parseInt(yearsAmountFromDataset);
 
       intervalId = setInterval(() => {
