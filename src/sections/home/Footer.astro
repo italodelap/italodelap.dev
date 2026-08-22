@@ -12,14 +12,11 @@ const { class: className = "" } = Astro.props;
   class={`${className} px-5 flex gap-3 flex-col items-center justify-center md:flex-row md:justify-between`}
 >
   <p class="text-neutral-500 text-center text-balance">
-    Built with
+    Built with{" "}
     <a
       href="https://astro.build/"
       class="underline transition-colors duration-300 hover:text-neutral-800 dark:hover:text-neutral-400"
-    >
-      Astro</a
-    >
-    and made with ❤️ in Argentina 🇦🇷
+    >Astro</a>{" "}and made with ❤️ in Argentina 🇦🇷
   </p>
   <p class="text-neutral-500">© 2025 Italo De la Peña</p>
 </Card>
