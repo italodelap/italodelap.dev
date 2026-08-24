@@ -72,7 +72,9 @@ const commandPaletteItems = await Promise.all(
     view-timeline-name: --revealing;
     view-timeline-axis: block;
 
-    animation: linear 0.5s fadeIn;
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
     animation-timeline: --revealing;
     animation-range: entry 100% cover 50%;
   }
