@@ -8,7 +8,7 @@ position: "Full Stack Developer"
 shadow: "shadow-stone-400/50 dark:shadow-stone-300/60"
 summary: "I worked at the Environmental Protection Agency of the Ministry of Environment and Public Space (now, the Ministry of Public Space and Urban Hygiene) of the City Government for over 5 years. I held various roles, which I detail below."
 title: "Government of the City"
-to: 2021-04-31
+to: 2021-04-30
 subitems:
   -
     from: 2015-06-01
@@ -24,7 +24,7 @@ subitems:
     from: 2019-03-01
     position: "Full Stack Developer"
     summary: "I worked in the Operational Management of Environmental Determinations and Laboratory, involved in the design, development, and documentation of an application built with Symfony. I also managed the MySQL database used by this app and even conducted training sessions to showcase the project. In February 2020, during the accreditation of the ISO-IRAM 17025/2017 standard, I was recognized as the strength of the management in 2019."
-    to: 2021-04-31
+    to: 2021-04-30
 ---
 
 ### Detalle

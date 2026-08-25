@@ -1,9 +1,9 @@
 import { getEntry } from "astro:content";
 
 function getYearsDifference(initialDate: Date, finalDate: Date): number {
-  const years = finalDate.getFullYear() - initialDate.getFullYear();
-  const months = finalDate.getMonth() - initialDate.getMonth();
-  const days = finalDate.getDate() - initialDate.getDate();
+  const years = finalDate.getUTCFullYear() - initialDate.getUTCFullYear();
+  const months = finalDate.getUTCMonth() - initialDate.getUTCMonth();
+  const days = finalDate.getUTCDate() - initialDate.getUTCDate();
 
   const isPartialYear = months < 0 || (months === 0 && days < 0);
   if (isPartialYear) { return years - 1; }
@@ -28,6 +28,13 @@ export function getFormattedDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   }).format(date);
+}
+
+export function getMachineReadableDate(date: Date): string {
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  return `${year}-${month}`;
 }
 
