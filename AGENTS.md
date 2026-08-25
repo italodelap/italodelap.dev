@@ -14,6 +14,15 @@ Package manager: pnpm (see `pnpm-lock.yaml`).
 
 There are no lint or test scripts configured.
 
+## Git workflow
+
+This project follows **trunk-based development**: no long-lived `develop` branch. Short-lived branches (`feat/x`, `fix/x`, `chore/x`, `ci/x`) branch off `main` and merge back via PR.
+
+- **Branch protection on `main`**: a PR is required to merge (0 approvals required — solo maintainer), the `build` status check must pass and be up to date (`strict` required status checks), and force-pushes/branch deletion are disabled. `enforce_admins` is off, so the repo owner can bypass in an emergency.
+- **CI** (`.github/workflows/ci.yml`): runs `pnpm build` (`astro check` + `astro build`) on every PR targeting `main`, enabling Corepack first — mirrors how Vercel resolves the pnpm version, to avoid repeating past version-mismatch deploy failures.
+- **Deploys**: Vercel is linked via the GitHub integration, so every push to any branch/PR automatically gets its own preview deployment — no extra config needed to preview a branch. Note: Vercel Authentication (SSO) is enabled on production and all previews, so preview URLs require being logged into the Vercel team to view (or a bypass token); they're not publicly shareable as-is.
+- `.github/workflows/claude.yml` (the `@claude`-mention-triggered workflow) is intentionally kept. The automatic per-PR Claude review workflow (`claude-code-review.yml`) was removed — it wasn't adding value and added unnecessary token spend.
+
 ## Development
 
 Astro 7 automatically starts `astro dev` (and, since 7.2, `astro preview`) as a detached **background** process when it detects an AI coding agent — this prevents the server from blocking the agent's terminal. When that happens it writes a lock file (`.astro/dev.json` or `.astro/preview.json`) with the server's URL, port, and PID, and exposes a health endpoint at `/_astro/status` (`{"ok": true}`) so an agent can poll readiness. Manage a background server with:
