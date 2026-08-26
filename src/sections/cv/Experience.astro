@@ -44,11 +44,9 @@ const curatedExperience = sortedWorkExperience
                   <h4 class="text-sm italic">{position}</h4>
                 )}
               </div>
-              {curatedSubitems.length === 0 && (
-                <div class="font-space-mono text-sm text-neutral-500">
-                  <ExperienceDuration from={from} to={to} />
-                </div>
-              )}
+              <div class="font-space-mono text-sm text-neutral-500">
+                <ExperienceDuration from={from} to={to} />
+              </div>
             </header>
             {curatedSubitems.length === 0 && highlights && (
               <ul class="mt-1 pl-5 list-disc grid gap-1">
