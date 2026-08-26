@@ -77,9 +77,13 @@ Add a new `basics.languages` array, e.g.:
 ```json
 "languages": [
   { "language": "English", "level": "Intermediate" },
-  { "language": "Spanish", "level": "Native" }
+  { "language": "Spanish", "level": "Native" },
+  { "language": "Portuguese", "level": "Basic" }
 ]
 ```
+
+Portuguese comes from working with Mercado Libre teams that speak it
+day to day — worth surfacing on the CV.
 
 ### No changes needed
 
