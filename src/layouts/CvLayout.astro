@@ -1,0 +1,49 @@
+---
+import "@fontsource-variable/rubik/wght.css";
+import "@fontsource-variable/rubik/wght-italic.css";
+import "@fontsource/space-mono/400.css";
+import "@fontsource/space-mono/700.css";
+import "@fontsource/space-mono/400-italic.css";
+import "@fontsource/space-mono/700-italic.css";
+
+import "@/styles/global.css";
+
+import BaseHead from "@/components/BaseHead.astro";
+import KeyboardShortcutInterface from "@/components/KeyboardShortcutInterface.astro";
+import PrintButton from "@/components/PrintButton.astro";
+import HomeButton from "@/components/header/HomeButton.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <BaseHead
+    title="Italo De la Peña | CV"
+    description="A condensed, recruiter-friendly CV for Italo De la Peña, Software Engineer with more than 8 years of experience."
+  />
+  <body class="bg-white text-neutral-900">
+    <header class="w-full p-4 print:hidden">
+      <div class="max-w-3xl mx-auto min-h-14 flex items-center justify-between">
+        <HomeButton />
+        <PrintButton />
+      </div>
+    </header>
+    <slot />
+    <KeyboardShortcutInterface />
+  </body>
+</html>
+
+<style>
+  @media print {
+    astro-dev-toolbar {
+      display: none !important;
+    }
+
+    @page {
+      margin: 1.5cm;
+    }
+
+    :global(.cv-entry) {
+      break-inside: avoid;
+    }
+  }
+</style>
