@@ -1,5 +1,5 @@
 ---
-import printerIcon from "@/assets/icons/printer.svg";
+import printerIcon from "@/assets/icons/printer.svg?raw";
 ---
 
 <button
@@ -14,7 +14,7 @@ import printerIcon from "@/assets/icons/printer.svg";
     hover:text-neutral-700 hover:border-neutral-300 hover:bg-neutral-200/50
   `}
 >
-  <img src={printerIcon.src} alt="" class="size-5" />
+  <Fragment set:html={printerIcon} />
 </button>
 
 <script>
