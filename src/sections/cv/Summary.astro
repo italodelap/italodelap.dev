@@ -1,0 +1,13 @@
+---
+import ResumeSection from "@/components/ResumeSection.astro";
+
+import { basics } from "@/config/site.json";
+---
+
+<ResumeSection
+  title="Summary"
+  titleClass="text-sm font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
+  class="grid gap-2"
+>
+  <p class="font-space-mono text-sm">{basics.about}</p>
+</ResumeSection>
