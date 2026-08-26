@@ -4,6 +4,9 @@ cover:
   src: "/di_tella-cover.webp"
   alt: "Logotype of Torcuato Di Tella University"
 from: 2022-05-01
+highlights:
+  - "Delivered Web Components projects built with Lit within a microfrontends architecture, prioritizing platform standards and long-term stability"
+  - "Shipped web projects with other stacks, including React, alongside the core Web Components work"
 position: "Frontend Developer"
 shadow: "shadow-teal-600/50 dark:shadow-teal-500/60"
 summary: "I worked at the Torcuato Di Tella University, usually involved in projects based on Web Components, relying on the platform's standard and ensuring the stability and long durability of our projects. We typically use Lit as a framework and, at the same time, base our work on a Microfrontends Architecture. We have also worked on web projects with other technologies, such as React."
