@@ -1,0 +1,21 @@
+---
+import ResumeSection from "@/components/ResumeSection.astro";
+
+import { basics } from "@/config/site.json";
+---
+
+<ResumeSection
+  title="Languages"
+  titleClass="text-sm font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
+  class="grid gap-1"
+>
+  <ul class="flex flex-wrap gap-x-4 gap-y-1">
+    {
+      basics.languages.map(({ language, level }) => (
+        <li class="font-space-mono text-sm">
+          {language} <span class="text-neutral-500">({level})</span>
+        </li>
+      ))
+    }
+  </ul>
+</ResumeSection>
