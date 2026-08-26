@@ -5,6 +5,11 @@
     "email": "italoandre.1995@gmail.com",
     "profilePhoto": "/me.webp",
     "label": "Software Engineer with more than [years] years of experience and currently working at Mercado Libre",
+    "languages": [
+      { "language": "English", "level": "Intermediate" },
+      { "language": "Portuguese", "level": "Basic" },
+      { "language": "Spanish", "level": "Native" }
+    ],
     "location": {
       "address": "",
       "postalCode": "",
