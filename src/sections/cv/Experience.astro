@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+import ExperienceDuration from "@/components/ExperienceDuration.astro";
+import ResumeSection from "@/components/ResumeSection.astro";
+
+import { getSortedExperience } from "@/lib/sorting";
+
+type Subitem = NonNullable<CollectionEntry<"work-experience">["data"]["subitems"]>[number];
+
+function hasHighlights(entry: { highlights?: string[] }): boolean {
+  return Boolean(entry.highlights && entry.highlights.length > 0);
+}
+
+const workExperience = await getCollection("work-experience");
+const sortedWorkExperience = getSortedExperience(workExperience);
+
+const curatedExperience = sortedWorkExperience
+  .map((job) => {
+    const curatedSubitems: Subitem[] = job.data.subitems
+      ? getSortedExperience(job.data.subitems).filter(hasHighlights)
+      : [];
+
+    return { job, curatedSubitems };
+  })
+  .filter(({ job, curatedSubitems }) => hasHighlights(job.data) || curatedSubitems.length > 0);
+---
+
+<ResumeSection
+  title="Experience"
+  titleClass="text-sm font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
+  class="grid gap-4"
+>
+  <ul class="grid gap-4">
+    {
+      curatedExperience.map(({ job: { data: { company, from, highlights, position, to } }, curatedSubitems }) => (
+        <li class="cv-entry">
+          <article class="grid gap-1">
+            <header class="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
+              <div>
+                <h3 class="text-base font-semibold leading-tight">{company}</h3>
+                {curatedSubitems.length === 0 && (
+                  <h4 class="text-sm italic">{position}</h4>
+                )}
+              </div>
+              {curatedSubitems.length === 0 && (
+                <div class="font-space-mono text-sm text-neutral-500">
+                  <ExperienceDuration from={from} to={to} />
+                </div>
+              )}
+            </header>
+            {curatedSubitems.length === 0 && highlights && (
+              <ul class="mt-1 pl-5 list-disc grid gap-1">
+                {highlights.map((highlight) => (
+                  <li class="font-space-mono text-sm">{highlight}</li>
+                ))}
+              </ul>
+            )}
+            {curatedSubitems.length > 0 && (
+              <ul class="mt-1 grid gap-3">
+                {curatedSubitems.map(({ from: subFrom, highlights: subHighlights, position: subPosition, to: subTo }) => (
+                  <li class="cv-entry grid gap-1">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
+                      <h4 class="text-sm italic font-semibold">{subPosition}</h4>
+                      <div class="font-space-mono text-sm text-neutral-500">
+                        <ExperienceDuration from={subFrom} to={subTo} />
+                      </div>
+                    </div>
+                    <ul class="mt-1 pl-5 list-disc grid gap-1">
+                      {subHighlights!.map((highlight) => (
+                        <li class="font-space-mono text-sm">{highlight}</li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+</ResumeSection>
