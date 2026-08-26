@@ -1,0 +1,24 @@
+---
+import printerIcon from "@/assets/icons/printer.svg";
+---
+
+<button
+  type="button"
+  id="print-button"
+  aria-label="Print CV"
+  title="Print CV"
+  class={`
+    inline-flex items-center justify-center rounded-md p-2
+    text-neutral-600 border-2 border-neutral-200
+    transition-colors duration-300
+    hover:text-neutral-700 hover:border-neutral-300 hover:bg-neutral-200/50
+  `}
+>
+  <img src={printerIcon.src} alt="" class="size-5" />
+</button>
+
+<script>
+  document
+    .getElementById("print-button")
+    ?.addEventListener("click", () => window.print());
+</script>
