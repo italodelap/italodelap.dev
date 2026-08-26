@@ -1,0 +1,19 @@
+---
+import CvLayout from "@/layouts/CvLayout.astro";
+
+import Education from "@/sections/cv/Education.astro";
+import Experience from "@/sections/cv/Experience.astro";
+import Header from "@/sections/cv/Header.astro";
+import Languages from "@/sections/cv/Languages.astro";
+import Summary from "@/sections/cv/Summary.astro";
+---
+
+<CvLayout>
+  <main class="mx-auto p-4 *:mb-6 text-neutral-900">
+    <Header />
+    <Summary />
+    <Experience />
+    <Education />
+    <Languages />
+  </main>
+</CvLayout>
