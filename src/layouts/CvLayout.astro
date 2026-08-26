@@ -9,9 +9,7 @@ import "@fontsource/space-mono/700-italic.css";
 import "@/styles/global.css";
 
 import BaseHead from "@/components/BaseHead.astro";
-import KeyboardShortcutInterface from "@/components/KeyboardShortcutInterface.astro";
 import PrintButton from "@/components/PrintButton.astro";
-import HomeButton from "@/components/header/HomeButton.astro";
 ---
 
 <!doctype html>
@@ -25,14 +23,10 @@ import HomeButton from "@/components/header/HomeButton.astro";
     document.documentElement.style.colorScheme = "light";
   </script>
   <body class="bg-white text-neutral-900">
-    <header class="w-full p-4 print:hidden">
-      <div class="max-w-3xl mx-auto min-h-14 flex items-center justify-between">
-        <HomeButton />
-        <PrintButton />
-      </div>
-    </header>
+    <div class="fixed top-4 right-4 z-10 print:hidden bg-white rounded-md shadow-md">
+      <PrintButton />
+    </div>
     <slot />
-    <KeyboardShortcutInterface />
   </body>
 </html>
 
