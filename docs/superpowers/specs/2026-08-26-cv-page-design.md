@@ -77,8 +77,8 @@ Add a new `basics.languages` array, e.g.:
 ```json
 "languages": [
   { "language": "English", "level": "Intermediate" },
-  { "language": "Spanish", "level": "Native" },
-  { "language": "Portuguese", "level": "Basic" }
+  { "language": "Portuguese", "level": "Basic" },
+  { "language": "Spanish", "level": "Native" }
 ]
 ```
 
