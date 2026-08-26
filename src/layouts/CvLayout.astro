@@ -20,6 +20,10 @@ import HomeButton from "@/components/header/HomeButton.astro";
     title="Italo De la Peña | CV"
     description="A condensed, recruiter-friendly CV for Italo De la Peña, Software Engineer with more than 8 years of experience."
   />
+  <script is:inline>
+    document.documentElement.dataset.theme = "light";
+    document.documentElement.style.colorScheme = "light";
+  </script>
   <body class="bg-white text-neutral-900">
     <header class="w-full p-4 print:hidden">
       <div class="max-w-3xl mx-auto min-h-14 flex items-center justify-between">
