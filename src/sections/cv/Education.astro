@@ -1,0 +1,33 @@
+---
+import ExperienceDuration from "@/components/ExperienceDuration.astro";
+import ResumeSection from "@/components/ResumeSection.astro";
+
+import { education } from "@/config/site.json";
+---
+
+<ResumeSection
+  title="Education"
+  titleClass="text-sm font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
+  class="grid gap-3"
+>
+  <ul class="grid gap-3">
+    {
+      education.map(({ area, from, notes, institution, to }) => (
+        <li class="cv-entry">
+          <article class="grid gap-0.5">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
+              <div>
+                <h3 class="text-sm font-semibold leading-tight">{area}</h3>
+                <h4 class="text-sm italic">{institution}</h4>
+              </div>
+              <div class="font-space-mono text-sm text-neutral-500">
+                <ExperienceDuration from={from} to={to} />
+              </div>
+            </div>
+            <p class="font-space-mono text-sm">({notes})</p>
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+</ResumeSection>
