@@ -1,14 +1,14 @@
 ---
-import CvLayout from "@/layouts/CvLayout.astro";
+import ResumeLayout from "@/layouts/ResumeLayout.astro";
 
-import Education from "@/sections/cv/Education.astro";
-import Experience from "@/sections/cv/Experience.astro";
-import Header from "@/sections/cv/Header.astro";
-import Languages from "@/sections/cv/Languages.astro";
-import Summary from "@/sections/cv/Summary.astro";
+import Education from "@/sections/resume/Education.astro";
+import Experience from "@/sections/resume/Experience.astro";
+import Header from "@/sections/resume/Header.astro";
+import Languages from "@/sections/resume/Languages.astro";
+import Summary from "@/sections/resume/Summary.astro";
 ---
 
-<CvLayout>
+<ResumeLayout>
   <main class="mx-auto p-4 *:mb-5 text-neutral-900">
     <Header />
     <Summary />
@@ -16,4 +16,4 @@ import Summary from "@/sections/cv/Summary.astro";
     <Education />
     <Languages />
   </main>
-</CvLayout>
+</ResumeLayout>
