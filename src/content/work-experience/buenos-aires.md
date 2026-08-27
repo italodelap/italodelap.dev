@@ -17,11 +17,17 @@ subitems:
     to: 2016-07-31
   -
     from: 2016-08-01
+    highlights:
+      - "Functional analysis, development, and maintenance of Symfony applications"
+      - "Built and maintained a mobile application with Ionic"
     position: "Frontend Developer"
     summary: "I worked in the Operational Management of Environmental Enforcement, involved in the functional analysis, development, and maintenance of Symfony applications and a mobile application built with Ionic."
     to: 2019-02-28
   -
     from: 2019-03-01
+    highlights:
+      - "Designed, developed, and documented a Symfony application, including managing its MySQL database"
+      - "Recognized as a management strength during the 2019 ISO-IRAM 17025/2017 accreditation"
     position: "Full Stack Developer"
     summary: "I worked in the Operational Management of Environmental Determinations and Laboratory, involved in the design, development, and documentation of an application built with Symfony. I also managed the MySQL database used by this app and even conducted training sessions to showcase the project. In February 2020, during the accreditation of the ISO-IRAM 17025/2017 standard, I was recognized as the strength of the management in 2019."
     to: 2021-04-30

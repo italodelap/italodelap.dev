@@ -10,10 +10,6 @@ import {
   getContactChannelIcon,
   getPrintFriendlyContactChannels,
 } from "@/lib/contact-channels";
-import { getExperienceYearsAmount } from "@/lib/dates";
-
-const yearsOfExperience = await getExperienceYearsAmount();
-const label = basics.label.replace("[years]", yearsOfExperience.toString());
 ---
 
 <ResumeSection
@@ -34,7 +30,7 @@ const label = basics.label.replace("[years]", yearsOfExperience.toString());
   </figure>
   <div class="flex flex-col justify-start gap-2">
     <h1 class="text-3xl font-bold">{basics.name}</h1>
-    <h2 class="font-semibold text-sm sm:text-base sm:text-balance">{label}</h2>
+    <h2 class="font-semibold text-sm sm:text-base sm:text-balance">{basics.label}</h2>
     <span class="flex gap-2 font-space-mono text-sm sm:items-center">
       <WorldIcon class="size-4 mt-0.5 sm:mt-0" />
       {basics.location.city}, {basics.location.country}

@@ -1,5 +1,7 @@
 import { getEntry } from "astro:content";
 
+import { basics } from "@/config/site.json";
+
 function getYearsDifference(initialDate: Date, finalDate: Date): number {
   const years = finalDate.getUTCFullYear() - initialDate.getUTCFullYear();
   const months = finalDate.getUTCMonth() - initialDate.getUTCMonth();
@@ -22,6 +24,11 @@ export async function getExperienceYearsAmount() {
   const myFirstJobAsDeveloper = firstJobPositions[INDEX_OF_FIRST_JOB_AS_DEVELOPER];
 
   return getYearsDifference(myFirstJobAsDeveloper.from, new Date());
+}
+
+export async function getFormattedAbout() {
+  const yearsOfExperience = await getExperienceYearsAmount();
+  return basics.about.replace("[years]", yearsOfExperience.toString());
 }
 
 export function getFormattedDate(date: Date) {

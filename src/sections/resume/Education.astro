@@ -5,24 +5,26 @@ import ResumeSection from "@/components/ResumeSection.astro";
 import { education } from "@/config/site.json";
 ---
 
-<ResumeSection title="Education" class="grid gap-3 mb-8">
-  <ul class="grid gap-5">
+<ResumeSection
+  title="Education"
+  titleClass="text-xs font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
+  class="grid gap-1.5"
+>
+  <ul class="grid gap-1.5">
     {
       education.map(({ area, from, notes, institution, to }) => (
-        <li>
-          <article class="grid gap-2">
-            <div class="flex flex-col sm:gap-4 sm:flex-row sm:justify-between">
+        <li class="resume-entry">
+          <article class="grid gap-0.5">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
               <div>
-                <h3 class="text-lg font-semibold text-balance leading-tight">
-                  {area}
-                </h3>
-                <h4 class="text-sm italic">{institution}</h4>
+                <h3 class="text-xs font-semibold leading-tight">{area}</h3>
+                <h4 class="text-xs italic">{institution}</h4>
               </div>
-              <div class="font-space-mono font-semibold italic text-sm sm:not-italic sm:text-base">
+              <div class="font-space-mono text-xs text-neutral-500">
                 <ExperienceDuration from={from} to={to} />
               </div>
             </div>
-            <p class="font-space-mono">({notes})</p>
+            <p class="font-space-mono text-xs">({notes})</p>
           </article>
         </li>
       ))

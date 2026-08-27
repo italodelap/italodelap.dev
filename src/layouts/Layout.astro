@@ -9,7 +9,7 @@ import "@fontsource/space-mono/700-italic.css";
 import BaseHead from "@/components/BaseHead.astro";
 import Header from "@/components/header/Header.astro";
 
-import { basics } from "@/config/site.json";
+import { getFormattedAbout } from "@/lib/dates";
 
 import "@/styles/global.css";
 
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const {
-  description = basics.about,
+  description = await getFormattedAbout(),
   title = "Italo De la Peña | Frontend Developer",
 } = Astro.props;
 ---

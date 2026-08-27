@@ -11,6 +11,7 @@ const workExperience = defineCollection({
       alt: z.string(),
     }),
     from: z.coerce.date(),
+    highlights: z.array(z.string()).optional(),
     position: z.string(),
     shadow: z.string(),
     summary: z.string(),
@@ -18,6 +19,7 @@ const workExperience = defineCollection({
     to: z.coerce.date().optional(),
     subitems: z.array(z.object({
       from: z.coerce.date(),
+      highlights: z.array(z.string()).optional(),
       position: z.string(),
       summary: z.string(),
       to: z.coerce.date().optional(),

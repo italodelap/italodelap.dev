@@ -1,10 +1,15 @@
 {
   "basics": {
-    "about": "I'm a Software Engineer specialized in React, TypeScript and Web Components. I love never stop learning and sharing my knowledge. I'm passionate about technology and I'm always looking for new challenges.",
+    "about": "I'm a Software Engineer with more than [years] years of experience specialized in React, TypeScript and Web Components. I love never stop learning and sharing my knowledge. I'm passionate about technology and I'm always looking for new challenges.",
     "currentPosition": "Software Engineer",
     "email": "italoandre.1995@gmail.com",
     "profilePhoto": "/me.webp",
-    "label": "Software Engineer with more than [years] years of experience and currently working at Mercado Libre",
+    "label": "Software Engineer",
+    "languages": [
+      { "language": "English", "level": "Intermediate" },
+      { "language": "Portuguese", "level": "Basic" },
+      { "language": "Spanish", "level": "Native" }
+    ],
     "location": {
       "address": "",
       "postalCode": "",
