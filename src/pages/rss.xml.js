@@ -1,7 +1,9 @@
 import { getCollection } from "astro:content";
 import rss from "@astrojs/rss";
 
-import { basics, siteName } from "@/config/site.json";
+import { siteName } from "@/config/site.json";
+
+import { getFormattedAbout } from "@/lib/dates";
 
 export async function GET(context) {
   const jobs = await getCollection("work-experience");
@@ -9,7 +11,7 @@ export async function GET(context) {
   return rss({
     title: siteName,
     site: context.site,
-    description: basics.about,
+    description: await getFormattedAbout(),
     items: jobs.map((job) => ({
       description: job.data.summary,
       link: `/work-experience/${job.id}`,

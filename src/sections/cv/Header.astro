@@ -4,19 +4,15 @@ import ResumeSection from "@/components/ResumeSection.astro";
 import { basics } from "@/config/site.json";
 
 import { getPrintFriendlyContactChannels } from "@/lib/contact-channels";
-import { getExperienceYearsAmount } from "@/lib/dates";
-
-const yearsOfExperience = await getExperienceYearsAmount();
-const label = basics.label.replace("[years]", yearsOfExperience.toString());
 ---
 
-<ResumeSection class="grid gap-1">
-  <h1 class="text-3xl font-bold text-indigo-700">{basics.name}</h1>
-  <p class="font-semibold text-base text-neutral-700">{label}</p>
-  <p class="font-space-mono text-sm text-neutral-500">
+<ResumeSection class="grid gap-0.5">
+  <h1 class="text-2xl font-bold text-indigo-700">{basics.name}</h1>
+  <p class="font-semibold text-sm text-neutral-700">{basics.label}</p>
+  <p class="font-space-mono text-xs text-neutral-500">
     {basics.location.city}, {basics.location.country}
   </p>
-  <p class="text-sm text-indigo-700">
+  <p class="text-xs text-indigo-700">
     {getPrintFriendlyContactChannels()}
   </p>
 </ResumeSection>

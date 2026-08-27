@@ -1,13 +1,15 @@
 ---
 import ResumeSection from "@/components/ResumeSection.astro";
 
-import { basics } from "@/config/site.json";
+import { getFormattedAbout } from "@/lib/dates";
+
+const about = await getFormattedAbout();
 ---
 
 <ResumeSection
   title="Summary"
-  titleClass="text-sm font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
-  class="grid gap-2"
+  titleClass="text-xs font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
+  class="grid gap-1"
 >
-  <p class="font-space-mono text-sm">{basics.about}</p>
+  <p class="font-space-mono text-xs">{about}</p>
 </ResumeSection>
