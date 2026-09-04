@@ -14,7 +14,7 @@ const sortedWorkExperience = getSortedExperience(workExperience);
   <ul class="grid gap-5">
     {
       sortedWorkExperience.map(
-        ({ id, data: { company, from, position, subitems, summary, to } }) => (
+        ({ data: { company, from, position, subitems, summary, to } }) => (
           <li>
             <article class="grid gap-2">
               <header class="flex flex-col sm:gap-4 sm:flex-row sm:justify-between">
