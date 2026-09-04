@@ -30,6 +30,14 @@
   --cover-opacity-open: 0.22;
 }
 
+/* below the 550px breakpoint the card is only ~272px wide, so the summary wraps
+   to ~400px tall; the slide has to be taller there or the open panel is clipped */
+@media (max-width: 549px) {
+  .embla {
+    --slide-height: 39rem;
+  }
+}
+
 @media (min-width: 550px) {
   .embla {
     --slide-size: 55%;
@@ -181,6 +189,11 @@
   transition: opacity 300ms ease, transform 300ms ease;
 }
 
+/* the chevron carries the open/closed state: up when closed, down when open */
+.job__affordance svg {
+  transition: transform 300ms ease;
+}
+
 .job__panel {
   visibility: hidden;
   max-height: 0;
@@ -202,15 +215,15 @@
 
 .job[data-open="true"] .job__glow { opacity: 1; }
 
-.job[data-open="true"] .job__affordance {
-  opacity: 0;
-  height: 0;
-  transform: scale(0.8);
+/* the button stays visible and hit-testable while open: it is the only way to
+   close the panel on touch, and it must keep painting its focus ring */
+.job[data-open="true"] .job__affordance svg {
+  transform: rotate(180deg);
 }
 
 .job[data-open="true"] .job__panel {
   visibility: visible;
-  max-height: 17rem;
+  max-height: 26rem;
   opacity: 1;
   transform: translateY(0);
   overflow-y: auto;
@@ -225,15 +238,13 @@
 
   .embla__slide__content:hover .job__glow { opacity: 1; }
 
-  .embla__slide__content:hover .job__affordance {
-    opacity: 0;
-    height: 0;
-    transform: scale(0.8);
+  .embla__slide__content:hover .job__affordance svg {
+    transform: rotate(180deg);
   }
 
   .embla__slide__content:hover .job__panel {
     visibility: visible;
-    max-height: 17rem;
+    max-height: 26rem;
     opacity: 1;
     transform: translateY(0);
     overflow-y: auto;
@@ -244,6 +255,7 @@
   .job__cover,
   .job__glow,
   .job__affordance,
+  .job__affordance svg,
   .job__panel {
     transition-duration: 1ms;
   }
