@@ -21,7 +21,7 @@
   --slide-spacing-sm: 1.1rem;
   --slide-size-sm: 33.3%;
   --slide-spacing-lg: 1.1rem;
-  --slide-size-lg: calc(100% / 4);
+  --slide-size-lg: calc(100% / 3);
 }
 
 @media (min-width: 550px) {
