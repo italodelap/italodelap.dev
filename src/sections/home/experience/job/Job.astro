@@ -1,24 +1,48 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
+import ChevronUpIcon from "@/icons/ChevronUp.astro";
+
 import Cover from "./Cover.astro";
 import Data from "./Data.astro";
-import SeeMoreButton from "./SeeMoreButton.astro";
+import Summary from "./Summary.astro";
 
 type Props = Pick<CollectionEntry<"work-experience">, "id" | "data">;
 
 const {
   id,
-  data: { cover, from, position, title, to },
+  data: { cover, from, position, shadow, summary, title, to },
 } = Astro.props;
+
+const panelId = `job-summary-${id}`;
 ---
 
-<div class="absolute inset-0 -z-[1] overflow-hidden">
-  <Cover cover={cover} />
-</div>
-<div
-  class="absolute inset-0 flex flex-col items-center justify-between px-4 py-8"
->
-  <Data from={from} position={position} title={title} to={to} />
-  <SeeMoreButton url={`/work-experience/${id}`} />
+<div class="job" data-open="false">
+  <div class="absolute inset-0 -z-[1] overflow-hidden">
+    <Cover cover={cover} />
+  </div>
+  <div class={`job__glow ${shadow}`}></div>
+  <div
+    class="absolute inset-0 flex flex-col items-center justify-end gap-3 px-4 py-5"
+  >
+    <Data from={from} position={position} title={title} to={to} />
+    <button
+      type="button"
+      data-experience-disclosure
+      aria-controls={panelId}
+      aria-expanded="false"
+      aria-label={`Show summary of ${title}`}
+      class={`
+        job__affordance size-9 shrink-0 grid place-content-center
+        overflow-hidden rounded-full cursor-pointer
+        text-neutral-500 dark:text-neutral-400
+        bg-zinc-50/50 bg-blend-luminosity backdrop-blur-lg
+        border border-white dark:border-white/10 dark:bg-zinc-900/30
+        outline-1 outline-offset-0 outline-zinc-200 dark:outline-[#1a1a1a]
+      `}
+    >
+      <ChevronUpIcon class="size-4" />
+    </button>
+    <Summary id={panelId} summary={summary} />
+  </div>
 </div>

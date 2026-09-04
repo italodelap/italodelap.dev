@@ -3,6 +3,8 @@
   --detail-medium-contrast: rgb(234, 234, 234);
   --detail-high-contrast: rgb(192, 192, 192);
   --text-high-contrast-rgb-value: 49, 49, 49;
+  --cover-opacity: 0.6;
+  --cover-opacity-open: 0.22;
 }
 
 :root[data-theme="dark"] .embla {
@@ -10,6 +12,8 @@
   --detail-medium-contrast: rgb(25, 25, 25);
   --detail-high-contrast: rgb(101, 101, 101);
   --text-high-contrast-rgb-value: 230, 230, 230;
+  --cover-opacity: 0.4;
+  --cover-opacity-open: 0.16;
 }
 
 .embla {
@@ -22,6 +26,8 @@
   --slide-size-sm: 33.3%;
   --slide-spacing-lg: 1.1rem;
   --slide-size-lg: calc(100% / 3);
+  --cover-opacity: 0.6;
+  --cover-opacity-open: 0.22;
 }
 
 @media (min-width: 550px) {
@@ -146,4 +152,104 @@
   align-items: center;
   gap: 0.5rem;
   margin-right: calc((1.3rem - 1.4rem) / 2 * -1);
+}
+
+/* ---- job slide: cover, glow and summary disclosure ---- */
+
+.job {
+  position: absolute;
+  inset: 0;
+}
+
+.job__cover {
+  opacity: var(--cover-opacity);
+  transition: opacity 400ms ease, transform 300ms ease;
+}
+
+.job__glow {
+  position: absolute;
+  inset: 0;
+  /* 1.8rem slide radius minus the 0.2rem border = the inner radius */
+  border-radius: 1.6rem;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: inset 0 0 34px 2px var(--tw-shadow-color);
+  transition: opacity 400ms ease;
+}
+
+.job__affordance {
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.job__panel {
+  visibility: hidden;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(0.75rem);
+  transition:
+    max-height 400ms ease,
+    opacity 300ms ease,
+    transform 400ms ease,
+    visibility 400ms;
+}
+
+/* open, driven by the disclosure button */
+.job[data-open="true"] .job__cover {
+  opacity: var(--cover-opacity-open);
+  transform: scale(1.1);
+}
+
+.job[data-open="true"] .job__glow { opacity: 1; }
+
+.job[data-open="true"] .job__affordance {
+  opacity: 0;
+  height: 0;
+  transform: scale(0.8);
+}
+
+.job[data-open="true"] .job__panel {
+  visibility: visible;
+  max-height: 16rem;
+  opacity: 1;
+  transform: translateY(0);
+  overflow-y: auto;
+}
+
+/* open on hover, pointer devices only, so a tap never sticks */
+@media (hover: hover) and (pointer: fine) {
+  .embla__slide__content:hover .job__cover {
+    opacity: var(--cover-opacity-open);
+    transform: scale(1.1);
+  }
+
+  .embla__slide__content:hover .job__glow { opacity: 1; }
+
+  .embla__slide__content:hover .job__affordance {
+    opacity: 0;
+    height: 0;
+    transform: scale(0.8);
+  }
+
+  .embla__slide__content:hover .job__panel {
+    visibility: visible;
+    max-height: 16rem;
+    opacity: 1;
+    transform: translateY(0);
+    overflow-y: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .job__cover,
+  .job__glow,
+  .job__affordance,
+  .job__panel {
+    transition-duration: 1ms;
+  }
+
+  .job__panel { transform: none; }
+
+  .job[data-open="true"] .job__cover,
+  .embla__slide__content:hover .job__cover { transform: none; }
 }
