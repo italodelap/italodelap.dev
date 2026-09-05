@@ -30,14 +30,6 @@
   --cover-opacity-open: 0.22;
 }
 
-/* below the 550px breakpoint the card is only ~272px wide, so the summary wraps
-   to ~400px tall; the slide has to be taller there or the open panel is clipped */
-@media (max-width: 549px) {
-  .embla {
-    --slide-height: 39rem;
-  }
-}
-
 @media (min-width: 550px) {
   .embla {
     --slide-size: 55%;
@@ -183,10 +175,6 @@
   opacity: 0;
   box-shadow: inset 0 0 34px 2px var(--tw-shadow-color);
   transition: opacity 400ms ease;
-}
-
-.job__affordance {
-  transition: opacity 300ms ease, transform 300ms ease;
 }
 
 /* the chevron carries the open/closed state: up when closed, down when open */
