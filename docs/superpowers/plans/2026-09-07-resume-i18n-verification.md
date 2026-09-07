@@ -50,9 +50,37 @@ post-implementation bugs and address them separately.
 - **Diff scope** — `src/config/site.json`, `src/content.config.ts`, and
   `src/content/work-experience/*` are **not** touched.
 
+## Resolved after the verification pass
+
+Commits `83e947d`, `0c784e0`, `6a3a706` (branch iteration, in the PR):
+
+- **`/profile` vs `/resume` `<title>` collision** — `/profile` retitled
+  `Italo De la Peña | Profile`. The three CV-ish routes now have distinct
+  titles (`| Resume` / `| CV` / `| Profile`).
+- **Meta description stub** — `/resume` and `/cv` `page.description` in
+  `ui.ts` replaced with full recruiter-facing copy (EN + ES); `/profile`'s
+  stale "8 years" description refreshed. These feed `og:`/`twitter:` too.
+- **Inter-section spacing** — the `*:mb-8` bump reverted to `*:mb-5`
+  (matches `main`), removing most of the +112px the spacing pass added.
+- **Spanish degree / institution names** — reviewed and confirmed
+  correct as written; no longer an open redline.
+- **Experience subitem legibility** — subitem dates moved inline
+  (parenthetical, smaller grey mono), highlight bullets to 11px, left
+  hairline on the subitem group.
+
 ## Open findings (not fixed)
 
-### Print overflow — the plan's Task 7 gate did not pass
+### Print overflow — still needs structural work
+
+Both routes still print past one A4 page. The `*:mb-5` revert plus the
+subitem compaction pulled the overshoot down (rough DOM measure at A4
+content width: `/cv` `<main>` ≈ 1134px vs a ~1046px one-page budget, so
+~90px over; `/resume` a little less). A reliable one-page fit still needs
+**structural** trimming — tighter `.resume-entry` internals, a smaller
+base rhythm, or one fewer highlight line — re-measured against `/cv`,
+which is the binding constraint. Deferred by the branch owner.
+
+### Print overflow — original measurements (pre-revert)
 
 `/cv` and `/resume` both print to **two A4 pages** (`@page { margin:
 1cm }`). Measured with print-media emulation at A4 content width:
@@ -73,73 +101,32 @@ post-implementation bugs and address them separately.
   or dropping a highlight line — followed by re-measuring `/cv`, which
   is the binding constraint.
 
-### Regression: the control cluster covers the `<h1>` on phones
+### Regression: the control cluster covered the `<h1>` on phones — FIXED
 
-`src/layouts/ResumeLayout.astro` — on `main` the fixed top-right cluster
-was just `<PrintButton>` (~40px, left edge ≈ 319px at 375px width) and
-cleared the name. Adding `<LanguageSwitch>` grew it to ~120px:
+Fixed in `782effc`: the cluster is now `static` below `sm:` (flows above
+the header) and `sm:fixed` top-right from `sm:` up. Re-checked at 375px —
+no overlap, header and controls stack cleanly.
 
-| viewport | route | cluster left edge | `<h1>` glyphs end | result |
-|---|---|---|---|---|
-| 375px | `/cv`, `/resume` | ~238px | ~304px | ~65px of the surname hidden ("Italo De la …") |
-| 320px | both | ~183px | ~304px | whole `<h1>` overlapped |
-| ≥768px | both | — | — | no overlap |
+### Fixed in `782effc` (fix wave)
 
-Fix (any one): a small-screen top offset on the header / `<main>`
-(`pt-14 sm:pt-4`, `mt-12 sm:mt-0`); render the cluster inline above the
-header below `sm:`; or a compact `ES`/`EN` label under `sm:`. Add a
-375px step to the visual-check list.
+- **Silent English fallback for top-level highlights** — `applySpanish`
+  now throws `Missing ES highlights for work-experience entry "<id>"`
+  when a rendered entry has EN highlights and no ES override
+  (`src/i18n/index.ts:102`).
+- **`hreflang` didn't match canonical / sitemap** — now
+  `new URL("/resume/", site)` / `new URL("/cv/", site)`, trailing slash
+  consistent (`src/layouts/ResumeLayout.astro:25`).
+- **`education` / `languages` zipped by index with no guard** — length
+  assertions with named throws added (`src/i18n/index.ts:138`).
 
-### Silent English fallback for top-level highlights
+### Fixed in branch iteration (`0c784e0`)
 
-`src/i18n/index.ts` — `highlights: override.highlights ?? entry.highlights`.
-`ExperienceOverride.highlights` is optional, so an override that gives
-only `company` (the shape `buenos-aires` has today) would render
-**English** highlights on `/cv` if that entry's `.md` had top-level
-`highlights`. Not triggered today. The adjacent subitem path *throws*
-for the same gap — this one should too:
-`if (entry.highlights.length > 0 && !override.highlights) throw …`.
-
-### `hreflang` alternates don't match canonical / sitemap
-
-`src/layouts/ResumeLayout.astro` emits `href=".../resume"` (no trailing
-slash) while `canonical` and `sitemap-0.xml` use `.../resume/`. hreflang
-annotations should point at canonical URLs. Fix:
-`new URL("/resume/", site)` / `new URL("/cv/", site)`.
-
-### `/profile` and `/resume` now share a `<title>`
-
-The Task 6 flip made `/resume`'s title `Italo De la Peña | Resume`,
-which is identical to `ProfileLayout.astro`'s hardcoded title. Both are
-in the sitemap. Decide: keep the English CV title as `| CV`, or retitle
-`/profile`.
-
-### `/resume` meta description shrank to a stub
-
-`src/i18n/ui.ts` — `en: "Italo De la Peña's resume."` (26 chars)
-replaced the previous 110-char recruiter-facing sentence, which also
-fed `og:description` / `twitter:description` (LinkedIn/Slack/X previews).
-The old text's "more than 8 years" was stale — write a fresh English
-description plus a Spanish counterpart rather than restoring it.
-
-### `education` / `languages` zipped by index with no guard
-
-`src/i18n/index.ts` — `from: education[i].from`. If `site.json`'s
-`education` is reordered, `/cv` shows the wrong dates against the right
-degree; if it grows, `/cv` renders fewer entries or the build dies with
-a bare `undefined`. `languages` is taken wholesale from `cvEs`, never
-compared to `basics.languages` (the `cv.es.ts` comment claiming
-"zipped by index" is inaccurate). Add length assertions with named
-throws.
-
-### Redline: unverified Spanish degree / institution names
-
-Still need a human check against the official names:
-- `"Ingeniería de Software"` — the spec sketch had proposed
-  `"Ingeniería en Informática"`; two different guesses, neither
-  verified.
-- `"Tecnicatura Superior en Diseño Gráfico y Multimedial"`
-- `"Instituto de Educación Técnica Superior N.º 27"`
+- **`/profile` / `/resume` shared `<title>`** — `/profile` retitled
+  `| Profile`.
+- **`/resume` meta description stub** — full EN + ES copy written in
+  `ui.ts`; `/profile`'s stale line refreshed.
+- **Unverified Spanish degree / institution names** — reviewed by the
+  branch owner, confirmed correct as written.
 
 ### Minor / polish
 
