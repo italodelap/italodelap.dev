@@ -1,20 +1,18 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
-import ChevronUpIcon from "@/icons/ChevronUp.astro";
-
 import Cover from "./Cover.astro";
 import Data from "./Data.astro";
-import Summary from "./Summary.astro";
+import Highlights from "./Highlights.astro";
 
 type Props = Pick<CollectionEntry<"work-experience">, "id" | "data">;
 
 const {
   id,
-  data: { cover, from, position, shadow, summary, title, to },
+  data: { cover, from, highlights, position, shadow, title, to },
 } = Astro.props;
 
-const panelId = `job-summary-${id}`;
+const panelId = `job-highlights-${id}`;
 ---
 
 <div class="job" data-open="false">
@@ -31,20 +29,14 @@ const panelId = `job-summary-${id}`;
       data-experience-disclosure
       aria-controls={panelId}
       aria-expanded="false"
-      aria-label={`Show summary of ${title}`}
-      class={`
-        job__affordance size-9 shrink-0 grid place-content-center
-        overflow-hidden rounded-full cursor-pointer
-        text-neutral-500 dark:text-neutral-50
-        bg-zinc-50/50 bg-blend-luminosity backdrop-blur-lg
-        border border-white dark:border-white/10 dark:bg-zinc-900/30
-        outline-1 outline-offset-0 outline-zinc-200 dark:outline-[#1a1a1a]
-        focus-visible:outline-2 focus-visible:outline-offset-2
-        focus-visible:outline-blue-700 dark:focus-visible:outline-blue-100
-      `}
+      aria-label={`Show highlights of ${title}`}
+      class="job__indicator relative grid size-6 shrink-0 place-content-center rounded-full cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 dark:focus-visible:outline-blue-100"
     >
-      <ChevronUpIcon class="size-4" />
+      <span
+        class={`job__indicator-bar h-1 w-9 rounded-full bg-[var(--tw-shadow-color)] ${shadow}`}
+        aria-hidden="true"
+      />
     </button>
-    <Summary id={panelId} summary={summary} />
+    <Highlights id={panelId} highlights={highlights ?? []} />
   </div>
 </div>

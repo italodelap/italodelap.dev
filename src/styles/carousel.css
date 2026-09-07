@@ -178,9 +178,14 @@
   transition: opacity 400ms ease;
 }
 
-/* the chevron carries the open/closed state: up when closed, down when open */
-.job__affordance svg {
-  transition: transform 300ms ease;
+.job__indicator-bar {
+  opacity: 0.85;
+  /* a light-then-dark ring so the bar keeps an edge against any cover,
+     pale or dark, without knowing the cover's lightness ahead of time */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.9),
+    0 0 0 2px rgba(0, 0, 0, 0.55);
+  transition: opacity 300ms ease;
 }
 
 .job__panel {
@@ -204,11 +209,7 @@
 
 .job[data-open="true"] .job__glow { opacity: 1; }
 
-/* the button stays visible and hit-testable while open: it is the only way to
-   close the panel on touch, and it must keep painting its focus ring */
-.job[data-open="true"] .job__affordance svg {
-  transform: rotate(180deg);
-}
+.job[data-open="true"] .job__indicator-bar { opacity: 1; }
 
 .job[data-open="true"] .job__panel {
   visibility: visible;
@@ -227,9 +228,7 @@
 
   .embla__slide__content:hover .job__glow { opacity: 1; }
 
-  .embla__slide__content:hover .job__affordance svg {
-    transform: rotate(180deg);
-  }
+  .embla__slide__content:hover .job__indicator-bar { opacity: 1; }
 
   .embla__slide__content:hover .job__panel {
     visibility: visible;
@@ -243,8 +242,7 @@
 @media (prefers-reduced-motion: reduce) {
   .job__cover,
   .job__glow,
-  .job__affordance,
-  .job__affordance svg,
+  .job__indicator-bar,
   .job__panel {
     transition-duration: 1ms;
   }
