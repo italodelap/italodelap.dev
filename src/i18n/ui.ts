@@ -1,11 +1,8 @@
 export type Locale = "en" | "es";
 
-// NOTE: `page.title`, `switch.href` and `switch.hreflang` are per-route data,
-// not translatable copy — they encode the /resume ↔ /cv pairing. That pairing
-// also lives in `ResumeLayout.astro` (`alternates[]`) and in the page files
-// (`resume.astro` / `cv.astro` pass `lang`). Renaming a route or adding a third
-// locale means updating all three together; a `Record<Locale, RouteInfo>` map
-// would be the cleaner shape if this grows.
+// This file is per-language copy only. The `/resume` ↔ `/cv` routing itself
+// (paths, hreflang, the language-switch label) lives in `./routes.ts` — put
+// new locale/route data there, not here.
 export const ui = {
   en: {
     "section.summary": "Summary",
@@ -17,9 +14,6 @@ export const ui = {
     "page.description":
       "Italo De la Peña's resume — Software Engineer specialized in frontend, building for the web with React, TypeScript and modern tooling.",
     "print.label": "Print CV",
-    "switch.label": "Español",
-    "switch.href": "/cv",
-    "switch.hreflang": "es",
   },
   es: {
     "section.summary": "Perfil",
@@ -31,9 +25,6 @@ export const ui = {
     "page.description":
       "El CV de Italo De la Peña — Software Engineer especializado en frontend, con experiencia full-stack en el ecosistema React y TypeScript.",
     "print.label": "Imprimir CV",
-    "switch.label": "English",
-    "switch.href": "/resume",
-    "switch.hreflang": "en",
   },
 } as const;
 

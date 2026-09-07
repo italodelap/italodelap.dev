@@ -1,30 +1,37 @@
 ---
-import { useTranslations, type Locale } from "@/i18n/ui";
+import { localeRoutes } from "@/i18n/routes";
+import type { Locale } from "@/i18n/ui";
 
 interface Props {
   lang: Locale;
 }
 
 const { lang } = Astro.props;
-const t = useTranslations(lang);
 
-// On /resume (lang=en) this links to /cv and reads "Español", marked lang="es".
-// On /cv (lang=es) it links to /resume and reads "English", marked lang="en".
-const href = t("switch.href");
-const label = t("switch.label");
-const targetLang = t("switch.hreflang");
+// Every locale except the current one. Two locales → one link; a third would
+// render two here with no code change.
+const targets = (Object.keys(localeRoutes) as Locale[]).filter(
+  (locale) => locale !== lang,
+);
 ---
 
-<a
-  href={href}
-  hreflang={targetLang}
-  lang={targetLang}
-  class={`
-    inline-flex items-center justify-center rounded-md px-3 py-2
-    text-xs font-medium text-neutral-600 border-2 border-neutral-500
-    transition-colors duration-300
-    hover:text-neutral-700 hover:border-neutral-600 hover:bg-neutral-200/50
-  `}
->
-  {label}
-</a>
+{
+  targets.map((target) => {
+    const route = localeRoutes[target];
+    return (
+      <a
+        href={route.href}
+        hreflang={route.hreflang}
+        lang={route.hreflang}
+        class={`
+          inline-flex items-center justify-center rounded-md px-3 py-2
+          text-xs font-medium text-neutral-600 border-2 border-neutral-500
+          transition-colors duration-300
+          hover:text-neutral-700 hover:border-neutral-600 hover:bg-neutral-200/50
+        `}
+      >
+        {route.switchLabel}
+      </a>
+    );
+  })
+}

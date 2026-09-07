@@ -12,6 +12,7 @@ import BaseHead from "@/components/BaseHead.astro";
 import LanguageSwitch from "@/components/LanguageSwitch.astro";
 import PrintButton from "@/components/PrintButton.astro";
 
+import { defaultLocale, localeRoutes } from "@/i18n/routes";
 import { useTranslations, type Locale } from "@/i18n/ui";
 
 interface Props {
@@ -26,18 +27,21 @@ if (!Astro.site) {
     "Astro.site must be set in astro.config for the /resume ↔ /cv hreflang alternates",
   );
 }
-const enUrl = new URL("/resume/", Astro.site).href;
-const esUrl = new URL("/cv/", Astro.site).href;
 
 const alternates = [
-  { hreflang: "en", href: enUrl },
-  { hreflang: "es", href: esUrl },
-  { hreflang: "x-default", href: enUrl },
+  ...Object.values(localeRoutes).map((route) => ({
+    hreflang: route.hreflang,
+    href: new URL(route.href, Astro.site).href,
+  })),
+  {
+    hreflang: "x-default",
+    href: new URL(localeRoutes[defaultLocale].href, Astro.site).href,
+  },
 ];
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={localeRoutes[lang].hreflang}>
   <BaseHead
     title={t("page.title")}
     description={t("page.description")}

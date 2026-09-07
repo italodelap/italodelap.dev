@@ -239,15 +239,18 @@ can ship as-is and be cleaned up later.
   routes — reads as a defined outline, not heavy. The remaining
   `border-neutral-200` instances are section-title underlines and the
   photo frame (decorative, not interactive-control boundaries).
+- **`ui.ts` routing data** — extracted to a new `src/i18n/routes.ts`:
+  `localeRoutes` (`Record<Locale, { href, hreflang, switchLabel }>`) plus
+  `defaultLocale`. `ui.ts` is per-language copy only now (`switch.*` keys
+  gone). `LanguageSwitch` derives its link(s) as "every locale except the
+  current one" — a third locale renders a second link with no code change.
+  `ResumeLayout` builds the `hreflang` alternates and `<html lang>` from
+  `localeRoutes`. Output is byte-identical except the switch `href` now
+  carries the trailing slash (`/cv/` — matches canonical, no redirect
+  hop).
 
-### Deferred with a code comment
+### Deliberately not changed
 
-- **`ui.ts` routing data** (`page.title` / `switch.href` /
-  `switch.hreflang`) — left in the string dictionary; a comment now
-  flags that the `/resume` ↔ `/cv` pairing is duplicated across
-  `ui.ts`, `ResumeLayout.astro` and the page files, and that a
-  `Record<Locale, RouteInfo>` map is the shape to reach for if a third
-  locale or a route rename lands.
 - **Sitemap `xhtml:link` alternates** — not added. `@astrojs/sitemap`'s
   `i18n` option maps locales by path segment (`/en/x` ↔ `/es/x`); our
   routes are distinct slugs, so it doesn't fit, and a custom `serialize`
