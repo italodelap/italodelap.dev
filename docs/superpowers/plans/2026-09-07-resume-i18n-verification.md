@@ -156,3 +156,79 @@ no overlap, header and controls stack cleanly.
 - Cosmetic: `index.ts:1` path-header comment; `index.ts` education
   callback param named `es`; the inaccurate `cv.es.ts` "zipped by
   index" comment.
+
+---
+
+## Second review pass — 2026-09-07 (`98c4321..52b1d47`)
+
+Full re-review of the branch diff (23 files, `src/**` + skill + docs)
+against `origin/main`, plus a fresh `pnpm build` and `dist/` greps.
+Nothing here blocks the PR; grouped by what needs a decision vs. what
+can ship as-is and be cleaned up later.
+
+### Verified clean (no action)
+
+- **`pnpm build`** — `astro check` 0 / 0 / 0, `astro build` 4 pages.
+- **SEO tags are internally consistent.** On both routes,
+  `rel="canonical"`, the three `hreflang` alternates (`en` → `/resume/`,
+  `es` → `/cv/`, `x-default` → `/resume/`) and the four sitemap `<loc>`
+  entries all use the `www.` host with a trailing slash. `x-default`
+  correctly points at the English route.
+- **No language leakage.** `dist/cv/index.html` has no English section
+  titles; `dist/resume/index.html` has no Spanish. Confirmed with
+  `grep`.
+- **Spanish dates** render localised and capitalised with no stray
+  period (`Abr 2025`, `Ago 2026`, `Sept 2021`, `Dic 2020`); English
+  route unchanged (`Apr`, `Aug`, `Sep`).
+- **Build-time guards hold.** `getResumeContent("es")` throws on a
+  missing entry, missing top-level highlights, missing subitem
+  translation, and on `education` / `languages` count drift vs
+  `site.json`. `getFormattedDate` / `getFormattedAbout` keep their
+  `lang = "en"` default, so the six pre-existing callers are untouched.
+
+### Needs a decision
+
+- **`education[1]` degree name diverges between locales.**
+  `site.json` → `"Software Engineering"`; `cv.es.ts` →
+  `"Ingeniería en Informática"`. These are not translations of each
+  other — they name two different degrees. The Spanish value was
+  hand-picked by the branch owner, so the fix is most likely to bring
+  the **English** `site.json` `education[1].area` in line (e.g.
+  `"Computer Engineering"` / `"Informatics Engineering"`). Also feeds
+  `/profile` and `/resume`. Decide before merge.
+
+### Ship-as-is, clean up later
+
+- **Subitem role → date gap is doubled.** `Experience.astro`
+  renders `{sub.position} &nbsp;<span>` — a normal space **and** an
+  `&nbsp;`, so the gap before `(Mar 2019 — Abr 2021)` is ~2 spaces
+  wide. Drop the plain space (`{sub.position}&nbsp;`) or replace both
+  with a margin on the `<span>`.
+- **`work-experience/*.md` `summary:` is dead data.** The
+  `/work-experience/[id]` route was removed in PR #8; nothing renders
+  `summary` any more, yet `content.config.ts` still requires it
+  (`z.string()`, and on every subitem). Not introduced here — but it
+  means the di-tella `summary` still describing "web projects with
+  other technologies, such as React" is harmless, and the field +
+  schema requirement are a cleanup candidate.
+- **`.claude/skills/add-work-experience/SKILL.md` has a stale step.**
+  This PR renumbered its verification steps but left step 4's
+  "check `/work-experience/<slug>` visually" — that route no longer
+  exists. Also the "exactly one `Present` / `Actualidad`" checks
+  currently return **0** on both routes (no job is ongoing — every
+  entry has an explicit `to`), so the wording should be "at most one".
+- **Sitemap has no `xhtml:link` alternate annotations** pairing
+  `/resume` ↔ `/cv`. The `<head>` `hreflang` tags are enough for
+  Google, but `@astrojs/sitemap`'s `i18n` option would make the
+  sitemap self-describing too.
+- **`Header.astro` photo shrank** `size-[5.625rem]` (90px) →
+  `size-19` (76px) — intentional print-density change, but it also
+  lands on `/resume`. Flag only so it's a conscious call.
+- **`ResumeLayout.astro` fallback** `Astro.site ?? new URL("https://www.italodelap.dev")`
+  is dead code (`site` is set in `astro.config.mjs`) and would silently
+  rot if the configured host ever changed. Either drop it or derive the
+  literal from config.
+- Carried over from the first pass and still open: `dates.ts` →
+  `cv.es.ts` layering, `ui.ts` routing data, `getResumeContent` awaited
+  per-section, education zip-by-index, silently-ignored override keys,
+  `border-neutral-200` control contrast (~1.2:1, WCAG 1.4.11).
