@@ -1,7 +1,5 @@
 import { getEntry } from "astro:content";
 
-import { basics } from "@/config/site.json";
-import { cvEs } from "@/i18n/cv.es";
 import type { Locale } from "@/i18n/ui";
 
 function getYearsDifference(initialDate: Date, finalDate: Date): number {
@@ -26,12 +24,6 @@ export async function getExperienceYearsAmount() {
   const myFirstJobAsDeveloper = firstJobPositions[INDEX_OF_FIRST_JOB_AS_DEVELOPER];
 
   return getYearsDifference(myFirstJobAsDeveloper.from, new Date());
-}
-
-export async function getFormattedAbout(lang: Locale = "en") {
-  const yearsOfExperience = await getExperienceYearsAmount();
-  const template = lang === "es" ? cvEs.about : basics.about;
-  return template.replace("[years]", yearsOfExperience.toString());
 }
 
 export function getFormattedDate(date: Date, lang: Locale = "en") {

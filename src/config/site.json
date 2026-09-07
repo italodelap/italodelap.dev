@@ -52,6 +52,7 @@
   ],
   "education": [
     {
+      "id": "graphic-multimedia-design",
       "area": "Higher Technician Degree in Graphic and Multimedia Design",
       "from": "2019-03-01",
       "institution": "27th Institute of Technical and Higher Education",
@@ -59,6 +60,7 @@
       "to": "2020-12-31"
     },
     {
+      "id": "informatics-engineering",
       "area": "Software Engineering",
       "from": "2013-03-01",
       "institution": "University of Morón",

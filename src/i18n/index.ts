@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 import { basics, education } from "@/config/site.json";
+import { fillAboutTemplate } from "@/lib/about";
+import { getExperienceYearsAmount } from "@/lib/dates";
 import { getSortedExperience } from "@/lib/sorting";
 
 import { cvEs } from "./cv.es";
@@ -43,6 +45,7 @@ export interface ResumeLanguage {
 
 export interface ResumeContent {
   label: string;
+  about: string;
   location: { city: string; country: string };
   languages: ResumeLanguage[];
   education: ResumeEducationEntry[];
@@ -107,6 +110,14 @@ function applySpanish(
   }
 
   const subOverrides = override.subitems ?? {};
+  const curatedPositions = new Set(entry.subitems.map((s) => s.position));
+  for (const key of Object.keys(subOverrides)) {
+    if (!curatedPositions.has(key)) {
+      throw new Error(
+        `ES subitem override "${key}" of "${id}" matches no curated subitem`,
+      );
+    }
+  }
 
   return {
     ...entry,
@@ -124,8 +135,24 @@ function applySpanish(
   };
 }
 
-export async function getResumeContent(lang: Locale): Promise<ResumeContent> {
+const contentCache = new Map<Locale, Promise<ResumeContent>>();
+
+/** Resolve the resume content for a locale. Cached — runs once per `lang` per build. */
+export function getResumeContent(lang: Locale): Promise<ResumeContent> {
+  let cached = contentCache.get(lang);
+  if (!cached) {
+    cached = buildResumeContent(lang).catch((error) => {
+      contentCache.delete(lang);
+      throw error;
+    });
+    contentCache.set(lang, cached);
+  }
+  return cached;
+}
+
+async function buildResumeContent(lang: Locale): Promise<ResumeContent> {
   const curated = curate(await getCollection("work-experience"));
+  const years = await getExperienceYearsAmount();
 
   const experience: ResumeExperienceEntry[] = curated.map(
     ({ job, curatedSubitems }) => {
@@ -147,21 +174,31 @@ export async function getResumeContent(lang: Locale): Promise<ResumeContent> {
     }
     return {
       label: cvEs.label,
+      about: fillAboutTemplate(cvEs.about, years),
       location: cvEs.location,
       languages: cvEs.languages.map((l) => ({ ...l })),
-      education: cvEs.education.map((es, i) => ({
-        area: es.area,
-        institution: es.institution,
-        notes: es.notes,
-        from: education[i].from,
-        to: education[i].to,
-      })),
+      education: cvEs.education.map((esEntry) => {
+        const enEntry = education.find((e) => e.id === esEntry.id);
+        if (!enEntry) {
+          throw new Error(
+            `ES education entry "${esEntry.id}" has no match in site.json education`,
+          );
+        }
+        return {
+          area: esEntry.area,
+          institution: esEntry.institution,
+          notes: esEntry.notes,
+          from: enEntry.from,
+          to: enEntry.to,
+        };
+      }),
       experience,
     };
   }
 
   return {
     label: basics.label,
+    about: fillAboutTemplate(basics.about, years),
     location: { city: basics.location.city, country: basics.location.country },
     languages: basics.languages.map((l) => ({ ...l })),
     education: education.map((e) => ({

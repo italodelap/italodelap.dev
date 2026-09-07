@@ -33,16 +33,19 @@ export const cvEs = {
     { language: "Español", level: "Nativo" },
   ],
 
-  // Same order as `education` in site.json (zipped by index).
-  // Literal translations of the English source — confirm official
-  // degree/institution names during PR review.
+  // Matched to `education` in site.json by `id` (order-independent). The
+  // dates come from site.json; only the localized strings live here. The
+  // degree/institution names are the official Spanish ones, not literal
+  // translations of the English source.
   education: [
     {
+      id: "graphic-multimedia-design",
       area: "Tecnicatura Superior en Diseño Gráfico y Multimedial",
       institution: "Instituto de Educación Técnica Superior N.º 27",
       notes: "1º a 2º año",
     },
     {
+      id: "informatics-engineering",
       area: "Ingeniería en Informática",
       institution: "Universidad de Morón",
       notes: "1º a 3º año",

@@ -1,5 +1,11 @@
 export type Locale = "en" | "es";
 
+// NOTE: `page.title`, `switch.href` and `switch.hreflang` are per-route data,
+// not translatable copy — they encode the /resume ↔ /cv pairing. That pairing
+// also lives in `ResumeLayout.astro` (`alternates[]`) and in the page files
+// (`resume.astro` / `cv.astro` pass `lang`). Renaming a route or adding a third
+// locale means updating all three together; a `Record<Locale, RouteInfo>` map
+// would be the cleaner shape if this grows.
 export const ui = {
   en: {
     "section.summary": "Summary",

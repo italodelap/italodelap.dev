@@ -1,7 +1,7 @@
 ---
 import ResumeSection from "@/components/ResumeSection.astro";
 
-import { getFormattedAbout } from "@/lib/dates";
+import { getResumeContent } from "@/i18n";
 import { useTranslations, type Locale } from "@/i18n/ui";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const about = await getFormattedAbout(lang);
+const { about } = await getResumeContent(lang);
 ---
 
 <ResumeSection
