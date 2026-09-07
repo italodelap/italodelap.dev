@@ -1,6 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
+import ChevronUpIcon from "@/icons/ChevronUp.astro";
+
 import Cover from "./Cover.astro";
 import Data from "./Data.astro";
 import Highlights from "./Highlights.astro";
@@ -30,12 +32,9 @@ const panelId = `job-highlights-${id}`;
       aria-controls={panelId}
       aria-expanded="false"
       aria-label={`Show highlights of ${title}`}
-      class="job__indicator relative grid size-6 shrink-0 place-content-center rounded-full cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 dark:focus-visible:outline-blue-100"
+      class="job__affordance size-7 shrink-0 grid place-content-center overflow-hidden rounded-full cursor-pointer text-neutral-500 dark:text-neutral-50 bg-zinc-50/50 bg-blend-luminosity backdrop-blur-lg dark:bg-zinc-900/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 dark:focus-visible:outline-blue-100"
     >
-      <span
-        class={`job__indicator-bar h-1 w-9 rounded-full bg-[var(--tw-shadow-color)] ${shadow}`}
-        aria-hidden="true"
-      />
+      <ChevronUpIcon class="size-3.5" />
     </button>
     <Highlights id={panelId} highlights={highlights ?? []} />
   </div>
