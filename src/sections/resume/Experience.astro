@@ -43,18 +43,18 @@ const { experience } = await getResumeContent(lang);
               </ul>
             )}
             {subitems.length > 0 && (
-              <ul class="mt-0.5 grid gap-1.5">
+              <ul class="mt-0.5 pl-3 border-l border-neutral-200 grid gap-1.5">
                 {subitems.map((sub) => (
                   <li class="resume-entry grid gap-0.5">
-                    <div class="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
-                      <h4 class="text-xs italic font-semibold">{sub.position}</h4>
-                      <div class="font-space-mono text-xs text-neutral-500">
-                        <ExperienceDuration from={sub.from} to={sub.to} lang={lang} />
-                      </div>
-                    </div>
+                    <h4 class="text-xs italic font-semibold">
+                      {sub.position}{" "}
+                      <span class="font-space-mono text-[11px] not-italic font-normal text-neutral-500">
+                        (<ExperienceDuration from={sub.from} to={sub.to} lang={lang} />)
+                      </span>
+                    </h4>
                     <ul class="mt-0.5 pl-5 list-disc grid gap-0.5">
                       {sub.highlights.map((highlight) => (
-                        <li class="font-space-mono text-xs">{highlight}</li>
+                        <li class="font-space-mono text-[11px]">{highlight}</li>
                       ))}
                     </ul>
                   </li>
