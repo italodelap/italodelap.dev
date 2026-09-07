@@ -60,25 +60,31 @@ Commits `83e947d`, `0c784e0`, `6a3a706` (branch iteration, in the PR):
 - **Meta description stub** — `/resume` and `/cv` `page.description` in
   `ui.ts` replaced with full recruiter-facing copy (EN + ES); `/profile`'s
   stale "8 years" description refreshed. These feed `og:`/`twitter:` too.
-- **Inter-section spacing** — the `*:mb-8` bump reverted to `*:mb-5`
-  (matches `main`), removing most of the +112px the spacing pass added.
-- **Spanish degree / institution names** — reviewed and confirmed
-  correct as written; no longer an open redline.
+- **Inter-section spacing** — the `*:mb-8` bump was reverted to `*:mb-5`
+  and then tightened again to `*:mb-4` by the branch owner as part of the
+  print-fit pass.
+- **Spanish degree / institution names** — reviewed by the branch owner
+  and adjusted (`Ingeniería de Software` → `Ingeniería en Informática`);
+  no longer an open redline.
 - **Experience subitem legibility** — subitem dates moved inline
-  (parenthetical, smaller grey mono), highlight bullets to 11px, left
-  hairline on the subitem group.
+  (parenthetical, smaller grey mono); the branch owner's follow-up type
+  pass then took subitem text to `text-[10px]`/`text-[11px]` and dropped
+  the left hairline in favour of a `pl-2` indent.
 
 ## Open findings (not fixed)
 
-### Print overflow — still needs structural work
+### Print overflow — confirm one-page fit before merge
 
-Both routes still print past one A4 page. The `*:mb-5` revert plus the
-subitem compaction pulled the overshoot down (rough DOM measure at A4
-content width: `/cv` `<main>` ≈ 1134px vs a ~1046px one-page budget, so
-~90px over; `/resume` a little less). A reliable one-page fit still needs
-**structural** trimming — tighter `.resume-entry` internals, a smaller
-base rhythm, or one fewer highlight line — re-measured against `/cv`,
-which is the binding constraint. Deferred by the branch owner.
+The branch owner has since done the type/spacing pass this finding
+called for: `*:mb-4`, section/entry `gap-3`/`gap-4`, and a global
+scale-down (`text-xs` / `text-[11px]` / `text-[10px]`, `<h1>` to
+`text-lg`). That pulled the CV down substantially. A rough headless DOM
+measure at A4 content width still shows `/cv` `<main>` ~80px over a
+~1046px one-page budget, but headless emulation is approximate — real
+print margins, `break-inside: avoid`, and browser print scaling differ.
+Confirm with an actual **Cmd+P preview on `/cv`** (the longer, binding
+locale) before merge; if it still spills, the remaining levers are one
+fewer highlight line or tighter `.resume-entry` internals.
 
 ### Print overflow — original measurements (pre-revert)
 
