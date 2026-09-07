@@ -39,7 +39,7 @@ const { experience } = await getResumeContent(lang);
               {subitems.length === 0 && highlights.length > 0 && (
                 <ul class="mt-0.5 pl-5 list-disc grid gap-0.5">
                   {highlights.map((highlight) => (
-                    <li class="text-[11px] font-space-mono">{highlight}</li>
+                    <li class="text-[10px] font-space-mono">{highlight}</li>
                   ))}
                 </ul>
               )}
@@ -61,7 +61,7 @@ const { experience } = await getResumeContent(lang);
                       </h4>
                       <ul class="mt-0.5 pl-5 list-disc grid gap-0.5">
                         {sub.highlights.map((highlight) => (
-                          <li class="font-space-mono text-[11px]">
+                          <li class="font-space-mono text-[10px]">
                             {highlight}
                           </li>
                         ))}
