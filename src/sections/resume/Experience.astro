@@ -21,49 +21,59 @@ const { experience } = await getResumeContent(lang);
 >
   <ul class="grid gap-4">
     {
-      experience.map(({ company, from, to, position, highlights, subitems }) => (
-        <li class="resume-entry">
-          <article class="grid gap-0.5">
-            <header class="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
-              <div>
-                <h3 class="text-sm font-semibold leading-tight">{company}</h3>
-                {subitems.length === 0 && (
-                  <h4 class="text-xs italic">{position}</h4>
-                )}
-              </div>
-              <div class="font-space-mono text-xs text-neutral-500">
-                <ExperienceDuration from={from} to={to} lang={lang} />
-              </div>
-            </header>
-            {subitems.length === 0 && highlights.length > 0 && (
-              <ul class="mt-0.5 pl-5 list-disc grid gap-0.5">
-                {highlights.map((highlight) => (
-                  <li class="font-space-mono text-xs">{highlight}</li>
-                ))}
-              </ul>
-            )}
-            {subitems.length > 0 && (
-              <ul class="mt-0.5 pl-3 border-l border-neutral-200 grid gap-1.5">
-                {subitems.map((sub) => (
-                  <li class="resume-entry grid gap-0.5">
-                    <h4 class="text-xs italic font-semibold">
-                      {sub.position}{" "}
-                      <span class="font-space-mono text-[11px] not-italic font-normal text-neutral-500">
-                        (<ExperienceDuration from={sub.from} to={sub.to} lang={lang} />)
-                      </span>
-                    </h4>
-                    <ul class="mt-0.5 pl-5 list-disc grid gap-0.5">
-                      {sub.highlights.map((highlight) => (
-                        <li class="font-space-mono text-[11px]">{highlight}</li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </article>
-        </li>
-      ))
+      experience.map(
+        ({ company, from, to, position, highlights, subitems }) => (
+          <li class="resume-entry">
+            <article class="grid gap-0.5">
+              <header class="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
+                <div>
+                  <h3 class="text-xs font-semibold leading-tight">{company}</h3>
+                  {subitems.length === 0 && (
+                    <h4 class="text-xs italic">{position}</h4>
+                  )}
+                </div>
+                <div class="text-[11px] font-space-mono text-neutral-500">
+                  <ExperienceDuration from={from} to={to} lang={lang} />
+                </div>
+              </header>
+              {subitems.length === 0 && highlights.length > 0 && (
+                <ul class="mt-0.5 pl-5 list-disc grid gap-0.5">
+                  {highlights.map((highlight) => (
+                    <li class="text-[11px] font-space-mono">{highlight}</li>
+                  ))}
+                </ul>
+              )}
+              {subitems.length > 0 && (
+                <ul class="mt-0.5 pl-2 grid gap-1.5">
+                  {subitems.map((sub) => (
+                    <li class="resume-entry grid gap-0.5">
+                      <h4 class="text-[11px] italic font-semibold">
+                        {sub.position} &nbsp;
+                        <span class="font-space-mono text-[10px] not-italic font-normal text-neutral-500">
+                          (
+                          <ExperienceDuration
+                            from={sub.from}
+                            to={sub.to}
+                            lang={lang}
+                          />
+                          )
+                        </span>
+                      </h4>
+                      <ul class="mt-0.5 pl-5 list-disc grid gap-0.5">
+                        {sub.highlights.map((highlight) => (
+                          <li class="font-space-mono text-[11px]">
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          </li>
+        ),
+      )
     }
   </ul>
 </ResumeSection>

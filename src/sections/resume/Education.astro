@@ -23,17 +23,17 @@ const { education } = await getResumeContent(lang);
     {
       education.map(({ area, from, notes, institution, to }) => (
         <li class="resume-entry">
-          <article class="grid gap-0.5">
+          <article>
             <div class="flex flex-col sm:flex-row sm:justify-between sm:gap-4">
               <div>
                 <h3 class="text-xs font-semibold leading-tight">{area}</h3>
                 <h4 class="text-xs italic">{institution}</h4>
               </div>
-              <div class="font-space-mono text-xs text-neutral-500">
+              <div class="text-[11px] font-space-mono text-neutral-500">
                 <ExperienceDuration from={from} to={to} lang={lang} />
               </div>
             </div>
-            <p class="font-space-mono text-xs">({notes})</p>
+            <p class="font-space-mono text-[10px]">({notes})</p>
           </article>
         </li>
       ))

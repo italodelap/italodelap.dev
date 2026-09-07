@@ -21,7 +21,7 @@ const { languages } = await getResumeContent(lang);
   <ul class="flex flex-wrap gap-x-4 gap-y-1">
     {
       languages.map(({ language, level }) => (
-        <li class="font-space-mono text-xs">
+        <li class="font-space-mono text-[11px]">
           {language} <span class="text-neutral-500">({level})</span>
         </li>
       ))

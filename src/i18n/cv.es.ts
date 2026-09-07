@@ -22,7 +22,7 @@ export const cvEs = {
 
   // Keep the literal [years] token — substituted at build time.
   about:
-    "Soy Ingeniero de Software con más de [years] años de experiencia, especializado en React, TypeScript y Web Components. Nunca dejo de aprender y de compartir lo que sé. Me apasiona la tecnología y siempre estoy en busca de nuevos desafíos.",
+    "Ingeniero de Software con más de [years] años de experiencia, especializado en React, TypeScript y Web Components. Me encanta nunca parar de aprender y compartir mi conocimiento. Me apasiona la tecnología y siempre estoy en búsqueda de nuevos desafíos.",
 
   location: { city: "Buenos Aires", country: "Argentina" },
 
@@ -40,12 +40,12 @@ export const cvEs = {
     {
       area: "Tecnicatura Superior en Diseño Gráfico y Multimedial",
       institution: "Instituto de Educación Técnica Superior N.º 27",
-      notes: "1.º a 2.º año",
+      notes: "1º a 2º año",
     },
     {
-      area: "Ingeniería de Software",
+      area: "Ingeniería en Informática",
       institution: "Universidad de Morón",
-      notes: "1.º a 3.º año",
+      notes: "1º a 3º año",
     },
   ],
 
@@ -53,23 +53,23 @@ export const cvEs = {
     "argentina": {
       company: "Gobierno de la Nación Argentina",
       highlights: [
-        "Desarrollé proyectos sobre el stack LAMP y proyectos JavaScript con Node y React",
-        "Construí aplicaciones móviles con React Native y Expo",
+        "Desarrollo de proyectos con el stack LAMP y proyectos JavaScript con Node y React",
+        "Desarrollo de aplicaciones móviles con React Native y Expo",
       ],
     },
     "di-tella": {
       company: "Universidad Torcuato Di Tella",
       highlights: [
-        "Entregué proyectos de Web Components construidos con Lit dentro de una arquitectura de microfrontends, priorizando los estándares de la plataforma y la estabilidad a largo plazo",
-        "Publiqué proyectos web con otros stacks, incluido React, en paralelo al trabajo principal con Web Components",
+        "Desarrollo de proyectos con Web Components (construidos con Lit) dentro de una arquitectura de microfrontends, priorizando los estándares de la plataforma y la estabilidad a largo plazo",
+        "Desarrollo y publicación de proyectos web hechos con React",
       ],
     },
     "mercado-libre": {
       company: "Mercado Libre",
       highlights: [
-        "Construí frontends de producto con React y TypeScript sobre los frameworks internos y el design system de la empresa",
-        "Como parte de un equipo de SRE transversal a toda la empresa, construí herramientas internas para monitorear, visibilizar y mejorar el cumplimiento de las métricas centrales y los estándares técnicos exigidos en toda la organización",
-        "Construí herramientas y aplicaciones internas de administración dentro de una arquitectura de microfrontends, integrándolas con sus respectivos BFF",
+        "Desarrollo de frontends con React y TypeScript sobre los frameworks internos y el design system de la empresa",
+        "Como parte de un equipo de SRE transversal a toda la empresa, participé en el desarrollo de herramientas internas para monitorear, visibilizar y mejorar el cumplimiento de métricas core y estándares técnicos exigidos en toda la compañía",
+        "Desarrollo de admins internos y aplicaciones dentro de una arquitectura de microfrontends, integrándolas con sus respectivos BFFs",
       ],
     },
     "tupaca": {
@@ -85,7 +85,7 @@ export const cvEs = {
         // keyed by the English `position` string (unique within the job)
         "Frontend Developer": [
           "Análisis funcional, desarrollo y mantenimiento de aplicaciones Symfony",
-          "Construí y mantuve una aplicación móvil con Ionic",
+          "Desarrollo y mantenimiento de una aplicación móvil hecha con Ionic",
         ],
         "Full Stack Developer": [
           "Diseñé, desarrollé y documenté una aplicación Symfony, incluida la gestión de su base de datos MySQL",
