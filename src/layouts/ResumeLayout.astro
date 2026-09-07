@@ -21,9 +21,13 @@ interface Props {
 const { lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 
-const site = Astro.site ?? new URL("https://www.italodelap.dev");
-const enUrl = new URL("/resume/", site).href;
-const esUrl = new URL("/cv/", site).href;
+if (!Astro.site) {
+  throw new Error(
+    "Astro.site must be set in astro.config for the /resume ↔ /cv hreflang alternates",
+  );
+}
+const enUrl = new URL("/resume/", Astro.site).href;
+const esUrl = new URL("/cv/", Astro.site).href;
 
 const alternates = [
   { hreflang: "en", href: enUrl },

@@ -16,7 +16,7 @@ Adding a job is really **two operations that must happen together**:
 1. **Open** a new entry for the new job.
 2. **Close** the entry that was previously "current" (no `to` date) — otherwise the resume shows two jobs saying "Present" at once, which is the most common mistake here.
 
-Everything else (carousel, resume list, `/work-experience/<slug>` page, RSS, sitemap) is generated automatically from the content collection via `getCollection("work-experience")`. There is **no registry file** to update for those — don't go looking for one.
+Everything else (home carousel, `/resume` list, `/cv` list, sitemap) is generated automatically from the content collection via `getCollection("work-experience")`. There is **no registry file** to update for those — don't go looking for one. (The standalone `/work-experience/<slug>` detail pages and the RSS feed were removed in the home redesign — there is no per-job route any more.)
 
 ## Step-by-step
 
@@ -32,11 +32,11 @@ ls public/<slug>-cover.webp
 
 ### 2. Create the new entry
 
-New file at `src/content/work-experience/<slug>.md`. The slug becomes the URL (`/work-experience/<slug>`) and the `id` used elsewhere. Schema is defined in `src/content.config.ts` — read it before writing frontmatter, in case it has changed since this skill was written.
+New file at `src/content/work-experience/<slug>.md`. The slug becomes the entry `id` used elsewhere (in `src/i18n/cv.es.ts`, sorting, etc.) — it is no longer a URL. Schema is defined in `src/content.config.ts` — read it before writing frontmatter, in case it has changed since this skill was written.
 
 ```yaml
 ---
-company: "Company Name"          # long name — used on the detail page, resume, RSS
+company: "Company Name"          # long name — shown on /resume and /cv
 cover:
   src: "/company-cover.webp"     # root-relative path into public/, from step 1
   alt: "Logotype of Company Name"
@@ -54,7 +54,7 @@ Leave `to` out entirely — that's what marks it as the current job and renders 
 
 ### 3. Pick a shadow color that matches the cover
 
-The `shadow` field is a literal Tailwind class string consumed only by `src/pages/work-experience/[id].astro`, injected into the cover figure's box-shadow. Every existing entry's color choice **echoes that company's actual cover image** (e.g. Mercado Libre's cover is yellow-branded, so its shadow is `shadow-yellow-400/50 dark:shadow-yellow-300/60`) — look at the cover image from step 1 and pick the closest matching Tailwind color, don't just grab whatever's unused. Check the existing entries for the pattern and to avoid an exact duplicate:
+The `shadow` field is a literal Tailwind class string consumed by `src/sections/home/experience/job/Job.astro`, applied to the carousel card's `.job__glow` element. Every existing entry's color choice **echoes that company's actual cover image** (e.g. Mercado Libre's cover is yellow-branded, so its shadow is `shadow-yellow-400/50 dark:shadow-yellow-300/60`) — look at the cover image from step 1 and pick the closest matching Tailwind color, don't just grab whatever's unused. Check the existing entries for the pattern and to avoid an exact duplicate:
 
 ```bash
 grep -h "shadow:" src/content/work-experience/*.md
@@ -70,8 +70,8 @@ Find the entry that currently has no `to` field (that's the one rendering "Prese
 
 These are hardcoded and easy to miss because they live outside the content collection:
 
-- **`src/config/site.json`** — `basics.label` (shown on `/resume`, has a `[years]` placeholder that gets substituted at build time, leave it as literal text `[years]`) and `basics.currentPosition`.
-- **`src/sections/home/hero/Profile.astro`** — the home page has its own hardcoded "`<position>` at `<company>`" line with a link. Update both the text and the `href` to `/work-experience/<slug>`. When editing this file, keep the `{" "}` whitespace markers between inline elements — Astro's `compressHTML: 'jsx'` mode strips whitespace across line breaks otherwise, and text will visibly run together (e.g. "Engineer atMercado Libre"). Verify this visually after editing, don't just trust the diff.
+- **`src/config/site.json`** — `basics.label` (shown on `/resume` and `/cv`, has a `[years]` placeholder that gets substituted at build time, leave it as literal text `[years]`) and `basics.currentPosition`.
+- **Home page** — after the redesign the home hero and carousel derive every job detail from the content collection; there is **no** hardcoded "`<position>` at `<company>`" line to update there any more. If you do edit any home file with adjacent inline elements, keep the `{" "}` whitespace markers — Astro's `compressHTML: 'jsx'` mode strips whitespace across line breaks otherwise, and text visibly runs together (e.g. "Engineer atMercado Libre"). Verify visually, don't just trust the diff.
 
 - **`src/i18n/cv.es.ts`** — the Spanish CV (`/cv`) reads its highlights and
   company names from here, keyed by entry `id`. When **opening** a job: add
@@ -83,8 +83,6 @@ These are hardcoded and easy to miss because they live outside the content colle
   this — `/cv` is statically generated and `getResumeContent("es")` throws on
   a gap.
 
-While in `Profile.astro`, double check the link's `href` actually resolves to a real route (`/work-experience/<slug>`, not something like `/experience/<slug>`) — a stale href here caused a live 404 before this skill existed.
-
 ### 6. Ask before touching anything else
 
 `basics.about` (site.json) and the home "About" card text describe the person's specialties, not their current job — don't change them automatically just because the job changed. Ask the user if they want to revisit that copy; don't assume.
@@ -92,16 +90,15 @@ While in `Profile.astro`, double check the link's `href` actually resolves to a 
 ## Verification
 
 1. `pnpm build` — runs `astro check` (validates the Zod schema) then `astro build`. Must be 0 errors/warnings.
-2. Confirm exactly one entry renders "Present": `grep -o Present dist/resume/index.html | wc -l` after the build should print `1`.
+2. Check the "current job" marker count. `grep -o Present dist/resume/index.html | wc -l` should print `1` right after you add and open a new job. It prints `0` only if every entry is closed (a close-only pass with no new job) — more than `1` is always the bug (two jobs with no `to`).
 3. `/cv` renders the new entry in Spanish, and
-   `grep -o Actualidad dist/cv/index.html | wc -l` prints `1` (the Spanish
-   counterpart of the "Present" check). Also
+   `grep -o Actualidad dist/cv/index.html | wc -l` matches the `Present`
+   count from step 2 (the Spanish counterpart of the same check). Also
    `grep -o -E 'Summary|Experience|Education|Languages' dist/cv/index.html`
    returns nothing — no English section titles leaked.
 4. `pnpm preview`, then check visually (Chrome DevTools MCP is available in this environment) in both light and dark:
-   - `/` — new entry appears in the carousel with its cover and correct dates; home hero text/link match step 5.
-   - `/resume` — new entry first (sorted by `from`, newest first, automatic), closed entry shows a real end date instead of "Present".
-   - `/work-experience/<slug>` — company, position, duration, summary, and the new `shadow` color render correctly on the cover figure.
+   - `/` — new entry appears in the carousel with its cover, correct dates, and the `shadow` glow color; home hero copy still accurate.
+   - `/resume` and `/cv` — new entry first (sorted by `from`, newest first, automatic); the closed entry shows a real end date instead of "Present" / "Actualidad".
 5. `astro` isn't on `PATH` directly in this environment — use `pnpm exec astro preview status` / `pnpm exec astro preview stop` to manage the background preview server, and stop it when you're done verifying.
 
 ## Delivery
