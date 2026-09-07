@@ -2,11 +2,20 @@
 import ExperienceDuration from "@/components/ExperienceDuration.astro";
 import ResumeSection from "@/components/ResumeSection.astro";
 
-import { education } from "@/config/site.json";
+import { getResumeContent } from "@/i18n";
+import { useTranslations, type Locale } from "@/i18n/ui";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { education } = await getResumeContent(lang);
 ---
 
 <ResumeSection
-  title="Education"
+  title={t("section.education")}
   titleClass="text-xs font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
   class="grid gap-1.5"
 >
@@ -21,7 +30,7 @@ import { education } from "@/config/site.json";
                 <h4 class="text-xs italic">{institution}</h4>
               </div>
               <div class="font-space-mono text-xs text-neutral-500">
-                <ExperienceDuration from={from} to={to} />
+                <ExperienceDuration from={from} to={to} lang={lang} />
               </div>
             </div>
             <p class="font-space-mono text-xs">({notes})</p>

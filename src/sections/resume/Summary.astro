@@ -2,12 +2,19 @@
 import ResumeSection from "@/components/ResumeSection.astro";
 
 import { getFormattedAbout } from "@/lib/dates";
+import { useTranslations, type Locale } from "@/i18n/ui";
 
-const about = await getFormattedAbout();
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const about = await getFormattedAbout(lang);
 ---
 
 <ResumeSection
-  title="Summary"
+  title={t("section.summary")}
   titleClass="text-xs font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
   class="grid gap-1"
 >
