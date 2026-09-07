@@ -98,6 +98,14 @@ function applySpanish(
     throw new Error(`Missing ES translation for work-experience entry "${id}"`);
   }
 
+  if (
+    entry.subitems.length === 0 &&
+    entry.highlights.length > 0 &&
+    !override.highlights
+  ) {
+    throw new Error(`Missing ES highlights for work-experience entry "${id}"`);
+  }
+
   const subOverrides = override.subitems ?? {};
 
   return {
@@ -127,6 +135,16 @@ export async function getResumeContent(lang: Locale): Promise<ResumeContent> {
   );
 
   if (lang === "es") {
+    if (cvEs.education.length !== education.length) {
+      throw new Error(
+        `ES education has ${cvEs.education.length} entries; site.json has ${education.length}`,
+      );
+    }
+    if (cvEs.languages.length !== basics.languages.length) {
+      throw new Error(
+        `ES languages has ${cvEs.languages.length} entries; site.json has ${basics.languages.length}`,
+      );
+    }
     return {
       label: cvEs.label,
       location: cvEs.location,

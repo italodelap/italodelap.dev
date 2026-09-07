@@ -26,7 +26,7 @@ export const cvEs = {
 
   location: { city: "Buenos Aires", country: "Argentina" },
 
-  // Same order as basics.languages in site.json (zipped by index).
+  // Fully translated; only the entry count must match basics.languages in site.json.
   languages: [
     { language: "Inglés", level: "Intermedio" },
     { language: "Portugués", level: "Básico" },
