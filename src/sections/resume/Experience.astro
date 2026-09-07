@@ -17,9 +17,9 @@ const { experience } = await getResumeContent(lang);
 <ResumeSection
   title={t("section.experience")}
   titleClass="text-xs font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
-  class="grid gap-2"
+  class="grid gap-3"
 >
-  <ul class="grid gap-2">
+  <ul class="grid gap-4">
     {
       experience.map(({ company, from, to, position, highlights, subitems }) => (
         <li class="resume-entry">

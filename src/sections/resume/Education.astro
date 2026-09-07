@@ -17,9 +17,9 @@ const { education } = await getResumeContent(lang);
 <ResumeSection
   title={t("section.education")}
   titleClass="text-xs font-semibold text-indigo-700 uppercase tracking-wide border-b border-neutral-200 pb-1"
-  class="grid gap-1.5"
+  class="grid gap-3"
 >
-  <ul class="grid gap-1.5">
+  <ul class="grid gap-4">
     {
       education.map(({ area, from, notes, institution, to }) => (
         <li class="resume-entry">
