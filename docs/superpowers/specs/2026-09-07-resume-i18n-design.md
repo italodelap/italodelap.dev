@@ -74,11 +74,21 @@ Recorded so the reasoning is not lost:
    and avoids forced-sounding translations. This also means the
    Spanish `experience` map only needs to carry `highlights` and
    `company`, never `position`.
-5. **The Spanish `experience` map is typed against the collection
-   ids.** `cv.es.ts` declares its `experience` object
-   `satisfies Record<CollectionEntry<"work-experience">["id"], …>` (or
-   an equivalent keyed type) so a misspelled or missing id is an
-   `astro check` failure, which already runs in `pnpm build`.
+5. **A missing Spanish translation must break the build.** The
+   `work-experience` collection uses the `glob()` loader, so
+   `.astro/content.d.ts` types it as `Record<string, …>` and
+   `CollectionEntry<"work-experience">["id"]` is `string` — structural
+   typing alone cannot enforce that every entry has an override. So
+   two guards: `cv.es.ts` keys its `experience` map with a
+   hand-maintained literal union
+   (`type WorkExperienceId = "argentina" | "buenos-aires" | …`) via
+   `satisfies Record<WorkExperienceId, ExperienceOverride>`, which
+   gives editor and `astro check` feedback if a key is missing or
+   misspelled; and `getResumeContent("es")` throws a named error for
+   any rendered entry that has no override. `/cv` is statically
+   generated, so that throw fails `astro build`. The literal union is
+   one more thing to touch when adding a job — decision 7's skill
+   update covers it.
 6. **Proper nouns are translated only where a real Spanish name
    exists.** "Government of the Argentine Nation" →
    "Gobierno de la Nación Argentina"; "Government of the City of
@@ -193,14 +203,17 @@ export const cvEs = {
         "Full Stack Developer": [ /* ES highlights */ ],
       },
     },
-  },
+  } satisfies Record<WorkExperienceId, ExperienceOverride>,
 } as const;
 ```
 
-The `experience` object is typed against the real collection ids so
-`astro check` catches drift (decision 5). `education` and `languages`
-are ordered to match the English arrays position-for-position (they
-are zipped by index in `index.ts`).
+`WorkExperienceId` is a hand-maintained literal union in this file
+(not derived from the collection — glob-loader ids are typed
+`string`). `education` and `languages` are ordered to match the
+English arrays position-for-position (zipped by index in `index.ts`).
+`education[1].area` is a literal translation of the English
+`"Software Engineering"` → `"Ingeniería de Software"`; confirm the
+official Spanish names of both degrees during PR review.
 
 The five entries that render on the CV — confirmed against
 `Experience.astro`'s filter (`hasHighlights(job) || curatedSubitems`):
@@ -233,10 +246,11 @@ become dumb views.
   `cvEs.experience`; `about`, `education`, `languages`, `location`
   replaced wholesale from `cvEs`.
 
-If an id is present in the collection but missing from
-`cvEs.experience`, that is a type error at build (decision 5); at
-runtime `getResumeContent` may still throw a clear error rather than
-silently falling back to English, so a gap is impossible to miss.
+If a rendered entry has no key in `cvEs.experience`,
+`getResumeContent("es")` throws
+`Missing ES translation for work-experience entry "<id>"`. `/cv` is
+statically generated, so the throw fails `astro build` — a gap can
+never ship silently as English.
 
 ## Component changes
 
@@ -318,9 +332,15 @@ it is a normal file change in this PR.
 1. **`pnpm build`** — `astro check` then `astro build`, 0
    errors/warnings. `astro check` validates the `cv.es.ts` typing
    against the collection ids.
-2. **Exactly one "current" marker per route** —
-   `grep -o Present dist/resume/index.html | wc -l` → `1`;
-   `grep -o Actualidad dist/cv/index.html | wc -l` → `1`.
+2. **No English leaked into `/cv`, and present-marker parity** — every
+   entry currently has a `to:` date, so neither route renders a
+   "current" marker today. The check is:
+   `grep -o Present dist/cv/index.html | wc -l` → `0` (no English
+   leak), and the count of the Spanish present word on `/cv` equals
+   the count of `Present` on `/resume` (both `0` now; parity holds
+   when a current job is added). Also grep `/cv` for the English
+   section titles (`Summary`, `Experience`, `Education`, `Languages`)
+   → `0` each.
 3. **`pnpm preview` + Chrome DevTools MCP** (light theme, which
    `ResumeLayout` forces):
    - `/resume` — five sections in English; `LanguageSwitch` reads
