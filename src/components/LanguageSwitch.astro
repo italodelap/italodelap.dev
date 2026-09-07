@@ -1,0 +1,30 @@
+---
+import { useTranslations, type Locale } from "@/i18n/ui";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// On /resume (lang=en) this links to /cv and reads "Español", marked lang="es".
+// On /cv (lang=es) it links to /resume and reads "English", marked lang="en".
+const href = t("switch.href");
+const label = t("switch.label");
+const targetLang = t("switch.hreflang");
+---
+
+<a
+  href={href}
+  hreflang={targetLang}
+  lang={targetLang}
+  class={`
+    inline-flex items-center justify-center rounded-md px-3 py-2
+    text-xs font-medium text-neutral-600 border-2 border-neutral-200
+    transition-colors duration-300
+    hover:text-neutral-700 hover:border-neutral-300 hover:bg-neutral-200/50
+  `}
+>
+  {label}
+</a>

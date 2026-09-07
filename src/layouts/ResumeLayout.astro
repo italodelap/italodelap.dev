@@ -9,22 +9,48 @@ import "@fontsource/space-mono/700-italic.css";
 import "@/styles/global.css";
 
 import BaseHead from "@/components/BaseHead.astro";
+import LanguageSwitch from "@/components/LanguageSwitch.astro";
 import PrintButton from "@/components/PrintButton.astro";
+
+import { useTranslations, type Locale } from "@/i18n/ui";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
+const site = Astro.site ?? new URL("https://www.italodelap.dev");
+const enUrl = new URL("/resume", site).href;
+const esUrl = new URL("/cv", site).href;
+
+const alternates = [
+  { hreflang: "en", href: enUrl },
+  { hreflang: "es", href: esUrl },
+  { hreflang: "x-default", href: enUrl },
+];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <BaseHead
-    title="Italo De la Peña | CV"
-    description="A condensed, recruiter-friendly CV for Italo De la Peña, Software Engineer with more than 8 years of experience."
+    title={t("page.title")}
+    description={t("page.description")}
+    alternates={alternates}
   />
   <script is:inline>
     document.documentElement.dataset.theme = "light";
     document.documentElement.style.colorScheme = "light";
   </script>
   <body class="bg-white text-neutral-900">
-    <div class="fixed top-4 right-4 z-10 print:hidden bg-white rounded-md shadow-md">
-      <PrintButton />
+    <div class="fixed top-4 right-4 z-10 print:hidden flex items-center gap-2">
+      <div class="bg-white rounded-md shadow-md">
+        <LanguageSwitch lang={lang} />
+      </div>
+      <div class="bg-white rounded-md shadow-md">
+        <PrintButton lang={lang} />
+      </div>
     </div>
     <slot />
   </body>

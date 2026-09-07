@@ -9,9 +9,10 @@ import ThemeManager from "./ThemeManager.astro";
 interface Props {
   title: string;
   description: string;
+  alternates?: { hreflang: string; href: string }[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, alternates = [] } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -53,4 +54,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <ThemeManager defaultTheme="dark" />
   <Analytics />
   <SpeedInsights />
+
+  {alternates.map((a) => (
+    <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+  ))}
 </head>
