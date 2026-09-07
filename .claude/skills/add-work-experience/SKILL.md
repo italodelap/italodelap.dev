@@ -73,6 +73,16 @@ These are hardcoded and easy to miss because they live outside the content colle
 - **`src/config/site.json`** — `basics.label` (shown on `/resume`, has a `[years]` placeholder that gets substituted at build time, leave it as literal text `[years]`) and `basics.currentPosition`.
 - **`src/sections/home/hero/Profile.astro`** — the home page has its own hardcoded "`<position>` at `<company>`" line with a link. Update both the text and the `href` to `/work-experience/<slug>`. When editing this file, keep the `{" "}` whitespace markers between inline elements — Astro's `compressHTML: 'jsx'` mode strips whitespace across line breaks otherwise, and text will visibly run together (e.g. "Engineer atMercado Libre"). Verify this visually after editing, don't just trust the diff.
 
+- **`src/i18n/cv.es.ts`** — the Spanish CV (`/cv`) reads its highlights and
+  company names from here, keyed by entry `id`. When **opening** a job: add
+  its `id` to the `WorkExperienceId` union AND add an entry to `experience`
+  with the Spanish `company` and `highlights` (or `subitems`, keyed by the
+  English `position` string, if the job has multiple roles). When **closing**
+  a job: nothing changes here, same as the English side. `pnpm build` fails
+  with `Missing ES translation for work-experience entry "<id>"` if you skip
+  this — `/cv` is statically generated and `getResumeContent("es")` throws on
+  a gap.
+
 While in `Profile.astro`, double check the link's `href` actually resolves to a real route (`/work-experience/<slug>`, not something like `/experience/<slug>`) — a stale href here caused a live 404 before this skill existed.
 
 ### 6. Ask before touching anything else
@@ -83,11 +93,16 @@ While in `Profile.astro`, double check the link's `href` actually resolves to a 
 
 1. `pnpm build` — runs `astro check` (validates the Zod schema) then `astro build`. Must be 0 errors/warnings.
 2. Confirm exactly one entry renders "Present": `grep -o Present dist/resume/index.html | wc -l` after the build should print `1`.
-3. `pnpm preview`, then check visually (Chrome DevTools MCP is available in this environment) in both light and dark:
+3. `/cv` renders the new entry in Spanish, and
+   `grep -o Actualidad dist/cv/index.html | wc -l` prints `1` (the Spanish
+   counterpart of the "Present" check). Also
+   `grep -o -E 'Summary|Experience|Education|Languages' dist/cv/index.html`
+   returns nothing — no English section titles leaked.
+4. `pnpm preview`, then check visually (Chrome DevTools MCP is available in this environment) in both light and dark:
    - `/` — new entry appears in the carousel with its cover and correct dates; home hero text/link match step 5.
    - `/resume` — new entry first (sorted by `from`, newest first, automatic), closed entry shows a real end date instead of "Present".
    - `/work-experience/<slug>` — company, position, duration, summary, and the new `shadow` color render correctly on the cover figure.
-4. `astro` isn't on `PATH` directly in this environment — use `pnpm exec astro preview status` / `pnpm exec astro preview stop` to manage the background preview server, and stop it when you're done verifying.
+5. `astro` isn't on `PATH` directly in this environment — use `pnpm exec astro preview status` / `pnpm exec astro preview stop` to manage the background preview server, and stop it when you're done verifying.
 
 ## Delivery
 
