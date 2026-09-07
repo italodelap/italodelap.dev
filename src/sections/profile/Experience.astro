@@ -14,18 +14,13 @@ const sortedWorkExperience = getSortedExperience(workExperience);
   <ul class="grid gap-5">
     {
       sortedWorkExperience.map(
-        ({ id, data: { company, from, position, subitems, summary, to } }) => (
+        ({ data: { company, from, position, subitems, summary, to } }) => (
           <li>
             <article class="grid gap-2">
               <header class="flex flex-col sm:gap-4 sm:flex-row sm:justify-between">
                 <div>
                   <h3 class="text-lg font-semibold text-balance leading-tight">
-                    <a
-                      target="_blank"
-                      title="Ver más"
-                      class="hover:underline"
-                      href={`/work-experience/${id}`}
-                    >
+                    <a class="hover:underline" href="/">
                       {company}
                     </a>
                   </h3>

@@ -4,6 +4,10 @@ cover:
   src: "/city-cover.webp"
   alt: "Logotype of Environmental Protection Agency"
 from: 2015-06-01
+highlights:
+  - "Implemented SAP CRM for managing inspections and certificates"
+  - "Functional analysis, development, and maintenance of Symfony applications, including a mobile app built with Ionic"
+  - "Designed and developed a Symfony application and its MySQL database, recognized as a management strength during the 2019 ISO-IRAM 17025/2017 accreditation"
 position: "Full Stack Developer"
 shadow: "shadow-stone-400/50 dark:shadow-stone-300/60"
 summary: "I worked at the Environmental Protection Agency of the Ministry of Environment and Public Space (now, the Ministry of Public Space and Urban Hygiene) of the City Government for over 5 years. I held various roles, which I detail below."

@@ -13,8 +13,5 @@ const { cover } = Astro.props;
 <OptimizedImage
   src={cover.src}
   alt={cover.alt}
-  class={`
-    object-cover size-full aspect-video opacity-60
-    transition-transform group-hover:scale-110 dark:opacity-40
-  `}
+  class="job__cover object-cover size-full aspect-video"
 />
