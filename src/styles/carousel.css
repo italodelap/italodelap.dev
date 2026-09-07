@@ -25,7 +25,8 @@
   --slide-spacing-sm: 1.1rem;
   --slide-size-sm: 33.3%;
   --slide-spacing-lg: 1.1rem;
-  --slide-size-lg: calc(100% / 3);
+  /* 3 full slides plus a ~25% peek of the next one, hinting there's more */
+  --slide-size-lg: calc(100% / 3.25);
   --cover-opacity: 0.6;
   --cover-opacity-open: 0.22;
 }
