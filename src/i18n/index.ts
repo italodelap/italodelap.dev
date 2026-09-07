@@ -1,0 +1,213 @@
+// src/i18n/index.ts
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+import { basics, education } from "@/config/site.json";
+import { fillAboutTemplate } from "@/lib/about";
+import { getExperienceYearsAmount } from "@/lib/dates";
+import { getSortedExperience } from "@/lib/sorting";
+
+import { cvEs } from "./cv.es";
+import type { ExperienceOverride } from "./cv.es";
+import type { Locale } from "./ui";
+
+type WorkExperienceEntry = CollectionEntry<"work-experience">;
+type Subitem = NonNullable<WorkExperienceEntry["data"]["subitems"]>[number];
+
+export interface ResumeExperienceSubitem {
+  position: string;
+  from: Date;
+  to?: Date;
+  highlights: string[];
+}
+
+export interface ResumeExperienceEntry {
+  company: string;
+  position: string;
+  from: Date;
+  to?: Date;
+  highlights: string[];
+  subitems: ResumeExperienceSubitem[];
+}
+
+export interface ResumeEducationEntry {
+  area: string;
+  institution: string;
+  from: string;
+  to: string;
+  notes: string;
+}
+
+export interface ResumeLanguage {
+  language: string;
+  level: string;
+}
+
+export interface ResumeContent {
+  label: string;
+  about: string;
+  location: { city: string; country: string };
+  languages: ResumeLanguage[];
+  education: ResumeEducationEntry[];
+  experience: ResumeExperienceEntry[];
+}
+
+function hasHighlights(entry: { highlights?: string[] }): boolean {
+  return Boolean(entry.highlights && entry.highlights.length > 0);
+}
+
+/** Build the same sorted/filtered/curated job list the resume showed before i18n. */
+function curate(jobs: WorkExperienceEntry[]) {
+  return getSortedExperience(jobs)
+    .map((job) => {
+      const curatedSubitems: Subitem[] = job.data.subitems
+        ? getSortedExperience(job.data.subitems).filter(hasHighlights)
+        : [];
+      return { job, curatedSubitems };
+    })
+    .filter(
+      ({ job, curatedSubitems }) =>
+        hasHighlights(job.data) || curatedSubitems.length > 0,
+    );
+}
+
+function toEnglishEntry(
+  job: WorkExperienceEntry,
+  curatedSubitems: Subitem[],
+): ResumeExperienceEntry {
+  return {
+    company: job.data.company,
+    position: job.data.position,
+    from: job.data.from,
+    to: job.data.to,
+    highlights: job.data.highlights ?? [],
+    subitems: curatedSubitems.map((s) => ({
+      position: s.position,
+      from: s.from,
+      to: s.to,
+      highlights: s.highlights ?? [],
+    })),
+  };
+}
+
+function applySpanish(
+  entry: ResumeExperienceEntry,
+  id: string,
+): ResumeExperienceEntry {
+  const table = cvEs.experience as Record<string, ExperienceOverride | undefined>;
+  const override = table[id];
+
+  if (!override) {
+    throw new Error(`Missing ES translation for work-experience entry "${id}"`);
+  }
+
+  if (
+    entry.subitems.length === 0 &&
+    entry.highlights.length > 0 &&
+    !override.highlights
+  ) {
+    throw new Error(`Missing ES highlights for work-experience entry "${id}"`);
+  }
+
+  const subOverrides = override.subitems ?? {};
+  const curatedPositions = new Set(entry.subitems.map((s) => s.position));
+  for (const key of Object.keys(subOverrides)) {
+    if (!curatedPositions.has(key)) {
+      throw new Error(
+        `ES subitem override "${key}" of "${id}" matches no curated subitem`,
+      );
+    }
+  }
+
+  return {
+    ...entry,
+    company: override.company,
+    highlights: override.highlights ?? entry.highlights,
+    subitems: entry.subitems.map((s) => {
+      const sh = subOverrides[s.position];
+      if (!sh) {
+        throw new Error(
+          `Missing ES translation for subitem "${s.position}" of "${id}"`,
+        );
+      }
+      return { ...s, highlights: sh };
+    }),
+  };
+}
+
+const contentCache = new Map<Locale, Promise<ResumeContent>>();
+
+/** Resolve the resume content for a locale. Cached — runs once per `lang` per build. */
+export function getResumeContent(lang: Locale): Promise<ResumeContent> {
+  let cached = contentCache.get(lang);
+  if (!cached) {
+    cached = buildResumeContent(lang).catch((error) => {
+      contentCache.delete(lang);
+      throw error;
+    });
+    contentCache.set(lang, cached);
+  }
+  return cached;
+}
+
+async function buildResumeContent(lang: Locale): Promise<ResumeContent> {
+  const curated = curate(await getCollection("work-experience"));
+  const years = await getExperienceYearsAmount();
+
+  const experience: ResumeExperienceEntry[] = curated.map(
+    ({ job, curatedSubitems }) => {
+      const en = toEnglishEntry(job, curatedSubitems);
+      return lang === "es" ? applySpanish(en, job.id) : en;
+    },
+  );
+
+  if (lang === "es") {
+    if (cvEs.education.length !== education.length) {
+      throw new Error(
+        `ES education has ${cvEs.education.length} entries; site.json has ${education.length}`,
+      );
+    }
+    if (cvEs.languages.length !== basics.languages.length) {
+      throw new Error(
+        `ES languages has ${cvEs.languages.length} entries; site.json has ${basics.languages.length}`,
+      );
+    }
+    return {
+      label: cvEs.label,
+      about: fillAboutTemplate(cvEs.about, years),
+      location: cvEs.location,
+      languages: cvEs.languages.map((l) => ({ ...l })),
+      education: cvEs.education.map((esEntry) => {
+        const enEntry = education.find((e) => e.id === esEntry.id);
+        if (!enEntry) {
+          throw new Error(
+            `ES education entry "${esEntry.id}" has no match in site.json education`,
+          );
+        }
+        return {
+          area: esEntry.area,
+          institution: esEntry.institution,
+          notes: esEntry.notes,
+          from: enEntry.from,
+          to: enEntry.to,
+        };
+      }),
+      experience,
+    };
+  }
+
+  return {
+    label: basics.label,
+    about: fillAboutTemplate(basics.about, years),
+    location: { city: basics.location.city, country: basics.location.country },
+    languages: basics.languages.map((l) => ({ ...l })),
+    education: education.map((e) => ({
+      area: e.area,
+      institution: e.institution,
+      notes: e.notes,
+      from: e.from,
+      to: e.to,
+    })),
+    experience,
+  };
+}

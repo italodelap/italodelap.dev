@@ -9,22 +9,58 @@ import "@fontsource/space-mono/700-italic.css";
 import "@/styles/global.css";
 
 import BaseHead from "@/components/BaseHead.astro";
+import LanguageSwitch from "@/components/LanguageSwitch.astro";
 import PrintButton from "@/components/PrintButton.astro";
+
+import { defaultLocale, localeRoutes } from "@/i18n/routes";
+import { useTranslations, type Locale } from "@/i18n/ui";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
+
+if (!Astro.site) {
+  throw new Error(
+    "Astro.site must be set in astro.config for the /resume ↔ /cv hreflang alternates",
+  );
+}
+
+const alternates = [
+  ...Object.values(localeRoutes).map((route) => ({
+    hreflang: route.hreflang,
+    href: new URL(route.href, Astro.site).href,
+  })),
+  {
+    hreflang: "x-default",
+    href: new URL(localeRoutes[defaultLocale].href, Astro.site).href,
+  },
+];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={localeRoutes[lang].hreflang}>
   <BaseHead
-    title="Italo De la Peña | CV"
-    description="A condensed, recruiter-friendly CV for Italo De la Peña, Software Engineer with more than 8 years of experience."
+    title={t("page.title")}
+    description={t("page.description")}
+    alternates={alternates}
   />
   <script is:inline>
     document.documentElement.dataset.theme = "light";
     document.documentElement.style.colorScheme = "light";
   </script>
   <body class="bg-white text-neutral-900">
-    <div class="fixed top-4 right-4 z-10 print:hidden bg-white rounded-md shadow-md">
-      <PrintButton />
+    <div
+      class="static sm:fixed sm:top-4 sm:right-4 z-10 print:hidden flex justify-end items-center gap-2 p-4 sm:p-0"
+    >
+      <div class="bg-white rounded-md shadow-md">
+        <LanguageSwitch lang={lang} />
+      </div>
+      <div class="bg-white rounded-md shadow-md">
+        <PrintButton lang={lang} />
+      </div>
     </div>
     <slot />
   </body>

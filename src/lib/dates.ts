@@ -1,6 +1,6 @@
 import { getEntry } from "astro:content";
 
-import { basics } from "@/config/site.json";
+import type { Locale } from "@/i18n/ui";
 
 function getYearsDifference(initialDate: Date, finalDate: Date): number {
   const years = finalDate.getUTCFullYear() - initialDate.getUTCFullYear();
@@ -26,17 +26,15 @@ export async function getExperienceYearsAmount() {
   return getYearsDifference(myFirstJobAsDeveloper.from, new Date());
 }
 
-export async function getFormattedAbout() {
-  const yearsOfExperience = await getExperienceYearsAmount();
-  return basics.about.replace("[years]", yearsOfExperience.toString());
-}
+export function getFormattedDate(date: Date, lang: Locale = "en") {
+  const formatted = new Intl.DateTimeFormat(
+    lang === "es" ? "es-AR" : "en-US",
+    { month: "short", year: "numeric", timeZone: "UTC" },
+  ).format(date);
 
-export function getFormattedDate(date: Date) {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(date);
+  // es-AR yields a lowercase month abbreviation ("sept. 2021"); the
+  // printed date must not start lowercase. Harmless for en-US output.
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
 export function getMachineReadableDate(date: Date): string {

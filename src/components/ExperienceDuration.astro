@@ -1,24 +1,27 @@
 ---
 import { getFormattedDate, getMachineReadableDate } from "@/lib/dates";
+import { useTranslations, type Locale } from "@/i18n/ui";
 
 interface Props {
   from: string | Date;
   to?: string | Date;
+  lang?: Locale;
 }
 
-const { from, to } = Astro.props;
+const { from, to, lang = "en" } = Astro.props;
+const t = useTranslations(lang);
 
 function getNormalizedDate(date: string | Date): Date {
   return typeof date === "string" ? new Date(date) : date;
 }
 
 const normalizedFromDate: Date = getNormalizedDate(from);
-const normalizedToDate: Date | undefined = to
-  ? getNormalizedDate(to)
-  : undefined;
+const normalizedToDate: Date | undefined = to ? getNormalizedDate(to) : undefined;
 
-const startDate = getFormattedDate(normalizedFromDate);
-const endDate = normalizedToDate ? getFormattedDate(normalizedToDate) : "Present";
+const startDate = getFormattedDate(normalizedFromDate, lang);
+const endDate = normalizedToDate
+  ? getFormattedDate(normalizedToDate, lang)
+  : t("date.present");
 ---
 
 <time datetime={getMachineReadableDate(normalizedFromDate)}>{startDate}</time>

@@ -1,14 +1,23 @@
 {
   "basics": {
-    "about": "I'm a Software Engineer with more than [years] years of experience specialized in React, TypeScript and Web Components. I love never stop learning and sharing my knowledge. I'm passionate about technology and I'm always looking for new challenges.",
+    "about": "Software Engineer with more than [years] years of experience specialized in React, TypeScript and Web Components. I love never stop learning and sharing my knowledge. I'm passionate about technology and I'm always looking for new challenges.",
     "currentPosition": "Software Engineer",
     "email": "italoandre.1995@gmail.com",
     "profilePhoto": "/me.webp",
     "label": "Software Engineer",
     "languages": [
-      { "language": "English", "level": "Intermediate" },
-      { "language": "Portuguese", "level": "Basic" },
-      { "language": "Spanish", "level": "Native" }
+      {
+        "language": "English",
+        "level": "Intermediate"
+      },
+      {
+        "language": "Portuguese",
+        "level": "Basic"
+      },
+      {
+        "language": "Spanish",
+        "level": "Native"
+      }
     ],
     "location": {
       "address": "",
@@ -43,6 +52,7 @@
   ],
   "education": [
     {
+      "id": "graphic-multimedia-design",
       "area": "Higher Technician Degree in Graphic and Multimedia Design",
       "from": "2019-03-01",
       "institution": "27th Institute of Technical and Higher Education",
@@ -50,6 +60,7 @@
       "to": "2020-12-31"
     },
     {
+      "id": "informatics-engineering",
       "area": "Software Engineering",
       "from": "2013-03-01",
       "institution": "University of Morón",
