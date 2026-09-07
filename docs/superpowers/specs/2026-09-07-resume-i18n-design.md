@@ -260,7 +260,11 @@ silently falling back to English, so a gap is impossible to miss.
 - **`lib/dates.ts`**
   - `getFormattedDate(date, lang)` →
     `Intl.DateTimeFormat(lang === "es" ? "es-AR" : "en-US", { month: "short", year: "numeric", timeZone: "UTC" })`.
-    Produces `sept 2021` instead of `Sep 2021`.
+    `es-AR` returns a lowercase month abbreviation (`sept. 2021`), so
+    the result is capitalized (first letter upper-cased) before it is
+    returned — the printed date must not start lowercase. English
+    output is already capitalized; applying the same capitalize step
+    unconditionally is harmless and keeps one code path.
   - `getFormattedAbout(lang)` → picks `cvEs.about` or `basics.about`,
     same `[years]` substitution.
   - The `"Present"` literal leaves `ExperienceDuration.astro` and comes
